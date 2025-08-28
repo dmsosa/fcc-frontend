@@ -1,0 +1,559 @@
+@import "../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "./custom_vars";
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+$theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
+$spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
+
+// 5. Include remainder of required parts
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/helpers";
+@import "../../node_modules/bootstrap/scss/transitions";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+
+// 9. components
+@import "./components/header";
+@import "./components/nav";
+@import "./components/projekt";
+@import "./components/footer";
+@import "./components/home";
+
+
+//themes
+@import "./themes";
+
+// //mixins
+// @import "./mixins/mixins";
+
+//utils 
+@import "./utils";
+// //keyframes
+// @import "./keyframes/keyframes";
+
+
+//Code
+:root {
+    --rgb-primary: 245, 200, 200;
+    --nav-width: 250px;
+    --main-width: calc(100vw - var(--nav-width));
+    --margin-left: 55px;
+    --margin-right: 55px;
+    --main-content-width: calc(100vw - var(--margin-left) - var(--margin-right));
+}
+html {
+    font-size: 16px;
+}
+
+body, #app {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: 'HerculesPixel', sans-serif;
+ 
+}
+.app-wrapper {
+    display: block;
+    height: 100vh;
+}
+main {
+    width: 100vw;
+}
+section {
+    width: 100%;
+}
+p {
+    font-weight: 300; 
+    font-size: 0.8rem;
+}
+.btn-outline {
+    background-color: transparent !important;
+    border-width: 0.225rem;
+    color: $primary;
+    &:hover {
+        background-color: tint-color($primary, 30) !important;
+    }
+}
+main {
+    order: 2;
+    height: 100%;
+    overflow: hidden scroll;
+    width: 100%;
+    transition: width 0.4s;
+}
+
+.main-content {
+    display: block;
+    transition: grid-template-columns 0.4s;
+    background-color: inherit;
+    color: inherit;
+}
+.content {
+    grid-column: 2 / 3;
+    max-width: 576px;
+    margin: 0 auto;
+    &:first-child {
+        padding-top: 6rem;
+    }
+    &:last-child {
+        padding-bottom: 8rem;
+    }
+}
+.no-scroll {
+    overflow: hidden !important;
+}
+.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+a {
+    cursor: pointer;
+    transition: color 0.2s;
+    color: inherit;
+}
+.section:not([data-section='footer']),.section-2 { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1.5rem;
+} 
+
+h1 + span {
+    display: block;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2.25rem;
+}
+
+ul.icon-ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    li.icon-li {
+        margin-right: 1rem;
+        &:last-child {
+            margin-right: 0;
+        }
+    }    
+}
+.icon {
+    width: 2.8rem;
+    margin: 0 auto;
+    stroke-dasharray: 132;
+    stroke-dashoffset: 0;
+}
+
+
+
+  
+@include themify("theme-light", $theme-light);
+@include themify("theme-dark", $theme-dark);
+
+
+
+
+// Das Personliches Scrollbar 
+::-webkit-scrollbar {
+    width: 0.5rem;
+    border: 5px solid #333;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #222;
+    border: 0.05rem solid #222;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #444;
+    }
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #333;
+    cursor: pointer;
+
+  }
+  /* Buttons */
+  ::-webkit-scrollbar-button:single-button {
+    display: block;
+    height: 2rem;
+    width: 2.5rem;
+    background: url('../assets/img/bento.png') 10px 10px;
+    cursor: pointer;
+  }
+  /* Up */
+  ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-width: 0 0.8rem 0.8rem 0.8rem;
+    border-color: transparent transparent #222 transparent;
+  }
+  
+  ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    border-color: transparent transparent #555 transparent;
+  }
+  /* Down */
+  ::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-width: 8px 8px 0 8px;
+    border-color: #222 transparent transparent transparent;
+  }
+  
+  ::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+    border-color: #555 transparent transparent transparent;
+  }
+// ::-webkit-scrollbar the scrollbar.
+// ::-webkit-scrollbar-button the buttons on the scrollbar (arrows pointing upwards and downwards).
+// ::-webkit-scrollbar-thumb the draggable scrolling handle.
+// ::-webkit-scrollbar-track the track (progress bar) of the scrollbar.
+// ::-webkit-scrollbar-track-piece the track (progress bar) NOT covered by the handle.
+// ::-webkit-scrollbar-corner the bottom corner of the scrollbar, where both horizontal and vertical scrollbars meet.
+// ::-webkit-resizer the draggable resizing handle that appears at the bottom corner of some elements.
+//Dashboard 
+
+
+
+//Widgets
+.benutzer--info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    a {
+        display: flex;
+        gap: 0.5rem;
+        background-color: transparent;
+        border-radius: 100%;
+        border: solid $dark3 0.125rem;
+        padding: 0.15rem;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        &:hover {
+            color: $primary !important;
+            background-color: #555;
+        }
+    }
+    img {
+        max-width: 100%;
+    }
+    span {
+        color: inherit;
+        font-weight: bold;
+        align-self: center;
+    }
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        padding: 0.35rem;
+        border-radius: 5px;
+        transition: background-color 0.2s ease;
+        &:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+        &:hover {
+            background-color: #999;
+        }
+        a.link {
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            &:hover {
+                color: $primary;
+            }
+            &[aria-expanded="true"] {
+                span {
+                    display: block;
+                }
+            }
+            span {
+                display: none;
+                color: inherit;
+            }
+        }
+    }
+}
+
+
+.ul-item {
+    list-style: none;
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    li {
+        padding: 0.25rem;
+        cursor: pointer;
+        border: solid 0.125rem;
+        border-color: $light;
+        background-color: transparent;
+        transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, ;
+        &:not(:first-child) {
+            margin-left: 0.7rem;
+        }
+        &.active, &:hover, &:focus {
+            background-color: $primary;
+            border-color: $secondary;
+            color: $dark;
+        }
+
+        &.li-primary {
+            background-color: $primary;
+            border-color: $primary;
+            color: $dark;
+
+        }
+        &.li-secondary {
+            border: solid $primary 0.125rem;
+        }
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
+
+.link {
+    text-decoration: none;
+    transition: color 0.4s;
+    &:hover {
+        color: $primary !important;
+    }
+}
+.avatar {
+    position: relative;
+    display: flex;
+    justify-content: start;
+    align-items:start;
+    text-decoration: none;
+    font-weight: bold;
+    span {
+        padding-top: 0.2rem;
+        font-size: 0.8rem;
+        margin-left: 0.35rem;
+    }
+    img {
+        border: 0.15rem $primary solid;
+        border-radius: 50%;
+        padding: 0.05rem;
+        width: 100%;
+        transition: background-color 0.4s;
+        max-width: 2.5rem;
+
+        &:hover {
+            background-color: #555;
+        }
+    }
+    &--vertical {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+}
+.input-wrap {
+    position: relative;
+    margin-top: 1.9rem;
+    label {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        font-size: 1rem;
+        color: $light3;
+        transition: color 0.4s ease, font-size 0.4s ease, top 0.4s ease, left 0.4s ease;
+    }
+    input, textarea {
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+        background-color: transparent;
+        color: inherit;
+        border: none;
+        border-bottom: solid 0.125rem;
+        border-color: $light;
+        transition: all 0.4s ease;
+        &:not(:placeholder-shown),&:focus {
+            outline: none;
+            background-color: $dark3;
+            border-color: $primary;
+            & + label {
+                top: -1rem;
+                left: 0.5rem;
+                font-size: 0.8rem;
+                color: $primary;
+            }
+        }
+    }
+}
+
+.main-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    img {
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        /* object-position: center; */
+        transform: translate(-50%);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        height: 20%;
+        width: 100%;
+        background: linear-gradient(to top, #111, transparent);
+        bottom: 0;
+    }
+}
+
+ul.pagination {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-item {
+    padding: 0.5rem;
+    cursor: pointer;
+    border: solid 0.125rem;
+    background-color: transparent;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, ;
+    &:not(:first-child) {
+        margin-left: 0.7rem;
+    }
+    &.active, &:hover {
+        background-color: $primary;
+        border-color: $secondary;
+        color: $dark;
+    }
+}
+
+.theme-toggler {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 4.5rem ;
+    height: 2.5rem;
+    padding: 0.25rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    outline: none;
+    border: 0.125rem solid ;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    background-color: $dark;
+    border-color: $light3;
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 1.8rem;
+        height: 75%;
+        margin: auto 0rem;
+        margin-left: 0.25rem;
+        border-radius: 100%;
+        background-color: $light;
+        transition: background-color 0.2s ease, margin-left 0.2s ease, margin-right 0.2s ease;
+    }
+    &.active {
+        background-color: $light;
+        color: $dark;
+        fill: $dark;
+        border-color: $dark;
+        &:hover {
+            fill: $warning;
+        }
+        &::before {
+            margin-left: 2.25rem;
+            background-color: $dark;
+        }
+    }
+    &:hover {
+        border-color: $primary;
+        background-color: #ccc;
+        fill: $blue-700;
+    }
+    svg {
+        fill: inherit;
+        transition: fill 0.2s ease;
+    }
+    &.dark {
+        color: $dark;
+        transform: rotate(180deg);
+        &:hover {
+            background-color: #1115;
+        }
+    }
+
+}
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+// MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
+
+@media only screen and (min-width: 576px) {
+    
+}
+
+
+
+
+
