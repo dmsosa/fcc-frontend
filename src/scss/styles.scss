@@ -40,6 +40,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 @import "./components/projekt";
 @import "./components/footer";
 @import "./components/home";
+@import "./components/markdown";
 
 
 //themes
@@ -241,32 +242,22 @@ ul.icon-ul {
 
 
 //Widgets
-.benutzer--info {
+.logo {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
-    a {
-        display: flex;
-        gap: 0.5rem;
-        background-color: transparent;
-        border-radius: 100%;
-        border: solid $dark3 0.125rem;
-        padding: 0.15rem;
-        text-decoration: none;
-        transition: all 0.4s ease;
-        &:hover {
-            color: $primary !important;
-            background-color: #555;
-        }
-    }
-    img {
-        max-width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+    color: $primary !important;
     }
     span {
         color: inherit;
-        font-weight: bold;
-        align-self: center;
+        transition: color 0.2s ease;
+    }
+    img {
+        max-width: 100%;
     }
 }
 
@@ -540,6 +531,36 @@ ul.pagination {
         }
     }
 
+}
+
+.box {
+    border: 0.25rem solid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.box-header {
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.25rem;
+    max-height: 2.25rem;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+.box-content {
+    flex: 1 1 100%;
+    position: relative;
+    overflow: hidden scroll;
+}
+div.box-header > a > svg {
+    color: inherit;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+    &:hover {
+        color: $primary;
+    }
 }
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS

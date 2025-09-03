@@ -9,6 +9,10 @@ $theme-light: (
         border: 0.2rem solid $light3,
         background-color: $light2,
         box-shadow: 0 0 10px $light
+    ),
+    box: (
+        border-color: $light,
+        background-color: $light2,
     )
 );
 $theme-dark: (
@@ -22,6 +26,10 @@ $theme-dark: (
         border: 0.2rem solid $dark3,
         background-color: $dark2,
         box-shadow: 0 0 10px $dark
+    ),
+    box: (
+        border-color: $dark,
+        background-color: $dark2,
     )
 );  
 

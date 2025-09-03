@@ -1,0 +1,89 @@
+textarea.editor {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 0.75rem 1.35rem;
+    background-color: transparent;
+    color: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#preview * {
+    max-width: 100%;
+    overflow: hidden !important;
+}
+
+
+.grid {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+    transition: grid-template-rows 0.1s ease, grid-template-columns 0.1s ease;
+}
+.grid-item.fullscreen {
+    grid-row: 1 / 3;
+    grid-column: 1 / 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+textarea.editor {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 0.75rem 1.35rem;
+    background-color: transparent;
+    color: inherit;
+}
+
+a.handler {
+    position: absolute;
+    opacity: 0.5;
+    background-color: $primary;    
+    transition: top 0.1s linear, opacity 0.1s ease;
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+a.handler.handler-row {
+    display: block;
+    width: 100%;
+    height: 0.5rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: ns-resize;
+}
+a.handler.handler-col {
+    display: none;
+    height: 100%;
+    width: 0.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: ew-resize;
+}
+
+@media only screen and (min-width: 576px) {
+    .grid {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 100%;
+    }
+    a.handler.handler-col {
+        display: block;
+    }
+    a.handler.handler-row {
+        display: none;
+    }
+}

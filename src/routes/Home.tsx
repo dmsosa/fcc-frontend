@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ProjektKarte, { karteArray, type TProjektKarte } from '../components/home/ProjektKarte';
+import ProjektKarte, { karteArray, type TProjektKarte } from '../components/Home/ProjektKarte';
 
 export interface IHomeProps {
 }
