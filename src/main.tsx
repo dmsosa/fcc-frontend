@@ -9,7 +9,7 @@ import MarkdownPreviewer from './routes/MarkdownPreviewer.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename='/freecodecamp-frontend-challenges'>
+    <BrowserRouter basename='/fcc-frontend'>
     <Routes >
       <Route element={<App></App>}>
         <Route path='/' index element={<Home/>}></Route>

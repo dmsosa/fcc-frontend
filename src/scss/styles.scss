@@ -1,7 +1,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-@import "./custom_vars";
+@import "./custom_variables";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../../node_modules/bootstrap/scss/variables";
@@ -47,6 +47,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 @import "./themes";
 
 // //mixins
+@import "./mixins";
 // @import "./mixins/mixins";
 
 //utils 
@@ -57,18 +58,12 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 //Code
 :root {
-    --rgb-primary: 245, 200, 200;
-    --nav-width: 250px;
-    --main-width: calc(100vw - var(--nav-width));
-    --margin-left: 55px;
-    --margin-right: 55px;
-    --main-content-width: calc(100vw - var(--margin-left) - var(--margin-right));
 }
 html {
     font-size: 16px;
 }
 
-body, #app {
+body {
     height: 100vh;
     overflow: hidden;
     position: relative;
@@ -186,21 +181,21 @@ ul.icon-ul {
 // Das Personliches Scrollbar 
 ::-webkit-scrollbar {
     width: 0.5rem;
-    border: 5px solid #333;
+    border: 5px solid $dark;
   }
   
   ::-webkit-scrollbar-thumb {
-    background-color: #222;
+    background-color: red;
     border: 0.05rem solid #222;
     border-radius: 0.25rem;
     cursor: pointer;
     &:hover {
-        background-color: #444;
+        background-color: $dark3;
     }
   }
   
   ::-webkit-scrollbar-track {
-    background-color: #333;
+    background-color: $dark2;
     cursor: pointer;
 
   }
@@ -209,7 +204,7 @@ ul.icon-ul {
     display: block;
     height: 2rem;
     width: 2.5rem;
-    background: url('../assets/img/bento.png') 10px 10px;
+    background: $dark2;
     cursor: pointer;
   }
   /* Up */
