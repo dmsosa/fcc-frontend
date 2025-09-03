@@ -40,7 +40,9 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 @import "./components/projekt";
 @import "./components/footer";
 @import "./components/home";
+
 @import "./components/markdown";
+@import "./components/drum";
 
 
 //themes

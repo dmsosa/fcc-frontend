@@ -1,0 +1,90 @@
+.drum-pad {
+    padding: 0.5rem 1rem;
+    flex-basis: 25%;
+}
+#display {
+    min-height: 5rem !important;
+}
+.slider-container {
+    position: relative;
+  width: 100%; /* Width of the outside container */
+  max-width: 150px;
+  height: 1rem;
+  flex-basis: 100%;
+}
+
+/* The slider itself */
+.slider {
+    position: absolute;
+    cursor: pointer; /* Cursor on hover */
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 100%; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 1rem; /* Set a specific slider handle width */
+  height: 1rem; /* Slider handle height */
+  max-height: 100%;
+    background: $warning; /* Green background */
+    transition: scale  0.2s ease;
+  &:hover {
+    scale: 1.2;
+  }
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 100%; /* Slider handle height */
+  transition: height 0.2s ease;
+  &:hover {
+    height: 150%;
+  }
+  background: $info; /* Green background */
+}
+
+.toggler {
+    position: relative;
+    border: solid 0.25rem $primary;
+    padding: 0.25rem;
+    cursor: pointer;
+    height: 1.5rem;
+    width: 3rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    &-active {
+        background-color: $primary;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 15px;
+        background-color: gray;
+        right: auto;
+        left: 0%;
+        transition: right 0.2s ease, left 0.2s ease;
+        top: 0;
+        bottom: 0;
+    }
+}
+.toggler.toggler-active {
+    &::after {
+        right: 0%;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+    }
+}
