@@ -11,7 +11,8 @@
     transition: transform 0.2s ease;
     box-shadow: 10px 0px 5px #111;
     z-index: 10;
-    backdrop-filter: blur(0.5rem);
+    backdrop-filter: blur(var(--backdrop-blur));
+    height: var(--header-height);
 }
 .nav-wrapper {
     background-color: inherit;

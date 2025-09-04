@@ -25,7 +25,7 @@ export default function DropdownMenu ({ show } : { show:boolean }) {
               {links.map((link) => 
                   (
                   <li key={link.title} className={'links-li'}>
-                      <Link className="link" to={link.to} state={link.state ? link.state : null}>
+                      <Link className="link" to={link.to} state={link.state ? link.state : null} aria-expanded>
                           {link.icon}
                           <span>{link.title}</span>
                       </Link>

@@ -13,11 +13,11 @@ createRoot(document.getElementById('root')!).render(
     <Routes >
       <Route element={<App></App>}>
         <Route path='/' index element={<Home/>}></Route>
-        <Route path='/01-fcc' element={<RandomQuotes/>}></Route>
-        <Route path='/02-fcc' element={<MarkdownPreviewer/>}></Route>
-        <Route path='/03-fcc' element={<Home/>}></Route>
-        <Route path='/04-fcc' element={<Home/>}></Route>
-        <Route path='/05-fcc' element={<Home/>}></Route>
+        <Route path='/01' element={<RandomQuotes/>}></Route>
+        <Route path='/02' element={<MarkdownPreviewer/>}></Route>
+        <Route path='/03' element={<Home/>}></Route>
+        <Route path='/04' element={<Home/>}></Route>
+        <Route path='/05' element={<Home/>}></Route>
       </Route>
     </Routes>
     </BrowserRouter>

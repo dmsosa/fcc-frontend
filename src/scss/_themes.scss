@@ -4,7 +4,6 @@ $theme-light: (
     bg3: $light3,
     border: $dark3,
     color: $dark,
-    bg-1-hover-opacity-1: rgba($rgb-light3, 0.8),
     projekt-karte: (
         border: 0.2rem solid $light3,
         background-color: $light2,
@@ -13,6 +12,13 @@ $theme-light: (
     box: (
         border-color: $light,
         background-color: $light2,
+    ),
+    header: (
+        background-color: rgba($rgb-light, 0.8),
+        border-bottom: 0.1rem solid $light3,
+        box-shadow: 0 0 10px $light,
+        fill: $dark,
+        stroke: $dark
     )
 );
 $theme-dark: (
@@ -21,7 +27,6 @@ $theme-dark: (
     bg3: $dark3,
     border-color: $dark3,
     color: $light,
-    bg-1-hover-opacity-1: rgba($rgb-dark, 0.5),
     projekt-karte: (
         border: 0.2rem solid $dark3,
         background-color: $dark2,
@@ -30,33 +35,13 @@ $theme-dark: (
     box: (
         border-color: $dark,
         background-color: $dark2,
+    ),
+    header: (
+        background-color: rgba($rgb-dark, 0.8),
+        border-bottom: 0.2rem solid $dark3,
+        box-shadow: 0 0 10px $dark,
+        fill: $light,
+        stroke: $light
     )
 );  
 
-@mixin themify($theme-name, $theme-map) {
-    .#{$theme-name} {
-        background-color: map-get($map: $theme-map, $key: 'bg');
-        color:  map-get($map: $theme-map, $key: 'color'); 
-        .bg-1 {
-            background-color: map-get($theme-map, 'bg1');
-        }
-        .bg-2 {
-            background-color: map-get($theme-map, 'bg2');
-        }
-        .bg-3 {
-            background-color: map-get($theme-map, 'bg3');
-        }
-        .border-color {
-            border-color: map-get($map: $theme-map, $key: 'border-color');
-        }
-        @each $property, $value in $theme-map {
-            @if (type-of($value) == 'map') {
-                .#{$property} {
-                    @each $sub-property, $sub-value in $value {
-                        #{$sub-property}: #{$sub-value};
-                    }
-                }
-            }
-        }
-    }
-}

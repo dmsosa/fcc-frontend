@@ -36,7 +36,6 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 // 9. components
 @import "./components/header";
-@import "./components/nav";
 @import "./components/projekt";
 @import "./components/footer";
 @import "./components/home";
@@ -60,6 +59,9 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 //Code
 :root {
+    --header-height: 4rem;
+    --footer-height: 100vh;
+    --backdrop-blur: 0.6rem;
 }
 html {
     font-size: 16px;
@@ -81,6 +83,7 @@ main {
 }
 section {
     width: 100%;
+    padding-top: var(--header-height);
 }
 p {
     font-weight: 300; 
@@ -94,31 +97,7 @@ p {
         background-color: tint-color($primary, 30) !important;
     }
 }
-main {
-    order: 2;
-    height: 100%;
-    overflow: hidden scroll;
-    width: 100%;
-    transition: width 0.4s;
-}
 
-.main-content {
-    display: block;
-    transition: grid-template-columns 0.4s;
-    background-color: inherit;
-    color: inherit;
-}
-.content {
-    grid-column: 2 / 3;
-    max-width: 576px;
-    margin: 0 auto;
-    &:first-child {
-        padding-top: 6rem;
-    }
-    &:last-child {
-        padding-bottom: 8rem;
-    }
-}
 .no-scroll {
     overflow: hidden !important;
 }
