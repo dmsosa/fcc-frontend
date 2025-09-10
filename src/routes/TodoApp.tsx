@@ -7,17 +7,17 @@ export default function TodoApp () {
         <section >
             <div className='container'>
                 <div className="row">
-                    <h1>Free Code Camp: Todo App</h1>
-                    <p>React redux.</p>
-                    <p>Legacy way vs Now.</p>
-                    <em>Happy coding!</em>
+                    <h2>Free Code Camp: Todo App</h2>
+                    <em className='text-center'>Happy coding!</em>
+                    <br></br>
                 </div>
-                <div className="row">
+                <div className="row bg-2">
                     <ConnectedAddTodo/>
+                    <hr />
                     <ConnectedTodoList/>
                 </div>
                 <div className="row">
-                    <p>Lass mich wissen, ob es cool war!</p>
+                    <p className='text-center'>Lass mich wissen, ob es cool war!</p>
                 </div>
                     
             </div>

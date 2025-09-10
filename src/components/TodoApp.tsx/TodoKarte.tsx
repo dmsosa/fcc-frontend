@@ -2,6 +2,8 @@
 
 import { connect, type ConnectedProps } from "react-redux";
 import { setTargetId, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
+import { FaPencil } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa";
 
 interface ITodoKarteProps {
     todo: TTodo;
@@ -14,13 +16,15 @@ type TPropsFromRedux = ConnectedProps<typeof connector>;
 export function TodoKarte ({ todo, toggleTodo, toggleEditorMode, setTargetId }: TPropsFromRedux & ITodoKarteProps ) {
     const { id, title, completed, priority } = todo;
     return (
-        <div className="d-flex justify-content-center align-items-center">
-            <p>{title}</p>
-            <span>priority: {` ${priority}`}</span>
+        <div className="d-flex justify-content-center align-items-center p-2 gap-2 box">
             <input type="checkbox" name="completed" checked={completed} onClick={() => { toggleTodo({id}) }} />
-            <div className="d-flex justify-content-center align-items-center gap-2">
-                <button className="btn btn-primary" onClick={() => toggleEditorMode}>edit</button>
-                <button className="btn btn-danger" onClick={() => setTargetId({id})}>delete</button>
+            <div>
+                <p>{title}</p>
+                <span>priority: {` ${priority}`}</span>
+            </div>
+            <div className="d-flex justify-content-center align-items-center gap-2 ms-auto">
+                <button className="btn btn-primary" onClick={() => toggleEditorMode}><FaPencil></FaPencil></button>
+                <button className="btn btn-danger" onClick={() => setTargetId({id})}><FaTrash></FaTrash></button>
             </div>
         </div>
     
