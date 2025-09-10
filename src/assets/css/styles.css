@@ -10479,8 +10479,20 @@ div.box-header > a > svg:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(var(--backdrop-blur));
+  transition: opacity 0.2 ease;
+}
+
+.modal.show {
+  opacity: 1;
   z-index: 1000;
+}
+
+.modal.hide {
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
 }
 
 .modal-flex {
@@ -10512,7 +10524,6 @@ div.box-header > a > svg:hover {
   width: 80%;
   height: fit-content;
   margin: auto;
-  background-color: red;
   z-index: 1000;
   transition: all 0.2s ease;
 }
@@ -10531,6 +10542,22 @@ div.box-header > a > svg:hover {
   position: absolute;
   top: 1rem;
   right: 1.2rem;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.checkbox-wrapper:hover {
+  background-color: rgb(103.55, 255, 103.55);
+}
+.checkbox-wrapper input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /*# sourceMappingURL=styles.css.map */

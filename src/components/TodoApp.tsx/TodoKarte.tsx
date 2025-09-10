@@ -4,6 +4,7 @@ import { connect, type ConnectedProps } from "react-redux";
 import { setTargetId, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
+import { Checkbox } from "../Widgets/Checkbox";
 
 interface ITodoKarteProps {
     todo: TTodo;
@@ -16,8 +17,9 @@ type TPropsFromRedux = ConnectedProps<typeof connector>;
 export function TodoKarte ({ todo, toggleTodo, toggleEditorMode, setTargetId }: TPropsFromRedux & ITodoKarteProps ) {
     const { id, title, completed, priority } = todo;
     return (
-        <div className="d-flex justify-content-center align-items-center p-2 gap-2 box">
-            <input type="checkbox" name="completed" checked={completed} onClick={() => { toggleTodo({id}) }} />
+        <div className="d-flex justify-content-center align-items-center p-2 gap-2">
+            <Checkbox checked={true} name="toggled" id="toggled"></Checkbox>
+            <Checkbox checked={false} name="toggled" id="toggled"></Checkbox>
             <div>
                 <p>{title}</p>
                 <span>priority: {` ${priority}`}</span>
