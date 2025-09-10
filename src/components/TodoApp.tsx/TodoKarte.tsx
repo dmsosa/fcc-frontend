@@ -18,8 +18,8 @@ export function TodoKarte ({ todo, toggleTodo, toggleEditorMode, setTargetId }: 
     const { id, title, completed, priority } = todo;
     return (
         <div className="d-flex justify-content-center align-items-center p-2 gap-2">
+            <Checkbox checked={completed} name="toggled2" id="toggled2" onClick={() => toggleTodo}></Checkbox>
             <Checkbox checked={true} name="toggled" id="toggled"></Checkbox>
-            <Checkbox checked={false} name="toggled" id="toggled"></Checkbox>
             <div>
                 <p>{title}</p>
                 <span>priority: {` ${priority}`}</span>

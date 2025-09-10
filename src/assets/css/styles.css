@@ -108,7 +108,7 @@
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
   --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0;
+  --bs-border-radius: 0rem;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
   --bs-border-radius-xl: 1rem;
@@ -10545,19 +10545,53 @@ div.box-header > a > svg:hover {
 }
 
 .checkbox-wrapper {
-  position: relative;
-  padding: 0.5rem;
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  background-color: red;
   cursor: pointer;
+  position: relative;
 }
 .checkbox-wrapper:hover {
   background-color: rgb(103.55, 255, 103.55);
 }
-.checkbox-wrapper input {
+
+input[type=checkbox] {
+  display: grid;
+  place-content: center;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: inherit;
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0rem;
+  transform: translateY(0);
+}
+input[type=checkbox]::before {
+  content: "";
+  scale: 0;
+  transition: all 0.2s ease;
+}
+
+input[type=checkbox]:checked::before {
+  content: "x";
+  scale: 1;
 }
 
 /*# sourceMappingURL=styles.css.map */
