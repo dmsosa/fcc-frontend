@@ -1,52 +1,25 @@
-import { useEffect, useState } from "react";
 import { FaTumblr, FaTwitter } from "react-icons/fa";
-import { getQuoteArray, type TQuote } from "../service/quoteService";
-import type { AxiosError } from "axios";
+import { useDispatch } from "react-redux";
+import { incrementIndex, selectQuoteState, type TQuoteState } from "../store/quotesSlice/quotesSlice";
 
-type TQuoteState = {
-    quoteArray: TQuote[] | undefined,
-    quoteIndex: number,
-}
-function RandomQuotes() {
-    const [ { quoteArray, quoteIndex}, setQuoteState ] = useState<TQuoteState>({ quoteArray: undefined, quoteIndex: 0 });
-    const [ status, setStatus ] = useState('loading');
-    const { q, a } = quoteArray ? quoteArray[quoteIndex] : {q: undefined, a: undefined};
+
+export function RandomQuotes() {
+    const { quotes, quoteIndex, amount, isLoading, error }: TQuoteState = selectQuoteState();
+    const dispatch = useDispatch();
+    const { q, a } = quotes.length > 0 ? quotes[quoteIndex] : {q: undefined, a: undefined};
     const twitterHref = q ? `https://twitter.com/intent/tweet?text=${`"${encodeURI(q)}" -${a}`}&hashtags=quotes,fccQuotes,quotesAPI` : '';
     const tumblrHref = q ? `https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,fccQuotes,quotesAPI&caption=${encodeURI(a)}&content=${encodeURI(q)}&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button` : '';
-    useEffect(() => {
-
-        setStatus('loading');
-
-        getQuoteArray().then((data: TQuote[]) => {
-            const randIndex = Math.floor(Math.random() * (data.length));
-            setQuoteState({quoteArray: data, quoteIndex: randIndex });
-            setStatus('fulfilled');
-        })
-        .catch((error: AxiosError) => {
-            console.log(error);
-            setStatus('error');
-        })
-    }, [])
-
+    
     const handleNewQuote = () => {
-        if (!quoteArray) return;
-        setQuoteState((prevState) => {
-            const prevIndex = prevState.quoteIndex;
-            let nextIndex;
-            if (prevIndex === quoteArray.length) {
-                nextIndex = 0;
-            } else {
-                nextIndex = prevIndex + 1;
-            }
-            return ({...prevState, quoteIndex:  nextIndex})
-        });
+        if (!quotes) return;
+        dispatch(incrementIndex({ amount }));
         // changeTheme(setTheme);
     }
 
-    return status === 'loading' ? 
+    return isLoading  ? 
         <div>Loading</div>
         :
-        status === 'error' ?
+        error ?
         <div>Error </div>
         :
         <section className="d-flex justify-content-center align-items-center vh-100">
@@ -57,6 +30,7 @@ function RandomQuotes() {
                         {`" ${q}`}
                     </p>
                     <span id="author" className="h4 d-block text-right my-4 align-self-end">{`- ${a}.`}</span>
+                    <span>{quoteIndex}</span>
                 </div>
                 {/* Knopfe */}
                 <div className="d-flex justify-content-between">
@@ -64,7 +38,12 @@ function RandomQuotes() {
                         <a id="tweet-quote" className="twitter-share-button" target="_blank" href={twitterHref}><FaTwitter ></FaTwitter></a>
                         <a id="tumblr-quote" className="tumblr-share-button" target="_blank" href={tumblrHref}><FaTumblr></FaTumblr></a>
                     </div>
-                    <button id="new-quote" className="btn btn-primary border-radius-0" onClick={handleNewQuote}>New quote</button>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <button id="new-quote" className="btn btn-primary border-radius-0" onClick={handleNewQuote}>New quote</button>
+                        <input type="number" name="amount" value={amount}/>
+                        <button id="new-quote" className="btn btn-primary border-radius-0" onClick={handleNewQuote}>New quote</button>
+                    </div>    
+                    
                 </div>
             </div>
         </section>;

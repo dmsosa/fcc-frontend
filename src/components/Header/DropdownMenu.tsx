@@ -20,12 +20,12 @@ export default function DropdownMenu ({ show } : { show:boolean }) {
   return (
     <>
         <div id='collapsableNav' className={`collapsable collapsable-wrapper ${show ? 'collapsable-active':''}`}>
-          <div className="px-3 py-3 d-flex flex-column flex-md-row px-md-2 py-md-2 gap-2 align-items-start justify-content-center">
+          <div className="px-3 py-3 d-flex flex-column flex-md-row px-md-2 py-md-2 gap-3 align-items-start justify-content-center align-items-md-center">
             <ul className='collapsable-nav gap-2'>
               {links.map((link) => 
                   (
                   <li key={link.title} className={'links-li'}>
-                      <Link className="link" to={link.to} state={link.state ? link.state : null} aria-expanded>
+                      <Link className="link fs-5 d-flex justify-content-center align-items-center" to={link.to} state={link.state ? link.state : null}>
                           {link.icon}
                           <span>{link.title}</span>
                       </Link>

@@ -1,10 +1,5 @@
-import * as React from 'react';
 import ProjektKarte, { karteArray, type TProjektKarte } from '../components/Home/ProjektKarte';
-
-export interface IHomeProps {
-}
-
-export default function Home (props: IHomeProps) {
+export default function Home () {
     
     return (
         <section >

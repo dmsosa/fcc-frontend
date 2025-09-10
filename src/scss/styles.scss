@@ -70,7 +70,6 @@ html {
 body {
     height: 100vh;
     overflow: hidden;
-    position: relative;
     font-family: 'HerculesPixel', sans-serif;
  
 }
@@ -537,6 +536,53 @@ div.box-header > a > svg {
     &:hover {
         color: $primary;
     }
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+    z-index: 1000;
+}
+.modal-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-inner { 
+    transition: all 0.2s ease;
+}
+.modal.show .modal-inner {
+    transform: translateY(0);
+    opacity: 1;
+}
+.modal.hide .modal-inner {
+    transform: translateY(-100px);
+    opacity: 0;
+}
+.submodal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 80%;
+    height: fit-content;
+    margin: auto;
+    background-color: red;
+    z-index: 1000;
+    transition: all 0.2s ease;
+}
+.submodal.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.submodal.hide {
+    transform: translateY(-100px);
+    opacity: 0;
 }
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS

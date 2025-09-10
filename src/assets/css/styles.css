@@ -548,6 +548,10 @@ legend + * {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
+[type=search]::-webkit-search-cancel-button {
+  cursor: pointer;
+  filter: grayscale(1);
+}
 
 /* rtl:raw:
 [type="tel"],
@@ -9108,6 +9112,9 @@ progress {
   flex-direction: column;
   align-items: start;
 }
+.collapsable-nav .links-li .link span {
+  display: block;
+}
 
 .nav-li {
   transition: 0.2s scale ease;
@@ -9206,6 +9213,9 @@ progress {
   .collapsable-nav {
     flex-direction: row;
     align-items: center;
+  }
+  .collapsable-nav .links-li .link span {
+    display: none;
   }
   .dropdown-toggler {
     display: none;
@@ -9454,10 +9464,12 @@ a.handler.handler-col {
   width: 25px; /* Set a specific slider handle width */
   height: 100%; /* Slider handle height */
   transition: height 0.2s ease;
-  background: #0dcaf0; /* Green background */
 }
 .slider::-moz-range-thumb:hover {
   height: 150%;
+}
+.slider::-moz-range-thumb {
+  background: #0dcaf0; /* Green background */
 }
 
 .toggler {
@@ -9947,7 +9959,6 @@ html {
 body {
   height: 100vh;
   overflow: hidden;
-  position: relative;
   font-family: "HerculesPixel", sans-serif;
 }
 
@@ -10460,6 +10471,60 @@ div.box-header > a > svg {
 }
 div.box-header > a > svg:hover {
   color: #65ff65;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  z-index: 1000;
+}
+
+.modal-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-inner {
+  transition: all 0.2s ease;
+}
+
+.modal.show .modal-inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal.hide .modal-inner {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+.submodal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: fit-content;
+  margin: auto;
+  background-color: red;
+  z-index: 1000;
+  transition: all 0.2s ease;
+}
+
+.submodal.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.submodal.hide {
+  transform: translateY(-100px);
+  opacity: 0;
 }
 
 /*# sourceMappingURL=styles.css.map */

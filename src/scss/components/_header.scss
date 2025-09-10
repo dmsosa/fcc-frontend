@@ -76,6 +76,11 @@
     list-style: none;
     flex-direction: column;
     align-items: start;
+    .links-li {
+        .link span {
+            display: block;
+        }
+    }
 }
 .nav-li {
     transition: 0.2s scale ease;
@@ -179,6 +184,11 @@
     .collapsable-nav {
         flex-direction: row;
         align-items: center;
+        .links-li {
+            .link span {
+                display: none;
+            }
+        }
     }
     .dropdown-toggler {
         display: none;
