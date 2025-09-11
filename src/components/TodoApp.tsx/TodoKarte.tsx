@@ -18,14 +18,13 @@ export function TodoKarte ({ todo, toggleTodo, toggleEditorMode, setTargetId }: 
     const { id, title, completed, priority } = todo;
     return (
         <div className="d-flex justify-content-center align-items-center p-2 gap-2">
-            <Checkbox checked={completed} name="toggled2" id="toggled2" onClick={() => toggleTodo}></Checkbox>
-            <Checkbox checked={true} name="toggled" id="toggled"></Checkbox>
+            <Checkbox checked={completed} name={`${completed}-${id}`} id={`${completed}-${id}`} onClick={() => toggleTodo({id})}></Checkbox>
             <div>
                 <p>{title}</p>
                 <span>priority: {` ${priority}`}</span>
             </div>
             <div className="d-flex justify-content-center align-items-center gap-2 ms-auto">
-                <button className="btn btn-primary" onClick={() => toggleEditorMode}><FaPencil></FaPencil></button>
+                <button className="btn btn-primary" onClick={() => toggleEditorMode()}><FaPencil></FaPencil></button>
                 <button className="btn btn-danger" onClick={() => setTargetId({id})}><FaTrash></FaTrash></button>
             </div>
         </div>

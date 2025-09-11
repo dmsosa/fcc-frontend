@@ -600,54 +600,50 @@ div.box-header > a > svg {
 
 }
 .checkbox-wrapper {
-    font-family: system-ui, sans-serif;
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 1.5;
-    display: grid;
-    grid-template-columns: 1em auto;
-    gap: 0.5em;
-    background-color: red;
+  display: grid;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.1;
     cursor: pointer;
-    position: relative;
-    &:hover {
-        background-color: lighten($primary, 0.5);
-    }
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: solid currentColor 0.25rem;
+  border-radius: $border-radius;
+
 }
 input[type="checkbox"] {
-    display: grid;
-    place-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     /* Add if not using autoprefixer */
-    -webkit-appearance: none;
-    appearance: none;
-    /* For iOS < 15 to remove gradient background */
-    background-color: inherit;
-    /* Not removed via appearance */
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid currentColor;
-    border-radius: $border-radius;
-    transform: translateY(0);
-    &::before {
-        content: "";
-        scale: 0;
-        transition: all 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: inherit;
+  /* Not removed via appearance */
+  margin: 0;
+    display: grid;
+    position: relative;
+  place-content: center;
+  font: inherit;
+  color: currentColor;
+    cursor: pointer;
+  width: 1.15em;
+  height: 1.15em;
+  &:active {
+  }
+  &::before {
+      content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em red;
     }
 }
-input[type="checkbox"]:checked {
-    &::before {
-        content: "x";
-        scale: 1;
+input[type="checkbox"]:checked::before {
+        transform: scale(1);
     }
-}
+
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
