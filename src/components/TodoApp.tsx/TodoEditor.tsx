@@ -1,33 +1,20 @@
 
 
-import { connect, type ConnectedProps } from "react-redux";
-import { deleteTodo, getTodoById, putTodo, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
-import type { RootState } from "../../store";
+import { useDispatch} from "react-redux";
+import { deleteTodo, putTodo, toggleEditorMode, toggleTodo, useTodosState, type TTodo } from "../../store/todoSlice";
 import { useEffect, useState, type MouseEvent } from "react";
 import TodoEditorConfirmDelete from "./TodoEditorConfirmDelete";
 import useToggler from "../../hooks/useToggler";
 import CloseBtn from "../Widgets/CloseBtn";
 
-type TTodoEditorProps = {
-    targetTodo: TTodo | null,
-    editorMode: boolean;
-}
+export function TodoEditor () {
 
+    const { editorMode, targetId } = useTodosState();
+    const dispatch = useDispatch();
 
-const mapStateToProps = (state: RootState) => {
-    const { targetId, editorMode } = state.todo;
-    let targetTodo = null;
-    if (targetId) {
-        targetTodo = getTodoById(state, targetId);
-    };
-    return { targetTodo, editorMode}
-}
-const mapDispatchToProps = { putTodo, toggleTodo, deleteTodo, toggleEditorMode };
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type IPropsFromRedux = ConnectedProps<typeof connector>;
+    const useEffect(() => {
 
-
-export function TodoEditor ({ editorMode, targetTodo, putTodo, toggleTodo, deleteTodo, toggleEditorMode }: IPropsFromRedux & TTodoEditorProps ) {
+    }, [])
     const [showModal, setShowModal ] = useState<boolean>(editorMode);
     const [confirmDelete, setConfirmDelete ] = useState<boolean>(true);
 

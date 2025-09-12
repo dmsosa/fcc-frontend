@@ -24,10 +24,11 @@ export type TFilterObject = {
 }; 
 const initForm: TFilterObject = { title: null, priority: null, completed: null  };
 
-export function TodoEditor () {
+export default function Filters () {
 
     
-    const { filter } = useSelector((state: RootState) => state.todo );
+    
+    const { editorMode } = useSelector((state: RootState) => state.todo );
     const dispatch = useDispatch();
     const [{ title, completed, priority }, setForm ] = useState<TFilterType>(filter ? filter : initForm);
     const handleChangeForm = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement >) => {
@@ -38,7 +39,6 @@ export function TodoEditor () {
     }
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        submitUpdateFilterObject
     }
 
 // setTitle setBoolean, setEnum, 

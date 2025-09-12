@@ -1,8 +1,11 @@
-import { ConnectedAddTodo } from '../components/TodoApp.tsx/AddTodo';
+import {  useSelector } from 'react-redux';
+import AddTodo from '../components/TodoApp.tsx/AddTodo';
 import ConnectedTodoEditor from '../components/TodoApp.tsx/TodoEditor';
-import { ConnectedTodoList } from '../components/TodoApp.tsx/TodoList';
+import  TodoList  from '../components/TodoApp.tsx/TodoList';
 export default function TodoApp () {
-    
+    // const { filter } = useSelector((state: RootState) => state.todo );
+    // const { todoArray, todoCount } useArrayWithFilter({filter})
+
     return (
         <section >
             <div className='container'>
@@ -12,9 +15,9 @@ export default function TodoApp () {
                     <br></br>
                 </div>
                 <div className="row bg-2">
-                    <ConnectedAddTodo/>
+                    <AddTodo/>
                     <hr />
-                    <ConnectedTodoList/>
+                    <TodoList/>
                 </div>
                 <div className="row">
                     <p className='text-center'>Lass mich wissen, ob es cool war!</p>
