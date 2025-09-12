@@ -611,6 +611,10 @@ div.box-header > a > svg {
   user-select: none;
   border: solid currentColor 0.25rem;
   border-radius: $border-radius;
+  &--disabled {
+        cursor: default;
+        color: $btn-link-disabled-color;
+  }
 
 }
 input[type="checkbox"] {
@@ -628,16 +632,25 @@ input[type="checkbox"] {
   color: currentColor;
     cursor: pointer;
   width: 1.15em;
-  height: 1.15em;
+  height: 1.15em; 
+  &:focus {
+    outline: max(2px, 0.15em) solid $link-color;
+    outline-offset: max(0.5px, 0.15em);
+  }
   &:active {
+    background-color: rgba($link-color, $alpha: 0.5);
   }
   &::before {
-      content: "";
-  width: 0.65em;
-  height: 0.65em;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em red;
+    content: "";
+    width: 1em;
+    height: 1em;
+    transform: scale(0);
+    margin-bottom: 0.25em;
+    margin-left: 0.25em;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+    transform-origin: bottom left;
+    clip-path: polygon(0 59%, 31% 100%, 86% 39%, 69% 27%, 34% 68%, 16% 45%);
     }
 }
 input[type="checkbox"]:checked::before {

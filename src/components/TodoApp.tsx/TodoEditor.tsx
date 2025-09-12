@@ -3,7 +3,7 @@
 import { connect, type ConnectedProps } from "react-redux";
 import { deleteTodo, getTodoById, putTodo, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
 import type { RootState } from "../../store";
-import { useState, type MouseEvent } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import TodoEditorConfirmDelete from "./TodoEditorConfirmDelete";
 import useToggler from "../../hooks/useToggler";
 import CloseBtn from "../Widgets/CloseBtn";
@@ -31,6 +31,19 @@ export function TodoEditor ({ editorMode, targetTodo, putTodo, toggleTodo, delet
     const [showModal, setShowModal ] = useState<boolean>(editorMode);
     const [confirmDelete, setConfirmDelete ] = useState<boolean>(true);
 
+    // useEffect(() => {
+    //     if (!showModal) return;
+    //     const modal = document.getElementById('editor-modal');
+    //     if (!modal) return;
+    //     const closeClickOutside = (e: MouseEvent) => {
+    //         console.log(e.currentTarget.getBoundingClientRect());
+    //     }
+    //     window.addEventListener('click', (e: MouseEvent) => {
+
+    //     })
+
+    //     return 
+    // }, [showModal])
     const toggler = useToggler(confirmDelete, setConfirmDelete);
 
     const handlePut = (e: MouseEvent<HTMLButtonElement>) => {

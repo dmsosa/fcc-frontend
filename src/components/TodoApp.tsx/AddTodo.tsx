@@ -1,10 +1,11 @@
 import { useState, type ChangeEvent } from "react";
-import { connect, type ConnectedProps } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postTodo } from "../../store/todoSlice";
 
 
-const mapDispatchToProps = { postTodo };
-function AddTodo ({ postTodo }: PropsFromRedux) {
+export default function AddTodo () {
+
+    const dispatch = useDispatch();
 
     const [ input, setInput ] = useState<string>('');
 
@@ -13,7 +14,7 @@ function AddTodo ({ postTodo }: PropsFromRedux) {
     }
 
     const handleClick = () => {
-        postTodo({ title: input });
+        dispatch(postTodo({ title: input }));
         setInput('');
     }
     return (
@@ -24,9 +25,3 @@ function AddTodo ({ postTodo }: PropsFromRedux) {
     
   );
 }
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-export const ConnectedAddTodo = connector(AddTodo);
-

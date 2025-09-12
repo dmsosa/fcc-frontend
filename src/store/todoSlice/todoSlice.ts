@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
+import store, { type RootState } from '../store';
+import { staticTodoIds, staticTodoMap } from '../../service/todoService';
+import { useSelector } from 'react-redux';
 
 
 export type TTodo = {
@@ -11,14 +13,12 @@ export type TTodo = {
 export type TTodoState = {
     todoMap: { [id:number] : TTodo};
     todoIds: number[];
-    filter: string;
     editorMode: boolean;
     targetId: number | null ;
 };
 const initialState: TTodoState = {
-    todoMap: { 1: { id: 1, title: 'test', priority: 'mid', completed: false }},
-    todoIds: [1],
-    filter: '',
+    todoMap: staticTodoMap,
+    todoIds: staticTodoIds,
     editorMode: true,
     targetId: 1,
 }
@@ -56,46 +56,11 @@ const todoSlice = createSlice({
         },
         setTargetId: (state, action: PayloadAction<{ id: number }>) => {
             state.targetId = action.payload.id;
-        },
+        }
     }
 });
-
 export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, setTargetId } = todoSlice.actions;
 
-export const getTodosState = (rootState: RootState) => rootState.todo
+export const useTodosState = () =>  useSelector((state: RootState) => state.todo ) ;
 
-export const getTodoIds = (rootState: RootState): number[] =>
-  getTodosState(rootState) ? getTodosState(rootState).todoIds : []
-
-export const getTodoById = (rootState: RootState, id: number): TTodo | null  =>
-  getTodosState(rootState) ? { ...getTodosState(rootState).todoMap[id], id } : null
-
-export const getTodos = (rootState: RootState): TTodo[] => {
-    const todos = [];
-    const todoIds = getTodoIds(rootState);
-    for (const id of todoIds) {
-        const t = getTodoById(rootState, id);
-        if (!t) continue;
-        todos.push(t)
-    }
-    return todos;
-}
-
-// ich brauche mapState von State , wie kann ich es erhalten?
-// mapState zu unsere Komponente passen, 
-// auf mapSelectorToProps logik GiMachineGun, damit unsere ConnectedKomponente es schon hat, 
-// es kann auch ein customHook sein oder 
-// todoTarget auf state?
-// useSelectorWithTargetedTodo(
-//     uses state
-// uses targetId from state
-// returns targetedTodo
-
-
-// ) returns targetedTodo,
-
-// useDispatchWithActions, uses dispatch returns toggleTodo, dleete und put 
-
-// mapStateToProps(state) returns targetedTodo 
-// mapDispatchToProps = objekete
 export default todoSlice;

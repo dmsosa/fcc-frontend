@@ -1,18 +1,12 @@
 
-import { connect, type ConnectedProps } from "react-redux";
-import { getTodos } from "../../store/todoSlice";
-import type { RootState } from "../../store";
 import ConnectedTodoKarte from "./TodoKarte";
+import { getTodosState, type TTodo } from "../../store/todoSlice";
 
 
-const mapStateToProps = (state: RootState) => {
-    const todos = getTodos(state);
-  return { todos };
-}
-
-function TodoList ({ todos }: PropsFromRedux  ) {
-    return todos ? 
-    todos.map((t) => 
+export default function TodoList ({ todos } : { todos: TTodo[]}) {
+    const { filteredArray } = getTodosState()
+    return filteredArray.length > 0 ? 
+    filteredArray.map((t) => 
     <ConnectedTodoKarte 
         key={t.id}
         todo={t}
@@ -21,8 +15,24 @@ function TodoList ({ todos }: PropsFromRedux  ) {
     <div><p>no todos</p></div>
 }
 
-const connector = connect(mapStateToProps, null);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-export const ConnectedTodoList = connector(TodoList);
+parent holds filter
+todolist filteredarray
+filtereditor filter in local 
+updattefilter in local, submit triggers updatestore
 
+vorteile: useArray geben uns: array und setInterval, um mit  dem array zu operieren. 
+dispatch nur fur entfernund, hinzufugun von neuen todos 
+filtering logik von der store getreent, handelt bei todoService 
+
+todolist re renders mit neues array automatisch. 
+
+
+
+// weg 2 
+// store hold mein filteredobjekt
+// store hold map und ids 
+// update filteredobjekt
+// update filter = updatearray
+// andert sich alles in derselber PiFirstAidKitDuotone
+// mein filter ist nicht mit mein Zustand verbindet, also es kann nur lokale setInterval. mein Store sollte sich nur um mein busnesi logik handeln SlEnvolopeLetter.

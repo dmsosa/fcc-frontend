@@ -10557,6 +10557,10 @@ div.box-header > a > svg:hover {
   border: solid currentColor 0.25rem;
   border-radius: 0rem;
 }
+.checkbox-wrapper--disabled {
+  cursor: default;
+  color: #6c757d;
+}
 
 input[type=checkbox] {
   /* Add if not using autoprefixer */
@@ -10575,13 +10579,24 @@ input[type=checkbox] {
   width: 1.15em;
   height: 1.15em;
 }
+input[type=checkbox]:focus {
+  outline: max(2px, 0.15em) solid #65ff65;
+  outline-offset: max(0.5px, 0.15em);
+}
+input[type=checkbox]:active {
+  background-color: rgba(101, 255, 101, 0.5);
+}
 input[type=checkbox]::before {
   content: "";
-  width: 0.65em;
-  height: 0.65em;
+  width: 1em;
+  height: 1em;
   transform: scale(0);
+  margin-bottom: 0.25em;
+  margin-left: 0.25em;
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em red;
+  box-shadow: inset 1em 1em currentColor;
+  transform-origin: bottom left;
+  clip-path: polygon(0 59%, 31% 100%, 86% 39%, 69% 27%, 34% 68%, 16% 45%);
 }
 
 input[type=checkbox]:checked::before {
