@@ -563,6 +563,8 @@ div.box-header > a > svg {
     justify-content: center;
 }
 .modal-inner { 
+    height: fit-content;
+
     transition: all 0.2s ease;
 }
 .modal.show .modal-inner {
@@ -573,26 +575,8 @@ div.box-header > a > svg {
     transform: translateY(-100px);
     opacity: 0;
 }
-.submodal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 80%;
-    height: fit-content;
-    margin: auto;
-    z-index: 1000;
-    transition: all 0.2s ease;
-}
-.submodal.show {
-    transform: translateY(0);
-    opacity: 1;
-}
-.submodal.hide {
-    transform: translateY(-100px);
-    opacity: 0;
-}
+
+
 .close-btn {
     position: absolute;
     top: 1rem;

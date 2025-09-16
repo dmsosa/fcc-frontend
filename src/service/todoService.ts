@@ -1,4 +1,5 @@
-import { useTodosState, type TTodo } from "../store/todoSlice"
+import store from "../store/store";
+import { type TTodo } from "../store/todoSlice"
 
 export const staticTodoMap: { [id:number] : TTodo} = {
     1: {
@@ -10,7 +11,7 @@ export const staticTodoMap: { [id:number] : TTodo} = {
 2: {
   "id": 2,
   "title": "nibh ligula nec",
-  "priority": 'high',
+  "priority": 'low',
   "completed": false
 },
 3: {
@@ -118,36 +119,32 @@ export const staticTodoMap: { [id:number] : TTodo} = {
 
 export const staticTodoIds : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
+export const getTodoState = () => store.getState().todo;
 export const getTodoIds = (): number[] =>
-  useTodosState() ? useTodosState().todoIds : []
+  getTodoState() ? getTodoState().todoIds : []
 
 export const getTodoById = (id: number): TTodo | null  => {    
-    const state = useTodosState();
+    const state = getTodoState();
     return state ? { ...state.todoMap[id], id } : null
 }
 
-type TGetTodoOptions = {
-    filter?: TTodo | null,
-    offset?: number,
-    limit?: number,
-    length?: number,
-}
-type TTodoArrayData = {
-    array: TTodo[],
-    count: number,
-}
-export const getTodos = ({ filter=null, offset=0, limit=3, length=3 }: TGetTodoOptions ): TTodoArrayData => {
+export const getTodosWithFilter = ( filterObject: Partial<TTodo> ): TTodo[] => {
     const todos = [];
-    const from = offset * length;
-    const to = from + limit;
     const todoIds = getTodoIds();
-    if (!filter) {
-        for (const id of todoIds) {
-            const t = getTodoById(id);
-            if (!t) continue;
-            todos.push(t)
-        }
+    //For each todo, check if equals das FilterObjekt, 
+    for (const id of todoIds) {
+        //Zweittes Loop fur jeder prop unseres filter
+        let match = true;
+        const t = getTodoById(id);
+        if (!t) continue;
+        Object.keys(filterObject).forEach((prop) => {
+            if (t[prop as keyof TTodo] !== filterObject[prop as keyof TTodo]) {
+                match = false;
+            }
+        })
+        if ((match)) {
+            todos.push(t) 
+        } else continue;
     }
-    
-    return {array: todos.slice(from, to), count: todos.length };
+    return todos;
 }
