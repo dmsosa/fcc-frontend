@@ -1,9 +1,11 @@
+import type { ChangeEventHandler } from "react";
+
 interface ICheckboxProps {
     clazz?: string;
     name?: string;
     id?: string;
     value: boolean;
-    handleChange?: (e: React.InputEvent<HTMLInputElement>) => void;
+    handleChange: ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
 }
 
@@ -14,7 +16,7 @@ export function Checkbox ( { clazz, name, id, value, handleChange, disabled=fals
     };
   return (
     <label className={className} htmlFor={id}  >
-      <input type="checkbox" name={name} id={id} checked={value} onInput={handleChange}/>
+      <input type="checkbox" name={name} id={id} checked={value} onChange={handleChange}/>
     </label>
   );
 }

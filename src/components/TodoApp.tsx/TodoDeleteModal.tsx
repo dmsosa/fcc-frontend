@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
 import useToggler from "../../hooks/useToggler";
-import { deleteTodo, useTodosState } from "../../store/todoSlice";
+import { deleteTodo, toggleDeleteMode, useTodosState } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
 
 
@@ -32,7 +32,7 @@ export default function TodoDeleteModal () {
                             <span>No</span>
                         </button>
                     </div>
-                    <CloseBtn value={show} setter={setShow} />
+                    <CloseBtn value={show} setter={setShow} cb={() => dispatch(toggleDeleteMode())}/>
                 </>
 
                 :

@@ -1,9 +1,10 @@
 
 
 import {  useDispatch } from "react-redux";
-import {  useTodosState, type TTodo } from "../../store/todoSlice";
+import {  updateFilterObject, type TTodo } from "../../store/todoSlice";
 import {  useState, type FormEvent, type InputEvent, type MouseEvent } from "react";
 import FormFieldset from "../Widgets/Form/FormFieldset";
+import { useTodosState } from "../../hooks/todo";
 
 // return form with fields for title, priority and completed
 
@@ -34,7 +35,7 @@ export default function TodoFilterForm () {
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log(dispatch, 'dispatch')
-        // dispatch(updateFilterObject({ title, completed, priority }));
+        dispatch(updateFilterObject({ title, completed, priority }));
     }
 
 // setTitle setBoolean, setEnum, 

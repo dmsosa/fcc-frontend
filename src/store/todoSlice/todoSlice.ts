@@ -16,7 +16,8 @@ export type TTodoState = {
     editorMode: boolean;
     deleteMode: boolean;
     targetId: number | null ;
-    filterObject: Partial<TTodo>
+    filterObject: Partial<TTodo>;
+    todoArray: TTodo[];
 };
 const initialState: TTodoState = {
     todoMap: staticTodoMap,
@@ -24,7 +25,8 @@ const initialState: TTodoState = {
     editorMode: true,
     deleteMode: true,
     targetId: 1,
-    filterObject: {}
+    filterObject: {},
+    todoArray: [],
 }
 var nextTodoId = 0;
 
@@ -59,16 +61,23 @@ const todoSlice = createSlice({
             state.editorMode = !state.editorMode;
         },
         toggleDeleteMode: (state ) => {
-            state.filterObject.title = 'etw'
             state.deleteMode = !state.deleteMode;
         },
         setTargetId: (state, action: PayloadAction<{ id: number }>) => {
             state.targetId = action.payload.id;
+        },
+        updateFilterObject: (state, action: PayloadAction<Partial<TTodo>>) => {
+            state.filterObject.title = action.payload.title;
+            state.filterObject.completed = action.payload.completed;
+            state.filterObject.priority = action.payload.priority;
+        },
+        updateArray: (state, action: PayloadAction<Partial<TTodo>>) => {
+            state.filterObject.title = action.payload.title;
+            state.filterObject.completed = action.payload.completed;
+            state.filterObject.priority = action.payload.priority;
         }
     }
 });
-export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, toggleDeleteMode, setTargetId } = todoSlice.actions;
-
-export const useTodosState = () =>  useSelector((state: RootState) => state.todo ) ;
+export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, toggleDeleteMode, setTargetId, updateFilterObject, updateArray } = todoSlice.actions;
 
 export default todoSlice;

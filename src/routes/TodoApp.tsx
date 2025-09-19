@@ -4,11 +4,10 @@ import TodoEditorModal from '../components/TodoApp.tsx/TodoEditorModal';
 import TodoFilterForm from '../components/TodoApp.tsx/TodoFilterForm';
 import  TodoList  from '../components/TodoApp.tsx/TodoList';
 import ArrayPagination from '../components/Widgets/ArrayPagination';
-import useArray from '../hooks/useArray';
-import { useTodosState } from '../store/todoSlice';
+import { useArray, useTodosState } from '../hooks/todo';
 export default function TodoApp () {
         const { filterObject } = useTodosState();
-        const { array, count, setArray, setOptions } = useArray({ filterObject });
+        const { array, count, setOptions } = useArray({ filterObject });
         const handlePageChange = (selectedItem: { selected: number; }) => {
             setOptions((prev) => ({...prev, offset: selectedItem.selected}))
         }
@@ -24,7 +23,7 @@ export default function TodoApp () {
                     <AddTodo/>
                     <hr />
                     <TodoFilterForm/>
-                    <TodoList array={array} setArray={setArray}/>
+                    <TodoList array={array} />
                     <ArrayPagination count={count} handlePageChange={handlePageChange}/>
                 </div>
                 <div className="row">
