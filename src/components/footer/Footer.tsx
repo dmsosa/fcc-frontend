@@ -1,10 +1,7 @@
-export interface IHeaderProps {
-}
-
 export default function Footer () {
   return (
-    <div>
-      
-    </div>
+    <footer id='footer'>
+
+    </footer>
   );
 }

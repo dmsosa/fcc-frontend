@@ -1,4 +1,5 @@
-import { useTodosState, type TTodo } from "../store/todoSlice"
+import store from "../store/store";
+import { type TTodo } from "../store/todoSlice";
 
 export const staticTodoMap: { [id:number] : TTodo} = {
     1: {
@@ -118,11 +119,14 @@ export const staticTodoMap: { [id:number] : TTodo} = {
 
 export const staticTodoIds : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
-export const getTodoIds = (): number[] =>
-  useTodosState() ? useTodosState().todoIds : []
+export const getTodosState = () =>  { const rootState = store.getState();  return rootState ? rootState.todo : null } ;
+
+export const getTodoIds = (): number[] => {
+  getTodosState() ? getTodosState().todoIds : []
+}
 
 export const getTodoById = (id: number): TTodo | null  => {    
-    const state = useTodosState();
+    const state = getTodosState();
     return state ? { ...state.todoMap[id], id } : null
 }
 

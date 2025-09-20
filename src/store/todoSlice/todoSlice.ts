@@ -1,7 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import store, { type RootState } from '../store';
 import { staticTodoIds, staticTodoMap } from '../../service/todoService';
-import { useSelector } from 'react-redux';
 
 
 export type TTodo = {
@@ -22,7 +20,7 @@ const initialState: TTodoState = {
     editorMode: true,
     targetId: 1,
 }
-var nextTodoId = 0;
+let nextTodoId = 0;
 
 const todoSlice = createSlice({
     name: 'todo',
@@ -61,6 +59,5 @@ const todoSlice = createSlice({
 });
 export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, setTargetId } = todoSlice.actions;
 
-export const useTodosState = () =>  useSelector((state: RootState) => state.todo ) ;
 
 export default todoSlice;
