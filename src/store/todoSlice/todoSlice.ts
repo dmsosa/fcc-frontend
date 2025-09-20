@@ -12,13 +12,19 @@ export type TTodoState = {
     todoMap: { [id:number] : TTodo};
     todoIds: number[];
     editorMode: boolean;
+    deleteMode: boolean;
     targetId: number | null ;
+    filterObject: Partial<TTodo>;
+    todoArray: TTodo[];
 };
 const initialState: TTodoState = {
     todoMap: staticTodoMap,
     todoIds: staticTodoIds,
     editorMode: true,
+    deleteMode: true,
     targetId: 1,
+    filterObject: {},
+    todoArray: [],
 }
 let nextTodoId = 0;
 
@@ -44,20 +50,32 @@ const todoSlice = createSlice({
             state.todoMap = Object.fromEntries(Object.entries(state.todoMap).filter(([key]) => Number(key) !== action.payload.id));
             state.todoIds = state.todoIds.filter(id => id !== action.payload.id);
         },
-        putTodo: (state, action: PayloadAction<{ id: number, todo: Omit<TTodo, 'id'>}>) => {
+        putTodo: (state, action: PayloadAction<{ id: number, form: Omit<TTodo, 'id'>}>) => {
             const target = state.todoMap[action.payload.id];
-            const { title, priority } = action.payload.todo;
-            state.todoMap = {...state.todoMap, [target.id]: {...target, title, priority} };
+            const {title, completed, priority} = action.payload.form;            
+            state.todoMap = {...state.todoMap, [target.id]: {...target, title, priority, completed} };
         },
         toggleEditorMode: (state ) => {
             state.editorMode = !state.editorMode;
         },
+        toggleDeleteMode: (state ) => {
+            state.deleteMode = !state.deleteMode;
+        },
         setTargetId: (state, action: PayloadAction<{ id: number }>) => {
             state.targetId = action.payload.id;
+        },
+        updateFilterObject: (state, action: PayloadAction<Partial<TTodo>>) => {
+            state.filterObject.title = action.payload.title;
+            state.filterObject.completed = action.payload.completed;
+            state.filterObject.priority = action.payload.priority;
+        },
+        updateArray: (state, action: PayloadAction<Partial<TTodo>>) => {
+            state.filterObject.title = action.payload.title;
+            state.filterObject.completed = action.payload.completed;
+            state.filterObject.priority = action.payload.priority;
         }
     }
 });
-export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, setTargetId } = todoSlice.actions;
-
+export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, toggleDeleteMode, setTargetId, updateFilterObject, updateArray } = todoSlice.actions;
 
 export default todoSlice;
