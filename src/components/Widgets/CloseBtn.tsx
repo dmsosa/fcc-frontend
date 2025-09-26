@@ -2,11 +2,10 @@ import { FaX } from "react-icons/fa6";
 import useToggler from "../../hooks/useToggler";
 import type { MouseEvent } from "react";
 
-export default function CloseBtn ({ value, setter, cb }: { value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>, cb?: (...args: any) => any } ) {
+export default function CloseBtn ({ value, setter }: { value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>} ) {
     const toggler = useToggler(value, setter);
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       toggler(e);
-      if (cb) { cb() };
     }
     return (
         <button className="btn btn-danger close-btn" onClick={handleClick}>

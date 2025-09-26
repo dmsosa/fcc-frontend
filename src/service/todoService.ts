@@ -128,23 +128,30 @@ export const getTodoById = (id: number): TTodo | null  => {
     return state ? { ...state.todoMap[id], id } : null
 }
 
-export const getTodosWithFilter = ( filterObject: Partial<TTodo> ): TTodo[] => {
+export const applyFilterToTodoMap = ( filter: Partial<TTodo>, todoMap: { [id:number] : TTodo} ): TTodo[] => {
     const todos = [];
-    const todoIds = getTodoIds();
     //For each todo, check if equals das FilterObjekt, 
-    for (const id of todoIds) {
+    for (const todo of Object.values(todoMap)) {
         //Zweittes Loop fur jeder prop unseres filter
-        let match = true;
-        const t = getTodoById(id);
-        if (!t) continue;
-        Object.keys(filterObject).forEach((prop) => {
-            if (t[prop as keyof TTodo] !== filterObject[prop as keyof TTodo]) {
-                match = false;
-            }
-        })
-        if ((match)) {
-            todos.push(t) 
+        if (todoMatchFilter(filter, todo)) {
+            todos.push(todo);
         } else continue;
-    }
+      }
     return todos;
+}
+
+export function todoMatchFilter(filter: Partial<TTodo>, todo: TTodo): boolean {
+    let match = true;
+    Object.keys(filter).forEach((prop) => {
+        if (prop === 'title') {
+          const filterTitle = filter.title as string;
+          if (!todo.title.toLowerCase().startsWith(filterTitle.toLowerCase())) {
+            match = false;
+          }
+        }
+        else if (todo[prop as keyof TTodo] !== filter[prop as keyof TTodo]) {
+            match = false;
+        }
+    })
+    return match;
 }

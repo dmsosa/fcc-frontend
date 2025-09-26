@@ -1,11 +1,12 @@
+
 type Serializer<T> = {
-    serialize: (v: Stored<T>) => string;
+    serialize: (v: Stored<T> ) => string;
     deserialize: (s: string) => T | null;
 };
 
 
 
-const JSONSerializer: Serializer<any> = {
+export const JSONSerializer: Serializer<any> = {
     serialize: (v) => JSON.stringify(v),
     deserialize: (s) => {
     try {
@@ -32,21 +33,23 @@ type Stored<T> = {
 };
 
 
-function keyWithNs(ns: string | undefined, key: string) {
+
+export function keyWithNs(ns: string | undefined, key: string) {
     return ns ? `${ns}:${key}` : key;
 }
 
 
-function now() {
+
+export function now() {
     return Date.now();
 }
 
-function setLocalItem<T>(key: string, value: T, options?: LSOptions<T>): boolean {
-        const serializer = options?.serializer ?? JSONSerializer;
-        const ns = options?.ns;
-        const ttl = options?.ttl || null; 
-        const expiresAt = ttl ? now() + ttl : null;
-        const payload: Stored<T> = { value, expiresAt }; 
+export function setValueLocal<T>(key: string, value: T,  options?: LSOptions<T>): boolean {
+    const serializer = options?.serializer ?? JSONSerializer;
+    const ns = options?.ns;
+    const ttl = options?.ttl || null; 
+    const expiresAt = ttl ? now() + ttl : null;
+    const payload: Stored<T> = { value, expiresAt }; 
     try {
         const raw = serializer.serialize(payload);
         localStorage.setItem(keyWithNs(ns, key), raw);
@@ -54,39 +57,61 @@ function setLocalItem<T>(key: string, value: T, options?: LSOptions<T>): boolean
         return true;
     } catch (error) {
         console.warn("setLocal error", error);
+        window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns, error } }));
         return false;
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export function setLocal<T>(key: string, value: T, options?: LSOptions<T>) {
-const serializer = options?.serializer ?? JSONSerializer;
-const ttl = options?.ttl ?? null;
-const ns = options?.ns;
-const expiresAt = ttl ? now() + ttl : null;
-const payload: Stored<T> = { value, expiresAt };
-try {
-const raw = serializer.serialize(payload);
-localStorage.setItem(keyWithNs(ns, key), raw);
-// dispatch custom event for same-tab listeners
-window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns } }));
-return true;
-} catch (e) {
-console.warn("setLocal error", e);
-return false;
+export function getValueLocal<T>(key: string, options?: LSOptions<T>) : T | null {
+    const serializer = options?.serializer ?? JSONSerializer;
+    const ns = options?.ns;
+  try {
+    const raw = localStorage.getItem(keyWithNs(ns, key));
+    if (raw == null) return null;
+    const parsed = serializer.deserialize(raw) as Stored<T> | null;
+    if (!parsed) return null;
+    if (parsed.expiresAt && parsed.expiresAt <= now()) {
+      // expired
+      localStorage.removeItem(keyWithNs(ns, key));
+      return null;
+    }
+    return parsed.value;    } catch (error) {
+        console.warn("getLocal error", error);
+        window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns, error } }));
+        return null;
+    }
 }
+export function removeValueLocal(key: string, options?: { ns?: string }) {
+  const ns = options?.ns;
+  try {
+    localStorage.removeItem(keyWithNs(ns, key));
+    window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns } }));
+    return true;
+  } catch (e) {
+    console.warn("removeLocal error", e);
+    return false;
+  }
+}
+
+export function clearNamespace(ns?: string) {
+  if (!ns) {
+    localStorage.clear();
+    window.dispatchEvent(new CustomEvent("r89:local-storage:clear"));
+    return;
+  }
+  const prefix = `${ns}:`;
+  const toRemove: string[] = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith(prefix)) toRemove.push(k);
+  }
+  toRemove.forEach((k) => localStorage.removeItem(k));
+  window.dispatchEvent(new CustomEvent("r89:local-storage:clear", { detail: { ns } }));
+}
+
+export function sliceArray<T>(array: T[], offset?: number, limit?: number) : T[] {
+    if (!limit) return array;
+    const from = offset && offset > 0 ? offset * limit : 0;
+    const to = limit > 0 ? from + limit : undefined;
+    return array.slice(from, to);
 }

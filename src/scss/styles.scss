@@ -653,7 +653,15 @@ input[type="checkbox"]:checked::before {
     
 }
 
-
+.c-select-container {
+    position: relative;
+    font-size: 1rem;
+    margin: 0 2rem;
+}
+.c-option {
+    padding: 0.25em 0.45em;
+    border: solid 0.125em;
+}
 
 
 

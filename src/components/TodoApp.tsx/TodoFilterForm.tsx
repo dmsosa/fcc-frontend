@@ -1,10 +1,8 @@
 
 
-import {  useDispatch } from "react-redux";
-import {  updateFilterObject, type TTodo } from "../../store/todoSlice";
-import {  useState, type FormEvent, type InputEvent, type MouseEvent } from "react";
+import {  type TTodo } from "../../store/todoSlice";
+import {  type ChangeEvent } from "react";
 import FormFieldset from "../Widgets/Form/FormFieldset";
-import { useTodosState } from "../../hooks/todo";
 
 // return form with fields for title, priority and completed
 
@@ -15,27 +13,17 @@ import { useTodosState } from "../../hooks/todo";
 // app -> todos(todoArray) -> if todos sich andert, liste automatisch render wurde? wenn nichts, wir sollen es als props von App passen
 //update filterdata, updateTodo, bei updateTodo sollte sich array re render
 
-export default function TodoFilterForm () {
 
-    const { filterObject } = useTodosState();
-    const dispatch = useDispatch();
-    const initForm = {
-        title: filterObject.title ? filterObject.title : '',
-        priority: filterObject.priority ? filterObject.priority : 'low',
-        completed: filterObject.completed ? filterObject.completed : false,
-    }
-    const [{ title, completed, priority }, setForm ] = useState<Omit<TTodo, 'id'>>(initForm);
+export default function TodoFilterForm({ filter, setFilter }:{ filter: Partial<TTodo>, setFilter: React.Dispatch<React.SetStateAction<Partial<TTodo>>>}) {
+// mein filterObjekt ist in meine Store. Aber wie kann es prufen? Vielleikt custom selector useFilterObjekt, der filterObjekt von localStorage oder store greifst (nur am anfangs,) und es kann auch ein funktion geben, der filterObjekt aktualisierst und auch mein LocalStorage speicherst fur nachste (firstRender)
+// ns fur localstorage werde "r89-ls:filter"
+    const { title, completed, priority } = filter;
 
-    const handleChangeForm = (e: InputEvent<HTMLInputElement | HTMLSelectElement > | FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleChangeForm = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
-        setForm((prev) => ({...prev, [name]:value }));
-    }
-    const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        console.log(dispatch, 'dispatch')
-        dispatch(updateFilterObject({ title, completed, priority }));
+        setFilter((prev) => ({...prev, [name]:value }));
     }
 
 // setTitle setBoolean, setEnum, 
@@ -57,9 +45,6 @@ export default function TodoFilterForm () {
                     <option value={'low'}></option>
                 </select>
             </div>  
-            <div className="d-flex justify-content-end align-items-center">
-                <button className="btn btn-primary" onClick={handleSubmit}></button>
-            </div>
         </form>
     
   );
