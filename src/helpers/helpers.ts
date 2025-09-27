@@ -5,12 +5,14 @@ type Serializer<T> = {
 
 
 
-const JSONSerializer: Serializer<any> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const JSONSerializer: Serializer<any> = {
     serialize: (v) => JSON.stringify(v),
     deserialize: (s) => {
     try {
         return JSON.parse(s);
-    } catch (e) {
+    } catch (error) {
+        console.warn("setLocal error", error);
         return null;
     }
     },
@@ -32,16 +34,16 @@ type Stored<T> = {
 };
 
 
-function keyWithNs(ns: string | undefined, key: string) {
+export function keyWithNs(ns: string | undefined, key: string) {
     return ns ? `${ns}:${key}` : key;
 }
 
 
-function now() {
+export function now() {
     return Date.now();
 }
 
-function setLocalItem<T>(key: string, value: T, options?: LSOptions<T>): boolean {
+export function setLocal<T>(key: string, value: T, options?: LSOptions<T>): boolean {
         const serializer = options?.serializer ?? JSONSerializer;
         const ns = options?.ns;
         const ttl = options?.ttl || null; 
@@ -58,35 +60,34 @@ function setLocalItem<T>(key: string, value: T, options?: LSOptions<T>): boolean
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export function setLocal<T>(key: string, value: T, options?: LSOptions<T>) {
-const serializer = options?.serializer ?? JSONSerializer;
-const ttl = options?.ttl ?? null;
-const ns = options?.ns;
-const expiresAt = ttl ? now() + ttl : null;
-const payload: Stored<T> = { value, expiresAt };
-try {
-const raw = serializer.serialize(payload);
-localStorage.setItem(keyWithNs(ns, key), raw);
-// dispatch custom event for same-tab listeners
-window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns } }));
-return true;
-} catch (e) {
-console.warn("setLocal error", e);
-return false;
+export function getLocal<T>(key: string, options?: LSOptions<T>): T | null {
+  const serializer = options?.serializer ?? JSONSerializer;
+  const ns = options?.ns;
+  try {
+    const raw = localStorage.getItem(keyWithNs(ns, key));
+    if (raw === null) return null;
+    const parsed = serializer.deserialize(raw) as Stored<T> | null;
+    if (!parsed) return null;
+    if (parsed.expiresAt && parsed.expiresAt <= now()) {
+      // expired
+      localStorage.removeItem(keyWithNs(ns, key));
+      return null;
+    }
+    return parsed.value;
+  } catch (e) {
+    console.warn("getLocal error", e);
+    return null;
+  }
 }
+
+export function removeLocal(key: string, options?: { ns?: string }) {
+  const ns = options?.ns;
+  try {
+    localStorage.removeItem(keyWithNs(ns, key));
+    window.dispatchEvent(new CustomEvent("r89:local-storage", { detail: { key, ns } }));
+    return true;
+  } catch (e) {
+    console.warn("removeLocal error", e);
+    return false;
+  }
 }
