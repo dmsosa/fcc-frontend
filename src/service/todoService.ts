@@ -148,9 +148,11 @@ export function todoMatchFilter(filter: Partial<TTodo>, todo: TTodo): boolean {
           if (!todo.title.toLowerCase().startsWith(filterTitle.toLowerCase())) {
             match = false;
           }
-        }
-        else if (todo[prop as keyof TTodo] !== filter[prop as keyof TTodo]) {
-            match = false;
+        } else if (prop && filter[prop as keyof TTodo] !== undefined) {
+            if (todo[prop as keyof TTodo] !== filter[prop as keyof TTodo]) {
+              console.log('prop', prop, filter[prop as keyof TTodo])
+              match = false;
+            }
         }
     })
     return match;

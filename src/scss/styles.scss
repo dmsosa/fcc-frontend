@@ -79,6 +79,8 @@ body {
 }
 main {
     width: 100vw;
+    max-height: 100vh;
+    overflow: scroll;
 }
 section {
     width: 100%;

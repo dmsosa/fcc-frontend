@@ -1,8 +1,10 @@
 
 
 import {  type TTodo } from "../../store/todoSlice";
-import {  type ChangeEvent } from "react";
+import {  useState, type ChangeEvent } from "react";
 import FormFieldset from "../Widgets/Form/FormFieldset";
+import { useTodoArrayWithFilter } from "../../hooks/todo";
+import { Checkbox } from "../Widgets/Form/Checkbox";
 
 // return form with fields for title, priority and completed
 
@@ -14,16 +16,28 @@ import FormFieldset from "../Widgets/Form/FormFieldset";
 //update filterdata, updateTodo, bei updateTodo sollte sich array re render
 
 
-export default function TodoFilterForm({ filter, setFilter }:{ filter: Partial<TTodo>, setFilter: React.Dispatch<React.SetStateAction<Partial<TTodo>>>}) {
-// mein filterObjekt ist in meine Store. Aber wie kann es prufen? Vielleikt custom selector useFilterObjekt, der filterObjekt von localStorage oder store greifst (nur am anfangs,) und es kann auch ein funktion geben, der filterObjekt aktualisierst und auch mein LocalStorage speicherst fur nachste (firstRender)
-// ns fur localstorage werde "r89-ls:filter"
-    const { title, completed, priority } = filter;
+export default function TodoFilterForm() {
+    // Wenn mein filterObjekt ist in meine LocalStorage, dann greife es. Aber wie kann es prufen? Vielleikt custom selector useFilterObjekt, der filterObjekt von localStorage oder store greifst (nur am anfangs,) und es kann auch ein funktion geben, der filterObjekt aktualisierst und auch mein LocalStorage speicherst fur nachste (firstRender)
+    // ns fur localstorage werde "r89-ls:filter"
+    const { filter, setFilter } = useTodoArrayWithFilter({});
+    const [{ title, completed, priority }, setForm ] = useState<Partial<TTodo>>(filter);
+    const handleChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setForm((prev) => ({...prev, completed:!completed }));
+        setFilter((prev) => ({...prev, completed:!completed }));
+    }
 
     const handleChangeForm = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
-        setFilter((prev) => ({...prev, [name]:value }));
+        if (value === 'all') {
+            setFilter((prev) => ({...prev, priority: undefined }));
+            setForm((prev) => ({...prev, priority: undefined  }));
+        } else {
+            setFilter((prev) => ({...prev, [name]:value }));
+            setForm((prev) => ({...prev, [name]:value }));
+        } 
     }
 
 // setTitle setBoolean, setEnum, 
@@ -31,15 +45,21 @@ export default function TodoFilterForm({ filter, setFilter }:{ filter: Partial<T
         <form action="">
             <div className="d-flex justify-content-center align-items-center">
                 <FormFieldset 
-                id="title-input"
+                id="todo-filter-title"
                 name="title"
                 text="title"
                 type="text"
                 value={title ? title : ''}
                 handleChange={handleChangeForm}
                 />
-                <input type="checkbox" name="priority" id="priority" checked={completed} />
-                <select name="completed" id="completed-filter" onChange={handleChangeForm} value={priority}>
+                <Checkbox
+                value={completed as boolean}
+                name="completed"
+                id="todo-filter-completed"
+                handleChange={handleChangeCheckbox}
+                ></Checkbox>
+                <select name="priority" id="completed-filter" onChange={handleChangeForm} value={priority}>
+                    <option value={'all'}></option>
                     <option value={'high'}></option>
                     <option value={'mid'}></option>
                     <option value={'low'}></option>

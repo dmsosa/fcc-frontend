@@ -21,7 +21,7 @@ export function useTodoArrayWithFilter({ options, localStorageOptions }: TUseTod
 // if options, merge it with defualt op
     const defaultLocalStorageOptions: LSOptions<Partial<TTodo>> = { ns: undefined, ttl: 86400, serializer: undefined };
     
-    const [filter, setFilter ] = useLS<Partial<TTodo>>('filter', {}, localStorageOptions ?? defaultLocalStorageOptions);
+    const [ filter, setFilter ] = useLS<Partial<TTodo>>('filter', {}, localStorageOptions ?? defaultLocalStorageOptions);
     const { todoMap } = useSelector((state: RootState) => state.todo);
     const [ array, setArray ] = useState<TTodo[]>([]);
     const [ offset, setOffset ] = useState<number | undefined>(options?.offset);
@@ -32,7 +32,7 @@ export function useTodoArrayWithFilter({ options, localStorageOptions }: TUseTod
         setArray(applyFilterToTodoMap(filter, todoMap));
     }, [filter, todoMap]);
 
-    return ({ array: sliceArray(array, offset, limit), count: array.length, setOffset, setLimit, setFilter });
+    return ({ array: sliceArray(array, offset, limit), count: array.length, setOffset, setLimit, filter, setFilter });
 
 }
 

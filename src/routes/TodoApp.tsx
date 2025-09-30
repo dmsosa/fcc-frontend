@@ -1,30 +1,33 @@
 import { useState } from 'react';
 import AddTodo from '../components/TodoApp.tsx/AddTodo';
-import TodoDeleteModal from '../components/TodoApp.tsx/UniversalDeleteModal';
-import TodoEditorModal from '../components/TodoApp.tsx/TodoEditorModal';
-import  TodoList  from '../components/TodoApp.tsx/TodoList';
-import ArrayPagination from '../components/Widgets/ArrayPagination';
 import { createStrictContext } from '../context/createStrictContext';
-import { useTodoArrayWithFilter } from '../hooks/todo';
+import TodoAppModals from '../components/TodoApp.tsx/TodoAppModals';
+import TodoArray from '../components/TodoApp.tsx/TodoArray';
+import TodoFilterForm from '../components/TodoApp.tsx/TodoFilterForm';
 
-type TModalContext = {
+export type TTodoAppContext = {
     editModalShow: boolean;
     setEditModalShow: React.Dispatch<React.SetStateAction<boolean>>;
     deleteModalShow: boolean;
     setDeleteModalShow: React.Dispatch<React.SetStateAction<boolean>>;
+    targetId: number | undefined;
+    setTargetId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
-export const  [ useModalContext, ModalContextProvider ] = createStrictContext<TModalContext>()
+export const  [ useTodoModalContext, ModalContextProvider ] = createStrictContext<TTodoAppContext>()
 
 export default function TodoApp () {
 
-        const { array, count, setOffset } = useTodoArrayWithFilter({ options: { offset: 0, limit: 3}});
-        const handlePageChange = (selectedItem: { selected: number; }) => {
-            setOffset(selectedItem.selected);
-        }
+
+
+
+        // Init ModalContext
         const [ editModalShow, setEditModalShow ] = useState<boolean>(false);
         const [ deleteModalShow, setDeleteModalShow ] = useState<boolean>(false);
+        const [ targetId, setTargetId ] = useState<number | undefined>(undefined);
+
 
     return (
+        <ModalContextProvider value={{ editModalShow, setEditModalShow, deleteModalShow, setDeleteModalShow, targetId, setTargetId }}>
         <section >
             <div className='container'>
                 <div className="row">
@@ -33,22 +36,22 @@ export default function TodoApp () {
                     <br></br>
                 </div>
                 <div className="row bg-2">
-                    <AddTodo/>
+                    <div>
+                        <AddTodo/>
+                        <TodoFilterForm></TodoFilterForm>
+                    </div>
+                    
                     <hr />
-                    <TodoList array={array} />
-                    <ArrayPagination count={Math.ceil(count / 3)} handlePageChange={handlePageChange}/>
+                    <TodoArray/>
                 </div>
                 <div className="row">
                     <p className='text-center'>Lass mich wissen, ob es cool war!</p>
                 </div>
             </div>
-            <ModalContextProvider value={{ editModalShow, setEditModalShow, deleteModalShow, setDeleteModalShow }}>
-                <TodoEditorModal/>
-                <TodoDeleteModal/>
-            </ModalContextProvider>
+            <TodoAppModals></TodoAppModals>
 
         </section>
-    
+        </ModalContextProvider>
   );
 }
 

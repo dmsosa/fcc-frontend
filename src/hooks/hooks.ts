@@ -5,8 +5,9 @@ export function useLS<T>(key: string, initValue: T | (() => T), options?: LSOpti
     const ns = options?.ns;
     const mounted = useRef(false);
     const readValueLocal = (): T => {
-        const stored = getValueLocal<T>(key, options); 
-        return stored ?? typeof initValue === "function" ? (initValue as () => T)() : initValue;
+        const stored = getValueLocal<T>(key, options);
+        if (stored !== null) return stored;
+        return typeof initValue === "function" ? (initValue as () => T)() : initValue;
     }
     const [ value, setValue ] = useState<T>(readValueLocal());
 
