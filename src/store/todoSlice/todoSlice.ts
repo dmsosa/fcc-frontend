@@ -74,8 +74,29 @@ const todoSlice = createSlice({
             state.filterObject.completed = action.payload.completed;
             state.filterObject.priority = action.payload.priority;
         }
+    },
+    selectors: {
+        selectTodoModals: ((state: TTodoState): Pick<TTodoState, "editorMode" | "deleteMode" | "targetId"> => {
+            const { editorMode, deleteMode, targetId } = state;
+            return ({ editorMode, deleteMode, targetId });
+        }),
+        selectTodos: ((state: TTodoState): Pick<TTodoState, "todoMap" | "todoIds" | "todoArray"> => {
+            const { todoMap, todoIds, todoArray } = state;
+            return ({ todoMap, todoIds, todoArray });
+        }),
+        selectTodoById: ((state: TTodoState, id: number): TTodo | null => {
+            const { todoMap } = state;
+            return todoMap[id];
+        }),
     }
 });
+
+export const  { selectTodoModals, selectTodos, selectTodoById } = todoSlice.selectors;
+
 export const { postTodo, toggleTodo, deleteTodo, putTodo, toggleEditorMode, toggleDeleteMode, setTargetId, updateFilterObject, updateArray } = todoSlice.actions;
 
 export default todoSlice;
+
+//service kummerte sich nicht an ids
+//aber dieses Slice kann mich ein todo bei Id geben
+//mit ein gegebenes Id, es werde der Map greifen und todos geben

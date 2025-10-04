@@ -9248,6 +9248,10 @@ progress {
   filter: grayscale(50%);
 }
 
+footer {
+  height: 100vh;
+}
+
 .content.hero {
   position: relative;
   grid-column: 1/4;
@@ -9954,6 +9958,7 @@ index-1 {
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -9963,6 +9968,7 @@ body {
 }
 
 .app-wrapper {
+  height: 100vh;
   display: block;
   height: 100vh;
 }
@@ -9971,9 +9977,22 @@ main {
   width: 100vw;
 }
 
+.scroll-snap {
+  overflow: hidden scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-stop {
+  scroll-snap-stop: always;
+  scroll-snap-align: start;
+}
+
 section {
   width: 100%;
+  height: 100vh;
   padding-top: var(--header-height);
+  scroll-snap-align: start;
 }
 
 p {
@@ -10579,6 +10598,12 @@ input[type=checkbox]::before {
 
 input[type=checkbox]:checked::before {
   transform: scale(1);
+}
+
+.section-nav {
+  position: fixed;
+  right: 3rem;
+  bottom: 1rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

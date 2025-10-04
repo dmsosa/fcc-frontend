@@ -36,6 +36,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 // 9. components
 @import "./components/header";
+@import "./components/hero";
 @import "./components/projekt";
 @import "./components/footer";
 @import "./components/home";
@@ -65,6 +66,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 }
 html {
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -74,15 +76,27 @@ body {
  
 }
 .app-wrapper {
+    height: 100vh;
     display: block;
     height: 100vh;
 }
 main {
     width: 100vw;
 }
+.scroll-snap {
+    overflow: hidden scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+.scroll-stop {
+    scroll-snap-stop: always;
+    scroll-snap-align: start;
+}
 section {
     width: 100%;
+    height: 100vh;
     padding-top: var(--header-height);
+    scroll-snap-align: start;
 }
 p {
     font-weight: 300; 
@@ -641,6 +655,11 @@ input[type="checkbox"]:checked::before {
         transform: scale(1);
     }
 
+.section-nav {
+    position: fixed;
+    right: 3rem;
+    bottom: 1rem;
+}
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS

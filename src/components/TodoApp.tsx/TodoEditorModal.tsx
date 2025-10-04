@@ -1,14 +1,14 @@
 
 
 import { useDispatch} from "react-redux";
-import { putTodo, toggleDeleteMode, toggleEditorMode, toggleTodo, useTodosState, type TTodo } from "../../store/todoSlice";
+import { putTodo, selectTodoById, selectTodoModals, toggleDeleteMode, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
-import { getTodoById } from "../../service/todoService";
+import store from "../../store/store";
 
 export default function TodoEditorModal () {
 
-    const { editorMode, targetId } = useTodosState();
+    const { editorMode, targetId } = selectTodoModals(store.getState());
     const dispatch = useDispatch();
 
     const [show, setShow ] = useState<boolean>(editorMode);
@@ -16,7 +16,7 @@ export default function TodoEditorModal () {
 
     useEffect(() => {
         if (!targetId) return;
-        const targetTodo = getTodoById(targetId);
+        const targetTodo = selectTodoById(store.getState(), targetId);
         if (!targetTodo) return;
         setForm({...targetTodo});
     }, [targetId]);

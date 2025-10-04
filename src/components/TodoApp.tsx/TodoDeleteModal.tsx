@@ -1,13 +1,14 @@
 import { useState } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
 import useToggler from "../../hooks/useToggler";
-import { deleteTodo, toggleDeleteMode, useTodosState } from "../../store/todoSlice";
+import { deleteTodo, selectTodoModals, toggleDeleteMode } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
+import store from "../../store/store";
 
 
 
 export default function TodoDeleteModal () {
-    const { deleteMode, targetId } = useTodosState();
+    const { deleteMode, targetId } = selectTodoModals(store.getState());
     const dispatch = useDispatch();
 
     const [show, setShow ] = useState<boolean>(deleteMode);

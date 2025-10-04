@@ -12,7 +12,7 @@ export default function TodoApp () {
             setOptions((prev) => ({...prev, offset: selectedItem.selected}))
         }
     return (
-        <section >
+        <section id='projekt'>
             <div className='container'>
                 <div className="row">
                     <h2>Free Code Camp: Todo App</h2>
