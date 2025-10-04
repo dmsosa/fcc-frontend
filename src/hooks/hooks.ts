@@ -1,39 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { getLocal, keyWithNs, removeLocal, setLocal, type LSOptions } from "../helpers/helpers";
+import { getValueLocal, setValueLocal, removeValueLocal, type LSOptions, keyWithNs } from "../helpers/helpers";
 
-
-// react-local-storage-helper.ts
-// A small, well-typed LocalStorage helper + React hook with TTL, namespacing and cross-tab sync.
-
-
-export function useLS<T>({ key, initValue, options } : { key: string, initValue: T | (() => T), options?: LSOptions<T>}) {
+export function useLS<T>(key: string, initValue: T | (() => T), options?: LSOptions<T>) : [ T, (v: T | ((prev: T) => T)) => void, () => void ] {
     const ns = options?.ns;
-    const mounted = useRef(false);
-
-    const readValueFromLS = () => {
-        const stored = getLocal<T>('key', options);
-        return stored ?? typeof initValue === 'function' ? (initValue as  () => T)() : initValue;
-    } 
-    const [ value, setValue ] = useState(readValueFromLS());
-
-    const setLS = (val: T | (() => T )) => {
-        try {
-            const newValue = val instanceof Function ? (val as (p: T) => T)(value) : val;
-            setLocal<T>(key, newValue, options);
-            // update local state immediately
-            setValue(newValue);
-
-        } catch (error) {
-            console.warn("useLocalStorage setValue error", error);
-        }
+    const mounted = useRef(false);
+    const readValueLocal = (): T => {
+        const stored = getValueLocal<T>(key, options);
+        if (stored !== null) return stored;
+        return typeof initValue === "function" ? (initValue as () => T)() : initValue;
     }
-    const rmLS = () => {
-        removeLocal('key', { ns: options?.ns });
-        //Zu initiales Zustand zurucksetzen
-        setValue(typeof initValue === "function" ? (initValue as () => T)() : initValue);
-    }
-    //zu Ereignisse reagieren
-    useEffect(() => {
+    const [ value, setValue ] = useState<T>(readValueLocal());
+
+  useEffect(() => {
     mounted.current = true;
 
     function handleStorageEvent(e: StorageEvent) {
@@ -41,15 +19,15 @@ export function useLS<T>({ key, initValue, options } : { key: string, initValue:
       const fullKey = keyWithNs(ns, key);
       if (e.key && e.key !== fullKey) return;
       // read latest
-      const latest = getLocal<T>(key, options);
-      if (latest === null) return setValue(readValueFromLS());
+      const latest = getValueLocal<T>(key, options);
+      if (latest === null) return setValue(readValueLocal());
       setValue(latest as T);
     }
 
     function handleCustomEvent() {
       // same-tab dispatch
-      const latest = getLocal<T>(key, options);
-      if (latest === null) return setValue(readValueFromLS());
+      const latest = getValueLocal<T>(key, options);
+      if (latest === null) return setValue(readValueLocal());
       setValue(latest as T);
     }
 
@@ -64,17 +42,26 @@ export function useLS<T>({ key, initValue, options } : { key: string, initValue:
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, ns]);
 
-  return [ value, setLS, rmLS ];
+    const setLS = (val: T | ((prev: T) => T)) => {
+        try {
+        const newValue = val instanceof Function ? (val as (p: T) => T)(value) : val;
+        setValueLocal<T>(key, newValue, options);
+        // update local state immediately
+        setValue(newValue);
+        } catch (e) {
+        console.warn("useLocalStorage setValue error", e);
+        }
+    };
+
+    const rmLS = () => {
+        try {
+            removeValueLocal(key, { ns });
+            // revert to initial
+            const init = typeof initValue === "function" ? (initValue as () => T)() : initValue;
+            setValue(init);
+        } catch (error) {
+            console.warn('useLocalStorage remove error', error);
+        }
+    }
+ return [value, setLS, rmLS ];
 }
-
-/*
-USAGE (short)
-
-import { useLocalStorage, setLocal, getLocal, removeLocal } from './react-local-storage-helper';
-
-const [token, setToken, removeToken] = useLocalStorage<string>('auth.token', '');
-
-setLocal('count', 0, { ttl: 1000 * 60 * 60, ns: 'my-app' });
-const count = getLocal<number>('count', { ns: 'my-app' });
-
-*/

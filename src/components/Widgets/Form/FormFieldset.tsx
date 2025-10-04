@@ -1,3 +1,4 @@
+import type { ChangeEvent } from "react";
 import { Checkbox } from "./Checkbox";
 
 interface IFormFieldsetProps {
@@ -6,7 +7,7 @@ interface IFormFieldsetProps {
     id: string;
     value: boolean | string | number;
     text: string;
-    handleChange?: (e: React.FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> ) => void;
+    handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => void;
 }
 
 export default function FormFieldset({ type, name, id, value, text, handleChange}: IFormFieldsetProps) {

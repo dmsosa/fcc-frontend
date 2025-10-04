@@ -1,17 +1,24 @@
+import { useState } from 'react';
 import AddTodo from '../components/TodoApp.tsx/AddTodo';
-import TodoDeleteModal from '../components/TodoApp.tsx/TodoDeleteModal';
-import TodoEditorModal from '../components/TodoApp.tsx/TodoEditorModal';
+import TodoAppModals from '../components/TodoApp.tsx/TodoAppModals';
+import TodoArray from '../components/TodoApp.tsx/TodoArray';
 import TodoFilterForm from '../components/TodoApp.tsx/TodoFilterForm';
-import  TodoList  from '../components/TodoApp.tsx/TodoList';
-import ArrayPagination from '../components/Widgets/ArrayPagination';
-import { useArray, useTodosState } from '../hooks/todo';
+import { TodoContextProvider } from '../context/todoAppContext';
+
+
 export default function TodoApp () {
-        const { filterObject } = useTodosState();
-        const { array, count, setOptions } = useArray({ filterObject });
-        const handlePageChange = (selectedItem: { selected: number; }) => {
-            setOptions((prev) => ({...prev, offset: selectedItem.selected}))
-        }
+
+
+
+
+    // Init ModalContext
+    const [ editModalShow, setEditModalShow ] = useState<boolean>(false);
+    const [ deleteModalShow, setDeleteModalShow ] = useState<boolean>(false);
+    const [ targetId, setTargetId ] = useState<number | undefined>(undefined);
+
+
     return (
+        <TodoContextProvider value={{editModalShow, deleteModalShow, targetId, setEditModalShow, setDeleteModalShow, setTargetId}}>
         <section id='projekt'>
             <div className='container'>
                 <div className="row">
@@ -20,20 +27,22 @@ export default function TodoApp () {
                     <br></br>
                 </div>
                 <div className="row bg-2">
-                    <AddTodo/>
+                    <div>
+                        <AddTodo/>
+                        <TodoFilterForm></TodoFilterForm>
+                    </div>
+                    
                     <hr />
-                    <TodoFilterForm/>
-                    <TodoList array={array} />
-                    <ArrayPagination count={count} handlePageChange={handlePageChange}/>
+                    <TodoArray/>
                 </div>
                 <div className="row">
                     <p className='text-center'>Lass mich wissen, ob es cool war!</p>
                 </div>
             </div>
-            <TodoEditorModal/>
-            <TodoDeleteModal/>
+            <TodoAppModals></TodoAppModals>
         </section>
-    
+        </TodoContextProvider>
+
   );
 }
 
