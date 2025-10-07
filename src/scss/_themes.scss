@@ -1,5 +1,5 @@
 $theme-light: (
-    bg: $light,
+    bg1: $light,
     bg2: $light2,
     bg3: $light3,
     border: $dark3,
@@ -22,7 +22,7 @@ $theme-light: (
     )
 );
 $theme-dark: (
-    bg: $dark,
+    bg1: $dark,
     bg2: $dark2,
     bg3: $dark3,
     border-color: $dark3,
@@ -44,4 +44,38 @@ $theme-dark: (
         stroke: $light
     )
 );  
+
+//Themen fur die Nutzung von themifyProp
+$tLight: (
+    bgPrimary: $light,
+    bgSecondary: $gray-200,
+    borderPrimary: $green-400,
+    borderSecondary: $green-300,
+    colorPrimary: $green-800,
+    colorSecondary: $blue-400,
+    linkHoverBgPrimary: $info,
+    linkHoverColorPrimary: $green,
+    linkHoverBgSecondary: $green,
+    linkHoverColorSecondary: $info,
+
+);  
+
+$tDark: (
+    bgPrimary: $dark,
+    bgSecondary: $gray-900,
+    borderPrimary: $green,
+    borderSecondary: $orange-400,
+    colorPrimary: $light,
+    colorSecondary: $green-400,
+    linkHoverBgPrimary: $info,
+    linkHoverColorPrimary: $green,
+    linkHoverBgSecondary: $green,
+    linkHoverColorSecondary: $info,
+
+);  
+
+//Alle themeValue generieren
+$themeNames: ();
+$themeValues: ();
+$themeMappings: ('light': $tLight, 'dark': $tDark);
 

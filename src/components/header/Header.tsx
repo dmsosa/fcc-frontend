@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BrandLogo from "./BrandLogo";
+import BrandLogo from "../Widgets/BrandLogo";
 import DropdownButton from "./DropdownButton";
 import DropdownMenu from "./DropdownMenu";
 
@@ -8,7 +8,7 @@ export default function Header () {
   return (
     <header id='header' className="header">
         <nav className="nav-wrapper">
-            <BrandLogo></BrandLogo>
+            <BrandLogo expanded></BrandLogo>
             <DropdownButton show={show} setShow={setShow}></DropdownButton>
             <DropdownMenu  show={show} />
         </nav>

@@ -12,7 +12,11 @@ export default function ArrayPagination ({ count, handlePageChange }: { count: n
         pageCount={count}
         previousLabel="<"
         renderOnZeroPageCount={null}
-        className='pagee'
+        className='pagination-ul'
+        pageClassName="pagination-li"
+        activeClassName="active"
+        nextClassName="next"
+        previousClassName="prev"
         >
         </ReactPaginate>
     

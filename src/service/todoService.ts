@@ -1,6 +1,7 @@
 import store from "../store/store";
 import { type TTodo } from "../store/todoSlice"
 
+
 export const staticTodoMap: { [id:number] : TTodo} = {
     1: {
   "id": 1,

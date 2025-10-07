@@ -3,7 +3,7 @@ import { type TTodo, type TTodoState } from "../../store/todoSlice";
 import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { useLS } from "../hooks";
-import { sliceArray, type LSOptions } from "../../helpers/helpers";
+import { sliceArray, type LSOptions } from "../../helpers/localStorage";
 import { applyFilterToTodoMap } from "../../service/todoService";
 
 export type TUseTodoArrayProps = {

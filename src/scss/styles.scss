@@ -34,48 +34,50 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
 
-// 9. components
-@import "./components/header";
-@import "./components/projekt";
-@import "./components/footer";
-@import "./components/home";
-
-@import "./components/markdown";
-@import "./components/drum";
-
+// 9. themes init and setup
+//utils & functions
+@import "./utils";
+@import "./functions";
 
 //themes
 @import "./themes";
 
 // //mixins
 @import "./mixins";
-// @import "./mixins/mixins";
 
-//utils 
-@import "./utils";
-// //keyframes
-// @import "./keyframes/keyframes";
+
+// @import "./keyframes";
 
 
 //Code
+//Default Farben, wenn kein Theme ausgewahlt ist 
+@include initThemeValues;
+@include initThemeVariables;
+
+
+
 :root {
     --header-height: 4rem;
     --footer-height: 100vh;
     --backdrop-blur: 0.6rem;
+    --border-width: 0.25rem;
+    
 }
 html {
     font-size: 16px;
+
 }
 
 body {
     height: 100vh;
     overflow: hidden;
     font-family: 'HerculesPixel', sans-serif;
- 
 }
 .app-wrapper {
     display: block;
     height: 100vh;
+    @include themifyProp('background-color', 'bgPrimary');
+    @include themifyProp('color', 'colorPrimary');
 }
 main {
     width: 100vw;
@@ -90,6 +92,12 @@ p {
     font-weight: 300; 
     font-size: 0.8rem;
 }
+
+.scrolled {
+    transform: translateY(-2.780rem) !important;
+}
+
+
 .btn-outline {
     background-color: transparent !important;
     border-width: 0.225rem;
@@ -99,64 +107,20 @@ p {
     }
 }
 
-.no-scroll {
-    overflow: hidden !important;
-}
-.show {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-.hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-a {
+.link {
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
     color: inherit;
 }
-.section:not([data-section='footer']),.section-2 { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 1.5rem;
-} 
-
-h1 + span {
-    display: block;
-    font-size: 1rem;
-    text-align: center;
+.svg-link {
     width: 100%;
-    margin: 0 auto;
-    margin-top: 2.25rem;
+    height: 100%;
+    cursor: pointer;
+    transition: stroke 0.2s ease, fill 0.2s ease;
+    color: inherit;
+    stroke: inherit;
+    fill: inherit;
 }
-
-ul.icon-ul {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    li.icon-li {
-        margin-right: 1rem;
-        &:last-child {
-            margin-right: 0;
-        }
-    }    
-}
-.icon {
-    width: 2.8rem;
-    margin: 0 auto;
-    stroke-dasharray: 132;
-    stroke-dashoffset: 0;
-}
-
-
-
-  
-@include themify("theme-light", $theme-light);
-@include themify("theme-dark", $theme-dark);
-
 
 
 
@@ -214,29 +178,10 @@ ul.icon-ul {
 // ::-webkit-scrollbar-track-piece the track (progress bar) NOT covered by the handle.
 // ::-webkit-scrollbar-corner the bottom corner of the scrollbar, where both horizontal and vertical scrollbars meet.
 // ::-webkit-resizer the draggable resizing handle that appears at the bottom corner of some elements.
-//Dashboard 
-
 
 
 //Widgets
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    cursor: pointer;
-    text-decoration: none;
-    &:hover {
-    color: $primary !important;
-    }
-    span {
-        color: inherit;
-        transition: color 0.2s ease;
-    }
-    img {
-        max-width: 100%;
-    }
-}
+
 
 .nav-links {
     display: flex;
@@ -255,15 +200,11 @@ ul.icon-ul {
         &:hover {
             background-color: #999;
         }
-        a.link {
+        a {
             text-decoration: none;
-            transition: color 0.2s ease;
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            &:hover {
-                color: $primary;
-            }
             &[aria-expanded="true"] {
                 span {
                     display: block;
@@ -277,59 +218,11 @@ ul.icon-ul {
     }
 }
 
-
-.ul-item {
-    list-style: none;
-    width: fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    li {
-        padding: 0.25rem;
-        cursor: pointer;
-        border: solid 0.125rem;
-        border-color: $light;
-        background-color: transparent;
-        transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, ;
-        &:not(:first-child) {
-            margin-left: 0.7rem;
-        }
-        &.active, &:hover, &:focus {
-            background-color: $primary;
-            border-color: $secondary;
-            color: $dark;
-        }
-
-        &.li-primary {
-            background-color: $primary;
-            border-color: $primary;
-            color: $dark;
-
-        }
-        &.li-secondary {
-            border: solid $primary 0.125rem;
-        }
-        a {
-            text-decoration: none;
-            transition: color 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            &:hover {
-                color: $primary;
-            }
-        }
-    }
-}
-
 .link {
-    text-decoration: none;
     transition: color 0.4s;
+    color: inherit;
     &:hover {
-        color: $primary !important;
+        @include themifyProp('color', 'linkHoverColorPrimary');
     }
 }
 .avatar {
@@ -351,7 +244,6 @@ ul.icon-ul {
         width: 100%;
         transition: background-color 0.4s;
         max-width: 2.5rem;
-
         &:hover {
             background-color: #555;
         }
@@ -359,40 +251,6 @@ ul.icon-ul {
     &--vertical {
         flex-direction: column !important;
         justify-content: center;
-    }
-}
-.input-wrap {
-    position: relative;
-    margin-top: 1.9rem;
-    label {
-        position: absolute;
-        top: 0.5rem;
-        left: 0.5rem;
-        font-size: 1rem;
-        color: $light3;
-        transition: color 0.4s ease, font-size 0.4s ease, top 0.4s ease, left 0.4s ease;
-    }
-    input, textarea {
-        width: 100%;
-        height: 100%;
-        padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-        background-color: transparent;
-        color: inherit;
-        border: none;
-        border-bottom: solid 0.125rem;
-        border-color: $light;
-        transition: all 0.4s ease;
-        &:not(:placeholder-shown),&:focus {
-            outline: none;
-            background-color: $dark3;
-            border-color: $primary;
-            & + label {
-                top: -1rem;
-                left: 0.5rem;
-                font-size: 0.8rem;
-                color: $primary;
-            }
-        }
     }
 }
 
@@ -406,14 +264,13 @@ ul.icon-ul {
         object-fit: cover;
         position: absolute;
         top: 0;
-        left: 50%;
+        left: 0;
         right: 0;
         bottom: 0;
         height: 100%;
         width: 100%;
-        /* object-position: center; */
-        transform: translate(-50%);
     }
+    //Bottom Linear gradient
     &::after {
         content: "";
         position: absolute;
@@ -423,96 +280,17 @@ ul.icon-ul {
         bottom: 0;
     }
 }
-
-ul.pagination {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.page-item {
-    padding: 0.5rem;
-    cursor: pointer;
-    border: solid 0.125rem;
-    background-color: transparent;
-    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, ;
-    &:not(:first-child) {
-        margin-left: 0.7rem;
-    }
-    &.active, &:hover {
-        background-color: $primary;
-        border-color: $secondary;
-        color: $dark;
-    }
-}
-
-.theme-toggler {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: 4.5rem ;
-    height: 2.5rem;
-    padding: 0.25rem;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    outline: none;
-    border: 0.125rem solid ;
-    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    background-color: $dark;
-    border-color: $light3;
-    &::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 1.8rem;
-        height: 75%;
-        margin: auto 0rem;
-        margin-left: 0.25rem;
-        border-radius: 100%;
-        background-color: $light;
-        transition: background-color 0.2s ease, margin-left 0.2s ease, margin-right 0.2s ease;
-    }
-    &.active {
-        background-color: $light;
-        color: $dark;
-        fill: $dark;
-        border-color: $dark;
-        &:hover {
-            fill: $warning;
-        }
-        &::before {
-            margin-left: 2.25rem;
-            background-color: $dark;
-        }
-    }
-    &:hover {
-        border-color: $primary;
-        background-color: #ccc;
-        fill: $blue-700;
-    }
-    svg {
-        fill: inherit;
-        transition: fill 0.2s ease;
-    }
-    &.dark {
-        color: $dark;
-        transform: rotate(180deg);
-        &:hover {
-            background-color: #1115;
-        }
-    }
-
-}
-
 .box {
-    border: 0.25rem solid;
-    position: relative;
+    border: solid var(--border-width);
+    @include themifyProp('background-color', 'bgTertiary');
+    @include themifyProp('border-color', 'borderPrimary');
+}
+.box-secondary {
+    @include themifyProp('background-color', 'bgTertiary');
+    @include themifyProp('border-color', 'borderSecondary');
+}
+
+.box-flex {
     display: flex;
     flex-direction: column;
 }
@@ -531,117 +309,9 @@ ul.pagination {
     position: relative;
     overflow: hidden scroll;
 }
-div.box-header > a > svg {
-    color: inherit;
-    font-size: 1.2rem;
-    transition: color 0.2s ease;
-    &:hover {
-        color: $primary;
-    }
-}
-
-.modal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba($color: #000000, $alpha: 0.4);
-    backdrop-filter: blur(var(--backdrop-blur));
-    transition: opacity 0.2 ease;
-}
-.modal.show {
-    opacity: 1;
-    z-index: 1000;
-}
-.modal.hide {
-    opacity: 0;
-    visibility: hidden;
-    z-index: -1;
-}
-.modal-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.modal-inner { 
-    height: fit-content;
-
-    transition: all 0.2s ease;
-}
-.modal.show .modal-inner {
-    transform: translateY(0);
-    opacity: 1;
-}
-.modal.hide .modal-inner {
-    transform: translateY(-100px);
-    opacity: 0;
-}
 
 
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1.2rem;
 
-}
-.checkbox-wrapper {
-  display: grid;
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.1;
-    cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: solid currentColor 0.25rem;
-  border-radius: $border-radius;
-  &--disabled {
-        cursor: default;
-        color: $btn-link-disabled-color;
-  }
-
-}
-input[type="checkbox"] {
-    /* Add if not using autoprefixer */
-  -webkit-appearance: none;
-  appearance: none;
-  /* For iOS < 15 to remove gradient background */
-  background-color: inherit;
-  /* Not removed via appearance */
-  margin: 0;
-    display: grid;
-    position: relative;
-  place-content: center;
-  font: inherit;
-  color: currentColor;
-    cursor: pointer;
-  width: 1.15em;
-  height: 1.15em; 
-  &:focus {
-    outline: max(2px, 0.15em) solid $link-color;
-    outline-offset: max(0.5px, 0.15em);
-  }
-  &:active {
-    background-color: rgba($link-color, $alpha: 0.5);
-  }
-  &::before {
-    content: "";
-    width: 1em;
-    height: 1em;
-    transform: scale(0);
-    margin-bottom: 0.25em;
-    margin-left: 0.25em;
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em currentColor;
-    transform-origin: bottom left;
-    clip-path: polygon(0 59%, 31% 100%, 86% 39%, 69% 27%, 34% 68%, 16% 45%);
-    }
-}
-input[type="checkbox"]:checked::before {
-        transform: scale(1);
-    }
 
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
@@ -655,15 +325,16 @@ input[type="checkbox"]:checked::before {
     
 }
 
-.c-select-container {
-    position: relative;
-    font-size: 1rem;
-    margin: 0 2rem;
-}
-.c-option {
-    padding: 0.25em 0.45em;
-    border: solid 0.125em;
-}
+// 10. components
 
-
+@import "./components/header";
+@import "./components/home";
+@import "./components/footer";
+@import "./components/nav";
+@import "./components/inputs";
+@import "./components/lists";
+@import "./components/modals";
+@import "./components/widgets";
+@import "./components/markdown";
+@import "./components/drum";
 

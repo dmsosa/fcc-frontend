@@ -25,3 +25,50 @@
         }
     }
 }
+@import './_themes';
+@import './_functions';
+
+//Alle registrierte themen fur prop laufen.
+// Hier nutze ich kein themeMap direkt.
+@mixin themifyProp($prop, $key, $extra: null) {
+    @each $themeName, $themeMap in $themeMappings {
+        @if themeExists($key, $themeName) {
+            $value: getThemeValue($key, $themeName);
+            .theme-#{$themeName} & {
+                #{$prop}: #{$extra} #{$value}; 
+                #{$prop}: #{$extra} var(--themeConfig-#{themeName}-#{$key}, #{$value});
+            }
+        }
+    }
+}
+
+
+//fur jeder prop auf themeProps, themeMap
+//worher die props kommen?
+
+@mixin initThemeValues() {
+    //erstellst der neuer ThemeProperty, falls es noch nicht existiert
+    @each $themeName, $themeMap in $themeMappings {
+        //creates/adds to list of theme names
+        $themeNames: append($themeNames, $themeName)  !global;
+        @each $key, $value in $themeMap {
+             @if not map-has-key($themeValues, $key) {
+                $themeValues: map-merge($themeValues, ($key: ($themeName: $value))) !global;
+             } @else {
+                $keyMap: map-get($themeValues, $key);
+                @if not map-has-key($keyMap, $themeName) {
+                    $keyMap: map-merge($keyMap, ($themeName: $value));
+                    $themeValues: map-merge($themeValues, ($key: $keyMap)) !global;
+                }
+             }
+        }
+    }
+}
+
+//init themeVariables
+
+@mixin initThemeVariables() {
+    @each $themeName, $themeMap in $themeMappings {
+
+    }
+}

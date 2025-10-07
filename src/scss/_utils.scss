@@ -1,4 +1,16 @@
 
+.no-scroll {
+    overflow: hidden !important;
+}
+.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
 .container-1 {
     background-color: $dark;
 }
@@ -48,6 +60,16 @@
 
 .list-style-none {
     list-style: none !important;
+}
+.li-margin-vertical {
+    &:not(:last-child) {
+        margin-bottom: 0.25rem;
+    }
+}
+.li-margin-horizontal {
+    &:not(:last-child) {
+        margin-right: 0.25rem;
+    }
 }
 .h1 {
     font-size: 3.15rem;

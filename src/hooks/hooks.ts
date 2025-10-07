@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getValueLocal, setValueLocal, removeValueLocal, type LSOptions, keyWithNs } from "../helpers/helpers";
+import { getValueLocal, keyWithNs, removeValueLocal, setValueLocal, type LSOptions } from "../helpers";
 
 export function useLS<T>(key: string, initValue: T | (() => T), options?: LSOptions<T>) : [ T, (v: T | ((prev: T) => T)) => void, () => void ] {
     const ns = options?.ns;
