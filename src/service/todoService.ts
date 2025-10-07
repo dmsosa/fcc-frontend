@@ -1,4 +1,3 @@
-import store from "../store/store";
 import { type TTodo } from "../store/todoSlice"
 
 
@@ -120,25 +119,11 @@ export const staticTodoMap: { [id:number] : TTodo} = {
 
 export const staticTodoIds : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
-export const getTodoState = () => store.getState().todo;
-export const getTodoIds = (): number[] =>
-  getTodoState() ? getTodoState().todoIds : []
 
-export const getTodoById = (id: number): TTodo | null  => {    
-    const state = getTodoState();
-    return state ? { ...state.todoMap[id], id } : null
-}
-
-export const applyFilterToTodoMap = ( filter: Partial<TTodo>, todoMap: { [id:number] : TTodo} ): TTodo[] => {
-    const todos = [];
+export const getTodosWithFilter = ( ): TTodo[] => {
     //For each todo, check if equals das FilterObjekt, 
-    for (const todo of Object.values(todoMap)) {
-        //Zweittes Loop fur jeder prop unseres filter
-        if (todoMatchFilter(filter, todo)) {
-            todos.push(todo);
-        } else continue;
-      }
-    return todos;
+    console.log('mock todos call')
+    return [];
 }
 
 export function todoMatchFilter(filter: Partial<TTodo>, todo: TTodo): boolean {

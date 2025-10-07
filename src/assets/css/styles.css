@@ -9513,6 +9513,7 @@ body {
 }
 
 .app-wrapper {
+  height: 100vh;
   display: block;
   height: 100vh;
 }
@@ -9539,9 +9540,22 @@ main {
   overflow: scroll;
 }
 
+.scroll-snap {
+  overflow: hidden scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-stop {
+  scroll-snap-stop: always;
+  scroll-snap-align: start;
+}
+
 section {
   width: 100%;
+  height: 100vh;
   padding-top: var(--header-height);
+  scroll-snap-align: start;
 }
 
 p {
@@ -9627,7 +9641,7 @@ p {
   border-color: #555 transparent transparent transparent;
 }
 
-.nav-links {
+.nav-ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -9635,27 +9649,27 @@ p {
   padding: 0;
   margin: 0;
 }
-.nav-links li {
+.nav-ul li {
   padding: 0.35rem;
   border-radius: 5px;
   transition: background-color 0.2s ease;
 }
-.nav-links li:not(:last-child) {
+.nav-ul li:not(:last-child) {
   margin-right: 0.5rem;
 }
-.nav-links li:hover {
+.nav-ul li:hover {
   background-color: #999;
 }
-.nav-links li a {
+.nav-ul li a {
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
-.nav-links li a[aria-expanded=true] span {
+.nav-ul li a[aria-expanded=true] span {
   display: block;
 }
-.nav-links li a span {
+.nav-ul li a span {
   display: none;
   color: inherit;
 }
@@ -9769,6 +9783,12 @@ p {
   flex: 1 1 100%;
   position: relative;
   overflow: hidden scroll;
+}
+
+.section-nav {
+  position: fixed;
+  right: 3rem;
+  bottom: 1rem;
 }
 
 .header {
@@ -9892,6 +9912,10 @@ p {
     right: 0%;
   }
 }
+footer {
+  height: 100vh;
+}
+
 .nav-wrapper {
   background-color: inherit;
   padding: 0.5rem 1.5rem;

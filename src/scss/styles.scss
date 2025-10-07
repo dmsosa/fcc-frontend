@@ -65,7 +65,6 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 }
 html {
     font-size: 16px;
-
 }
 
 body {
@@ -74,6 +73,7 @@ body {
     font-family: 'HerculesPixel', sans-serif;
 }
 .app-wrapper {
+    height: 100vh;
     display: block;
     height: 100vh;
     @include themifyProp('background-color', 'bgPrimary');
@@ -84,9 +84,20 @@ main {
     max-height: 100vh;
     overflow: scroll;
 }
+.scroll-snap {
+    overflow: hidden scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+.scroll-stop {
+    scroll-snap-stop: always;
+    scroll-snap-align: start;
+}
 section {
     width: 100%;
+    height: 100vh;
     padding-top: var(--header-height);
+    scroll-snap-align: start;
 }
 p {
     font-weight: 300; 
@@ -183,7 +194,7 @@ p {
 //Widgets
 
 
-.nav-links {
+.nav-ul {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -313,6 +324,11 @@ p {
 
 
 
+.section-nav {
+    position: fixed;
+    right: 3rem;
+    bottom: 1rem;
+}
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS
 // MEDIA QUERYS MEDIA QUERYSMEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS MEDIA QUERYS

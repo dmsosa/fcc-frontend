@@ -12,12 +12,14 @@ export type TTodo = {
 export type TTodoState = {
     todoMap: { [id:number] : TTodo};
     todoIds: number[];
+    todoArray: TTodo[];
 };
 const initialState: TTodoState = {
     todoMap: staticTodoMap,
     todoIds: staticTodoIds,
+    todoArray: []
 }
-var nextTodoId = 0;
+let nextTodoId = 0;
 
 const todoSlice = createSlice({
     name: 'todo',
@@ -45,9 +47,15 @@ const todoSlice = createSlice({
             const target = state.todoMap[action.payload.id];
             const {title, completed, priority} = action.payload.form;            
             state.todoMap = {...state.todoMap, [target.id]: {...target, title, priority, completed} };
-        }
-    }
+        },
+    },
 });
+
+
 export const { postTodo, toggleTodo, deleteTodo, putTodo } = todoSlice.actions;
 
 export default todoSlice;
+
+//service kummerte sich nicht an ids
+//aber dieses Slice kann mich ein todo bei Id geben
+//mit ein gegebenes Id, es werde der Map greifen und todos geben

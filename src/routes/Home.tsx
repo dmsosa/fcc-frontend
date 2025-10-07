@@ -1,4 +1,6 @@
-import ProjektKarte, { karteArray, type TProjektKarte } from '../components/Home/ProjektKarte';
+import type { TProjektKarte } from "../components/home/ProjektKarte";
+import ProjektKarte, { karteArray } from "../components/home/ProjektKarte";
+
 export default function Home () {
     
     return (

@@ -1,5 +1,5 @@
-import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
+import Header from './components/Header/Header'
 import { Outlet } from 'react-router'
 import { createStrictContext } from './context/createStrictContext'
 import { useEffect, useState, type SetStateAction } from 'react';
@@ -12,6 +12,8 @@ export type TThemeContext = {
 }
 export const [ useThemeContext, ThemeContextProvider ] = createStrictContext<TThemeContext>();
 
+import SectionButtons from './components/Widgets/SectionButtons'
+import HeroSection from './components/Hero/HeroSection'
 
 function App() {
   const isDarkMode = window?.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
@@ -31,9 +33,12 @@ function App() {
     <div id='app-wrapper' className='app-wrapper'>
       <Header></Header>
       <main>
+        <HeroSection></HeroSection>
         <Outlet></Outlet>
+        <section id='beschreibung' className='100vh bg-primary'></section>
       </main>
       <Footer></Footer>
+      <SectionButtons></SectionButtons>
     </div>
     </ThemeContextProvider>
   )
