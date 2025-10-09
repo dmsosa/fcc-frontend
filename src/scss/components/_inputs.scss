@@ -108,3 +108,10 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked::before {
         transform: scale(1);
     }
+
+    //Custom select
+
+.cs-search {
+    position: absolute;
+    top: 0;
+}

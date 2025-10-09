@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { type TTodo, type TTodoState } from "../../store/todoSlice";
 import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
-import { useLS } from "../hooks";
+import { useLS } from "../localStorage";
 import { sliceArray, type LSOptions } from "../../helpers/localStorage";
 import { applyFilterToTodoMap } from "../../service/todoService";
 

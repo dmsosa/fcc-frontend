@@ -10163,6 +10163,11 @@ input[type=checkbox]:checked::before {
   transform: scale(1);
 }
 
+.cs-search {
+  position: absolute;
+  top: 0;
+}
+
 ul.icon-ul {
   padding: 0;
   list-style: none;

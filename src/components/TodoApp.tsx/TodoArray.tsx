@@ -1,5 +1,5 @@
 
-import { useTodoArrayWithFilter } from "../../hooks/todo";
+import { useTodoArrayWithFilter } from "../../hooks";
 import ArrayPagination from "../Widgets/ArrayPagination";
 import TodoKarte from "./TodoKarte";
 
@@ -23,3 +23,5 @@ export default function TodoArray () {
      :
     <div><p>no results!</p></div>
 }
+
+//IST OFFSET LOKAL ODER IMMER MIT HOOK GESETZT?

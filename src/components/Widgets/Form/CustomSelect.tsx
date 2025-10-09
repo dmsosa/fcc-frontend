@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, type KeyboardEventHandler } from 'react';
+import React, { useState, useRef, useEffect, type KeyboardEventHandler, type MouseEvent } from 'react';
 
 export type Option<T = string> = {
   value: T;
@@ -63,14 +63,14 @@ export default function CustomSelect<T = string>(props: CustomSelectProps<T>) {
     else setHighlighted(-1);
   }, [open]);
 
-  useEffect(() => {
-    function onOutside(e: MouseEvent) {
-      if (!containerRef.current) return;
-      if (!containerRef.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener('mousedown', onOutside);
-    return () => document.removeEventListener('mousedown', onOutside);
-  }, []);
+//   useEffect(() => {
+//     function onOutside(e: MouseEvent<HTMLElement>) {
+//       if (!containerRef.current) return;
+//       if (!containerRef.current.contains(e.target as Node)) setOpen(false);
+//     }
+//     document.addEventListener('mousedown', onOutside);
+//     return () => document.removeEventListener('mousedown', onOutside);
+//   }, []);
 
   useEffect(() => {
     if (open && listRef.current && highlighted >= 0) {
@@ -79,8 +79,15 @@ export default function CustomSelect<T = string>(props: CustomSelectProps<T>) {
     }
   }, [highlighted, open]);
 
-  function toggleOpen() {
+  function toggleOpen(e: MouseEvent<HTMLButtonElement>) {
     if (disabled) return;
+    if (!open) {
+        const childInput = e.currentTarget.querySelector('input');
+        if (childInput) {
+        childInput.focus();
+
+        }
+    }
     setOpen(v => !v);
   }
 
@@ -121,7 +128,7 @@ export default function CustomSelect<T = string>(props: CustomSelectProps<T>) {
   }
 
   return (
-    <div ref={containerRef} className={`relative inline-block text-left ${className}`}>
+    <div ref={containerRef} className={`position-relative inline-block text-left ${className}`}>
       <div>
         <button
           id={id}
@@ -161,12 +168,13 @@ export default function CustomSelect<T = string>(props: CustomSelectProps<T>) {
           {searchable && (
             <div className="p-2">
               <input
+                id={`${id}-cs-search`}
                 autoFocus
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={onKeyDown}
                 placeholder="Search..."
-                className="w-full px-2 py-1 border rounded focus:outline-none"
+                className="cs-search"
                 aria-label="Search options"
               />
             </div>

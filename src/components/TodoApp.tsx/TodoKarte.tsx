@@ -58,6 +58,8 @@ export default function TodoKarte ({ todo }: { todo: TTodo } ) {
             value={priority}
             options={priorityOptions}
             onChange={handleCustomSelect}
+            placeholder="select..."
+            searchable
             >
             </CustomSelect>
         </div>
