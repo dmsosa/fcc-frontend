@@ -8,18 +8,21 @@ import { Checkbox } from "../Widgets/Form/Checkbox";
 import { useState, type ChangeEventHandler, type MouseEvent } from "react";
 import type { AppDispatch } from "../../store";
 import InputWithButtons from "../Widgets/Form/InputWithButtons";
-import CustomSelect, { type Option } from "../Widgets/Form/CustomSelect";
+import CustomSelect from "../Widgets/Form/CustomSelect";
+import { useTodoModalContext } from "../../routes/TodoApp";
+import { priorityOptions } from "../../service/todoService";
 
 //Weg 1: jeder Knopf kann ein neues Event dispatchen
 //Weg 2: Wir haben EditorKomponent, dass wie ein Form funktionierst
 
-const priorityOptions: Option<TPriority>[] =[{value: 'high', label: 'High'}, {value: 'mid', label: 'Mid'}, {value: 'low', label: 'Low'}];
+
 
 export default function TodoKarte ({ todo }: { todo: TTodo } ) {
     const { id, title, completed, priority } = todo;
     const [ editMode, setEditMode ] = useState<boolean>(false);
 
     const dispatch: AppDispatch = useDispatch();
+    const { editModalShow, setEditModalShow, deleteModalShow, setDeleteModalShow, setTargetId } = useTodoModalContext() ;
 
     const handleCheckbox: ChangeEventHandler<HTMLInputElement> = (e) =>  {
         e.preventDefault();
@@ -34,13 +37,15 @@ export default function TodoKarte ({ todo }: { todo: TTodo } ) {
         dispatch(putTodo( { id, form: {...todo, title: value}}));
         setEditMode(!editMode);
     }
-    const handleEdit = (e: MouseEvent<HTMLButtonElement>) => { 
-        e.preventDefault();
-        console.log('e'); 
+    const toggleEditModal = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault(); 
+        setTargetId(id);
+        setEditModalShow(!editModalShow);
     }
-    const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        console.log('e'); 
+    const toggleDeleteModal = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault(); 
+        setTargetId(id);
+        setDeleteModalShow(!deleteModalShow);
     }
     return (
         <div className="box li-margin-vertical d-flex justify-content-center align-items-center p-2 gap-2">
@@ -51,8 +56,8 @@ export default function TodoKarte ({ todo }: { todo: TTodo } ) {
                 <p onClick={() => setEditMode(!editMode)}>{title + priority}</p>
             }
             <div className="d-flex justify-content-center align-items-center gap-2 ms-auto">
-                <button className="btn btn-primary" ><FaPencil></FaPencil></button>
-                <button className="btn btn-danger"><FaTrash></FaTrash></button>
+                <button className="btn btn-primary" onClick={toggleEditModal}><FaPencil></FaPencil></button>
+                <button className="btn btn-danger" onClick={toggleDeleteModal}><FaTrash></FaTrash></button>
             </div>
             <CustomSelect 
             value={priority}

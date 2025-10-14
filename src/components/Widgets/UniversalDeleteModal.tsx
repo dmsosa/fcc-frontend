@@ -1,9 +1,9 @@
 import CloseBtn from "./CloseBtn";
-import type { MouseEvent } from "react";
+import type { MouseEvent, MouseEventHandler } from "react";
 
 
 
-export default function UniversalDeleteModal ({ show, setter, title, subtitle, onConfirm }: { show: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>, title: string, subtitle?: string, onConfirm: (e: MouseEvent<HTMLButtonElement> ) => void}) {
+export default function UniversalDeleteModal ({ show, title, subtitle, onConfirm, handleCloseModal }: { show: boolean, title: string, subtitle?: string, onConfirm: (e: MouseEvent<HTMLButtonElement> ) => void, handleCloseModal: MouseEventHandler }) {
 
     return (
         <div className={`modal modal-flex p-3 ${show ? 'show': 'hide'}`} id="delete-modal">
@@ -15,11 +15,11 @@ export default function UniversalDeleteModal ({ show, setter, title, subtitle, o
                     <button className="btn btn-danger" onClick={onConfirm}>
                         <span>Yes</span>
                     </button>
-                    <button className="btn btn-primary" onClick={() => setter(false)}>
+                    <button className="btn btn-primary" onClick={handleCloseModal}>
                         <span>No</span>
                     </button>
                 </div>
-                <CloseBtn value={show} setter={setter}/> 
+                <CloseBtn handleClick={handleCloseModal}/> 
             </div>
         </div>    
   );
