@@ -1,0 +1,24 @@
+@import './variables/colors';
+@import './mixins';
+
+@function getColor($colorName, $fallback: null) {
+    @if not map-has-key($colors, $colorName) {
+        @warn "Color `#{$colorName}` not found in \$colors map. Using fallback: #{$fallback}.";
+    };
+    @return --var(--c-#{$colorName}, $fallback);
+}
+
+//Hilfsfunktion, die prüft, ob der Key in themeValues vorhanden ist 
+//und gegebenenfalls den zugehorigen Wert liefert
+//helper function for checking if theme exists in theme colors
+@function themeExists($key, $theme) {
+  @if map-has-key($themeValues, $key) {
+    @return map-has-key(map-get($themeValues, $key), $theme);
+  }
+  @return null;
+}
+
+//Helper Funktion, die der ein Theme auf themeValues findest und der zugehorigen Wert zuruckgibt.
+@function getThemeValue($key, $themeName) {
+  @return map-get(map-get($themeValues, $key), $themeName);
+}

@@ -1,27 +1,52 @@
-@mixin themify($theme-name, $theme-map) {
-    .#{$theme-name} {
-        background-color: map-get($map: $theme-map, $key: 'bg');
-        color:  map-get($map: $theme-map, $key: 'color'); 
-        .bg-1 {
-            background-color: map-get($theme-map, 'bg1');
-        }
-        .bg-2 {
-            background-color: map-get($theme-map, 'bg2');
-        }
-        .bg-3 {
-            background-color: map-get($theme-map, 'bg3');
-        }
-        .border-color {
-            border-color: map-get($map: $theme-map, $key: 'border-color');
-        }
-        @each $property, $value in $theme-map {
-            @if (type-of($value) == 'map') {
-                .#{$property} {
-                    @each $sub-property, $sub-value in $value {
-                        #{$sub-property}: $sub-value;
-                    }
+@import "./functions";
+@import './themes/themes';
+
+@mixin generateColorVariables() {
+    @each $name, $value in $colors {
+        --c-#{name}: #{$value};
+        @debug "Color created: " #{$name};
+    }
+}
+
+@mixin generateThemeValues() {
+    @each $themeName, $themeMap in $themeMaps {
+        //creates/adds to list of theme names
+        $themeNames: append($themeNames, $themeNames, $separator: comma) !global;
+        @each $key, $value in $themeMap {
+            @if not map-has-key($themeValues, $key) {
+                $themeValues: map-merge($themeValues, ($key: ($themeName: $value)) ) !global;
+            } @else {
+                $prevKeyMap: map-get($themeValues, $key);
+                @if not map-has-key($prevKeyMap, $themeName) {
+                    $newKeyMap: map-merge($prevKeyMap, ( $themeName: $value ) );
+                    $themeValues: map-merge($themeValues, ( $key: $newKeyMap ) ) !global;
                 }
+                @debug "theme created: " #{$name};
             }
+        };
+    }
+}
+
+@mixin generateThemeVariables() {
+    @each $key, $keyMap in $themeValues {
+        @each $themeName, $value in $keyMap {
+            --theme-#{$key}-#{$themeName}: $value;
         }
     }
 }
+
+@mixin themify($property, $key) {
+    @each $themeName, $themeMap in $themeMaps {
+        @if themeExists($key, $themeName) {
+            $value: getThemeValue($key, $themeName);
+            @at-root .#{$theme} #{&} {
+                #{$property}: $value;
+                #{$property}: var(--theme-#{$key}-#{$themeName}, $value);
+            }
+        } @else if $theme != 'default' and $theme != 'light' and $theme != 'dark' { 
+            //check for legacy references, don't error on those
+            @error "Property #{$key} doesn't exist in #{$theme}";
+        }
+    }
+}
+

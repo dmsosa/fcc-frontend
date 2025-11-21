@@ -1,7 +1,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-@import "./custom_variables";
+@import "./variables/custom_variables";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../../node_modules/bootstrap/scss/variables";
@@ -33,6 +33,14 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
+//themes
+@import "./themes/themes";
+
+//functions
+@import "./functions";
+
+//mixins
+@import "./mixins";
 
 // 9. components
 @import "./components/header";
@@ -40,17 +48,11 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 @import "./components/projekt";
 @import "./components/footer";
 @import "./components/home";
-
 @import "./components/markdown";
 @import "./components/drum";
 
 
-//themes
-@import "./themes";
 
-// //mixins
-@import "./mixins";
-// @import "./mixins/mixins";
 
 //utils 
 @import "./utils";
@@ -67,6 +69,9 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    @include generateColorVariables();
+    @include generateThemeVariables();
+    @include generateThemeValues();
 }
 
 body {
@@ -97,8 +102,6 @@ main {
 section {
     width: 100%;
     height: 100vh;
-    padding-top: var(--header-height);
-    scroll-snap-align: start;
 }
 p {
     font-weight: 300; 
@@ -113,17 +116,7 @@ p {
     }
 }
 
-.no-scroll {
-    overflow: hidden !important;
-}
-.show {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-.hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
+
 a {
     cursor: pointer;
     transition: color 0.2s;
@@ -252,14 +245,14 @@ ul.icon-ul {
     }
 }
 
-.nav-links {
+.icon-list-ul {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     list-style: none;
     padding: 0;
     margin: 0;
-    li {
+    li.icon-list-item {
         padding: 0.35rem;
         border-radius: 5px;
         transition: background-color 0.2s ease;
@@ -267,7 +260,7 @@ ul.icon-ul {
             margin-right: 0.5rem;
         }
         &:hover {
-            background-color: #999;
+            @include themify('background-color', 'bgHover');
         }
         a.link {
             text-decoration: none;
@@ -276,7 +269,9 @@ ul.icon-ul {
             align-items: center;
             gap: 0.8rem;
             &:hover {
-                color: $primary;
+                @include themify('color', 'colorHover');
+                @include themify('fill', 'colorHover');
+                @include themify('stroke', 'colorHover');
             }
             &[aria-expanded="true"] {
                 span {
@@ -286,6 +281,12 @@ ul.icon-ul {
             span {
                 display: none;
                 color: inherit;
+            }
+            svg {
+                display: block;
+                color: inherit;
+                fill: inherit;
+                stroke: inherit;
             }
         }
     }

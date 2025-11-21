@@ -142,3 +142,7 @@ export function todoMatchFilter(filter: Partial<TTodo>, todo: TTodo): boolean {
     })
     return match;
 }
+export function getTodoById(id: number): TTodo | null {
+  console.log('todo with id not found', id);
+  return null;
+}

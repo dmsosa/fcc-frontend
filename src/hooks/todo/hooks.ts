@@ -4,7 +4,7 @@ import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { useLS } from "../hooks";
 import { sliceArray, type LSOptions } from "../../helpers/helpers";
-import { applyFilterToTodoMap } from "../../service/todoService";
+import { getTodosWithFilter } from "../../service/todoService";
 
 export type TUseTodoArrayProps = {
     options?: TUseArrayOptions;
@@ -29,7 +29,7 @@ export function useTodoArrayWithFilter({ options, localStorageOptions }: TUseTod
 
     // zu anderungen auf Filter reagieren
     useEffect(() => {
-        setArray(applyFilterToTodoMap(filter, todoMap));
+        setArray(getTodosWithFilter());
     }, [filter, todoMap]);
 
     return ({ array: sliceArray(array, offset, limit), count: array.length, setOffset, setLimit, filter, setFilter });

@@ -8,7 +8,6 @@ export function createStrictContext<T>(
 ) {
   const StrictContext = React.createContext<T | undefined>(undefined)
   StrictContext.displayName = options.displayName // for DevTools
-
   function useStrictContext() {
     const context = React.useContext(StrictContext)
     if (context === undefined) {

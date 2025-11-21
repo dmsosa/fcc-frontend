@@ -1,12 +1,22 @@
-
-.container-1 {
-    background-color: $dark;
+.bg1 {
+    @include themify('background-color', 'bgPri');
 }
-.container-2 {
-    background-color: $dark2;
+.bg2 {
+    @include themify('background-color', 'bgSec');
 }
-.container-3 {
-    background-color: $dark3;
+.bg3 {
+    @include themify('background-color', 'bgTer');
+}
+.no-scroll {
+    overflow: hidden !important;
+}
+.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 .overflow-hidden {
     overflow: hidden !important;

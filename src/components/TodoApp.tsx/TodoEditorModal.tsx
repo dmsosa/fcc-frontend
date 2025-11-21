@@ -1,22 +1,23 @@
 
 
 import { useDispatch} from "react-redux";
-import { putTodo, selectTodoById, selectTodoModals, toggleDeleteMode, toggleEditorMode, toggleTodo, type TTodo } from "../../store/todoSlice";
+import { putTodo, toggleTodo, type TTodo } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
-import CloseBtn from "../Widgets/CloseBtn";
-import store from "../../store/store";
+import { useTodoContext } from "../../context/todoAppContext";
+import { getTodoById } from "../../service/todoService";
+import ModalContainer from "../Widgets/Modal/ModalContainer";
 
 export default function TodoEditorModal () {
 
-    const { editorMode, targetId } = selectTodoModals(store.getState());
+    const { editModalShow, setEditModalShow, setDeleteModalShow, targetId } = useTodoContext();
     const dispatch = useDispatch();
-
-    const [show, setShow ] = useState<boolean>(editorMode);
     const [{ title, priority, completed }, setForm  ] = useState<Omit<TTodo, 'id'>>({title:  '', priority: 'low', completed: false,});
+
+    const containerId = "edit-todo-modal";
 
     useEffect(() => {
         if (!targetId) return;
-        const targetTodo = selectTodoById(store.getState(), targetId);
+        const targetTodo = getTodoById(targetId);
         if (!targetTodo) return;
         setForm({...targetTodo});
     }, [targetId]);
@@ -31,17 +32,17 @@ export default function TodoEditorModal () {
         e.preventDefault();
         if (!targetId) return;
         toggleTodo({id: targetId});
+        dispatch(toggleTodo({ id: targetId }));
     }
     
     const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        toggleDeleteMode();
+        setDeleteModalShow(true);
     }
 
     return (
-        <div className={`modal modal-flex ${show ? 'show': 'hide'}`} id="editor-modal">
-            <div className="modal-inner box container p-3 pt-2 pb-4" id="editor">
-                {targetId ? 
+        <ModalContainer show={editModalShow} setter={setEditModalShow} id={containerId}>
+            { targetId ? 
                     <form action="">
                         <h3>Todo #{targetId}</h3>
                         <p>{title}</p>
@@ -50,13 +51,11 @@ export default function TodoEditorModal () {
                             <button className="btn btn-primary" onClick={handleSubmit}>confirm</button>
                             <button className="btn btn-danger" onClick={handleDelete}>delete</button>
                         </div>
-                        <CloseBtn value={show} setter={setShow} cb={() => dispatch(toggleEditorMode())}/> 
                     </form>
                         :
                     <div>No todo targeted</div>
                 }
-            </div>
-        </div>    
+        </ModalContainer>
   );
 }
 

@@ -1,0 +1,38 @@
+$theme-light: (
+    bgPri: $light,
+    bgSec: $light2,
+    bgTer: $light3,
+    bgHover: #999,
+    borderColor: $light3,
+    colorPri: $dark,
+    colorSec: $dark2,
+    colorTer: $dark3,
+);  
+$theme-dark: (
+    bgPri: $dark,
+    bgSec: $dark2,
+    bgTer: $dark3,
+    bgHover: #555,
+    borderColor: $dark3,
+    colorPri: $light,
+    colorSec: $light2,
+    colorTer: $light3,
+);  
+$theme-default: (
+    bgPri: $dark,
+    bgSec: $dark2,
+    bgTer: $dark3,
+    bgHover: #555,
+    borderColor: $dark3,
+    colorPri: $light,
+    colorSec: $light2,
+    colorTer: $light3,
+);  
+
+$themeNames: ();
+$themeValues: ();
+$themeMaps: (
+    'light': $theme-light,
+    'dark': $theme-dark,
+    'default': $theme-default,
+);

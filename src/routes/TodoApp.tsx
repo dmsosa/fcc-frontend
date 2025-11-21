@@ -8,9 +8,6 @@ import { TodoContextProvider } from '../context/todoAppContext';
 
 export default function TodoApp () {
 
-
-
-
     // Init ModalContext
     const [ editModalShow, setEditModalShow ] = useState<boolean>(false);
     const [ deleteModalShow, setDeleteModalShow ] = useState<boolean>(false);
@@ -19,7 +16,8 @@ export default function TodoApp () {
 
     return (
         <TodoContextProvider value={{editModalShow, deleteModalShow, targetId, setEditModalShow, setDeleteModalShow, setTargetId}}>
-        <section id='projekt'>
+        <TodoAppModals></TodoAppModals>
+        <section className='section' id='projekt'>
             <div className='container'>
                 <div className="row">
                     <h2>Free Code Camp: Todo App</h2>
@@ -39,7 +37,6 @@ export default function TodoApp () {
                     <p className='text-center'>Lass mich wissen, ob es cool war!</p>
                 </div>
             </div>
-            <TodoAppModals></TodoAppModals>
         </section>
         </TodoContextProvider>
 

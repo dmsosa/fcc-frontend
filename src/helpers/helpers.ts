@@ -6,10 +6,7 @@ type Serializer<T> = {
 
 
 
-<<<<<<< HEAD
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-=======
->>>>>>> a8fd75ae71f31dada05eb201ef8fca6f9832d95b
 export const JSONSerializer: Serializer<any> = {
     serialize: (v) => JSON.stringify(v),
     deserialize: (s) => {

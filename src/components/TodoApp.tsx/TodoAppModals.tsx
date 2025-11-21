@@ -5,23 +5,23 @@ import { deleteTodo, putTodo, toggleTodo, type TTodo } from "../../store/todoSli
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
 import { getTodoById } from "../../service/todoService";
-import { useTodoModalContext } from "../../routes/TodoApp";
 import { Checkbox } from "../Widgets/Form/Checkbox";
-import UniversalDeleteModal from "../Widgets/UniversalDeleteModal";
+import DeleteModal from "../Widgets/Modal/DeleteModal";
+import { useTodoContext } from "../../context/todoAppContext";
 
 export default function TodoAppModals () {
     
     return (
         <>
-        <TodoEditorModal></TodoEditorModal>
-        <TodoDeleteModal></TodoDeleteModal>
+            <TodoEditorModal></TodoEditorModal>
+            <TodoDeleteModal></TodoDeleteModal>
         </>
         
     )
 }
 export function TodoEditorModal () {
 
-    const { editModalShow, setEditModalShow, targetId } = useTodoModalContext() ;
+    const { editModalShow, setEditModalShow, targetId } = useTodoContext() ;
     const dispatch = useDispatch();
     const [{ title, priority, completed }, setForm  ] = useState<Omit<TTodo, 'id'>>({title:  '', priority: 'low', completed: false,});
 
@@ -68,7 +68,7 @@ export function TodoEditorModal () {
 
 
 export function TodoDeleteModal() {
-    const { deleteModalShow, setDeleteModalShow, targetId } = useTodoModalContext();
+    const { deleteModalShow, setDeleteModalShow, targetId } = useTodoContext();
 
 
     //targeted todo greifen
@@ -91,17 +91,12 @@ export function TodoDeleteModal() {
         setDeleteModalShow(false);
     }
 
-    return targetId ? 
-    <UniversalDeleteModal 
+    return <DeleteModal
+    targetId={targetId}
+    entityName="todo"
     title={`Are you sure to remove this todo with id: ${targetId}?\ntitle:${title}, priority:${priority}, completed:${completed}`}
     subtitle='this action can not be undone.'
     show={deleteModalShow} setter={setDeleteModalShow}
     onConfirm={handleDeleteConfirm}>
-    </UniversalDeleteModal>
-                        :
-    <div className={`modal modal-flex ${deleteModalShow ? 'show': 'hide'}`} id="editor-modal">
-        <div className="modal-inner box container p-3 pt-2 pb-4" id="editor">
-            <div>No todo targeted</div>
-        </div>
-    </div>
+    </DeleteModal>
 }
