@@ -6,6 +6,7 @@ import './assets/css/styles.css';
 import TodoApp from './routes/TodoApp.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store.ts';
+import Home from './routes/Home.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <Routes>
         <Route element={<App/>}>
-        <Route path='/' index element={<TodoApp/>}></Route>
+        <Route path='/' index element={<Home/>}></Route>
         <Route path='/01' element={<TodoApp/>}></Route>
         <Route path='/02'  element={<TodoApp/>}></Route>
         <Route path='/03' element={<TodoApp/>}></Route>

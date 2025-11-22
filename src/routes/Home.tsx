@@ -4,7 +4,7 @@ import ProjektKarte, { karteArray } from "../components/home/ProjektKarte";
 export default function Home () {
     
     return (
-        <section >
+        <section className="section scroll-snap-child">
             <div className='container'>
                 <div className="row">
                     <h1>Free Code Camp: Frontend Challenges</h1>
@@ -21,8 +21,7 @@ export default function Home () {
                 </div>
                 <div className="row">
                     <p>Lass mich wissen, ob es cool war!</p>
-                </div>
-                    
+                </div>              
             </div>       
     </section>
     

@@ -1,14 +1,17 @@
-.bg1 {
-    @include themify('background-color', 'bgPri');
-}
-.bg2 {
-    @include themify('background-color', 'bgSec');
-}
-.bg3 {
-    @include themify('background-color', 'bgTer');
-}
+
 .no-scroll {
     overflow: hidden !important;
+}
+.scroll-snap-wrapper {
+    overflow: hidden scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+.scroll-snap-child {
+    scroll-snap-align: start;
+}
+.scroll-snap-stop {
+    scroll-snap-stop: always;
 }
 .show {
     opacity: 1 !important;
@@ -133,7 +136,8 @@
     height: 6rem;
 }
 .h-100vh {
-    height: 100vh;
+    height: 100vh !important;
+    min-height: 100vh;
 }
 .w-1 {
     width: 1rem;

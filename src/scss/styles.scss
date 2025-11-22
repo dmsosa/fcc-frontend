@@ -33,6 +33,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
+
 //themes
 @import "./themes/themes";
 
@@ -41,6 +42,9 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 //mixins
 @import "./mixins";
+
+//utils 
+@import "./utils";
 
 // 9. components
 @import "./components/header";
@@ -54,8 +58,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 
 
-//utils 
-@import "./utils";
+
 // //keyframes
 // @import "./keyframes/keyframes";
 
@@ -83,29 +86,30 @@ body {
 .app-wrapper {
     height: 100vh;
     display: block;
-    height: 100vh;
+    overflow: hidden;
 }
 main {
     width: 100vw;
     max-height: 100vh;
-    overflow: scroll;
-}
-.scroll-snap {
     overflow: hidden scroll;
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
 }
-.scroll-stop {
-    scroll-snap-stop: always;
-    scroll-snap-align: start;
+.bg1 {
+    @include themify('background-color', 'bgPri');
 }
-section {
+.bg2 {
+    @include themify('background-color', 'bgSec');
+}
+.bg3 {
+    @include themify('background-color', 'bgTer');
+}
+.section {
     width: 100%;
     height: 100vh;
+    min-height: 100vh;
 }
 p {
-    font-weight: 300; 
-    font-size: 0.8rem;
+    font-weight: 400; 
+    font-size: 0.9rem;
 }
 .btn-outline {
     background-color: transparent !important;
@@ -157,15 +161,6 @@ ul.icon-ul {
     stroke-dasharray: 132;
     stroke-dashoffset: 0;
 }
-
-
-
-  
-@include themify("theme-light", $theme-light);
-@include themify("theme-dark", $theme-dark);
-
-
-
 
 // Das Personliches Scrollbar 
 ::-webkit-scrollbar {

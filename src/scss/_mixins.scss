@@ -1,10 +1,8 @@
-@import "./functions";
 @import './themes/themes';
 
 @mixin generateColorVariables() {
     @each $name, $value in $colors {
         --c-#{name}: #{$value};
-        @debug "Color created: " #{$name};
     }
 }
 
@@ -21,10 +19,10 @@
                     $newKeyMap: map-merge($prevKeyMap, ( $themeName: $value ) );
                     $themeValues: map-merge($themeValues, ( $key: $newKeyMap ) ) !global;
                 }
-                @debug "theme created: " #{$name};
             }
         };
     }
+    @debug $themeValues;
 }
 
 @mixin generateThemeVariables() {
@@ -39,13 +37,14 @@
     @each $themeName, $themeMap in $themeMaps {
         @if themeExists($key, $themeName) {
             $value: getThemeValue($key, $themeName);
-            @at-root .#{$theme} #{&} {
+            @debug $property, $key, $value;
+            .theme-#{$themeName} & {
                 #{$property}: $value;
                 #{$property}: var(--theme-#{$key}-#{$themeName}, $value);
             }
-        } @else if $theme != 'default' and $theme != 'light' and $theme != 'dark' { 
+        } @else if $themeName != 'default' and $themeName != 'light' and $themeName != 'dark' { 
             //check for legacy references, don't error on those
-            @error "Property #{$key} doesn't exist in #{$theme}";
+            @error "Property #{$key} doesn't exist in #{$themeName}";
         }
     }
 }
