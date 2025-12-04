@@ -1,9 +1,34 @@
 import { useState } from "react";
+import { FaHome } from "react-icons/fa";
+import type { TIconLink } from "../Sidebar/Sidebar";
 
 type TSection = "projekt" | "beschreibung" | "footer";
 const sections: TSection[] = ["projekt", "beschreibung", "footer"];
+const icons: TIconLink[] = [
+  {
+    title: 'Home',
+    href: '/home',
+    svg: <FaHome></FaHome>
+  },
+  {
+  title: 'Dashboard',
+  href: '/dashboard',
+  svg: <FaHome></FaHome>
+},
+{
+  title: 'GitHub',
+  href: 'https://github.com/dmsosa',
+  svg: <FaHome></FaHome>
+},
+{
+  title: 'CV',
+  href: '/cv',
+  svg: <FaHome></FaHome>
+}
+]
 function SectionButtons() {
     const [targetSection, setTargetSection] = useState<TSection>('projekt');
+    console.log(icons)
     return (
         <nav id="section-nav" className="section-nav">
             <ul className={'links-ul links-ul-vertical'}>

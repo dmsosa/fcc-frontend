@@ -6,6 +6,7 @@ function BrandLogo({ expanded=false }: { expanded?: boolean}) {
 
     const [ theme, setTheme ] = useState();
     const [ logo, setLogo ] = useState(blackLogo);
+    
     useEffect(() => {
         console.log(setTheme)
         if ( theme === 'light' ) {

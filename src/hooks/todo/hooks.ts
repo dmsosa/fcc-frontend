@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { type TTodo, type TTodoState } from "../../store/todoSlice";
 import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
-import { useLS } from "../hooks";
-import { sliceArray, type LSOptions } from "../../helpers/helpers";
+import { type LSOptions } from "../../helpers/localStorageHelpers";
 import { getTodosWithFilter } from "../../service/todoService";
+import { useLocalStorage } from "../useLS";
+import { sliceArray } from "../../helpers";
 
 export type TUseTodoArrayProps = {
     options?: TUseArrayOptions;
@@ -21,7 +22,7 @@ export function useTodoArrayWithFilter({ options, localStorageOptions }: TUseTod
 // if options, merge it with defualt op
     const defaultLocalStorageOptions: LSOptions<Partial<TTodo>> = { ns: undefined, ttl: 86400, serializer: undefined };
     
-    const [ filter, setFilter ] = useLS<Partial<TTodo>>('filter', {}, localStorageOptions ?? defaultLocalStorageOptions);
+    const [ filter, setFilter ] = useLocalStorage<Partial<TTodo>>('filter', {}, localStorageOptions ?? defaultLocalStorageOptions);
     const { todoMap } = useSelector((state: RootState) => state.todo);
     const [ array, setArray ] = useState<TTodo[]>([]);
     const [ offset, setOffset ] = useState<number | undefined>(options?.offset);

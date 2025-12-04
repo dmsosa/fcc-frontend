@@ -7,6 +7,9 @@ $theme-light: (
     colorPri: $dark,
     colorSec: $dark2,
     colorTer: $dark3,
+    strokePri: $dark,
+    strokeSec: $dark2,
+    strokeTer: $dark3,
 );  
 $theme-dark: (
     bgPri: $dark,
@@ -17,6 +20,9 @@ $theme-dark: (
     colorPri: $light,
     colorSec: $light2,
     colorTer: $light3,
+    strokePri: $dark,
+    strokeSec: $dark2,
+    strokeTer: $dark3,
 );  
 $theme-default: (
     bgPri: $dark,
@@ -27,6 +33,9 @@ $theme-default: (
     colorPri: $light,
     colorSec: $light2,
     colorTer: $light3,
+    strokePri: $dark,
+    strokeSec: $dark2,
+    strokeTer: $dark3,
 );  
 
 $themeNames: ();

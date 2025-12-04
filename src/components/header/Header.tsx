@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BrandLogo from "./BrandLogo";
+import BrandLogo from "../Widgets/BrandLogo";
 import DropdownButton from "./DropdownButton";
 import DropdownMenu from "./DropdownMenu";
 

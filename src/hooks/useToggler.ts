@@ -1,5 +1,13 @@
-import type { MouseEvent } from "react";
+import { useState } from "react";
 
-export default function useToggler(value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) {
-    return (e: MouseEvent<HTMLButtonElement>) => {e.preventDefault(); setter(!value);}
+export default function useToggler(initValue?: boolean | undefined): [ boolean, (newValue?: boolean | undefined) => void ] {
+    const [ value, setValue ] = useState<boolean>(initValue ?? false);
+    const toggler = (newValue?: boolean | undefined) => {
+        if (!newValue) {
+            setValue(!value);
+        } else {
+            setValue(newValue);
+        }
+    };
+    return [value, toggler];
 }

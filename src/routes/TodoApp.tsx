@@ -17,7 +17,7 @@ export default function TodoApp () {
     return (
         <TodoContextProvider value={{editModalShow, deleteModalShow, targetId, setEditModalShow, setDeleteModalShow, setTargetId}}>
         <TodoAppModals></TodoAppModals>
-        <section className='section' id='projekt'>
+        <section className='section' id='todoapp'>
             <div className='container'>
                 <div className="row">
                     <h2>Free Code Camp: Todo App</h2>

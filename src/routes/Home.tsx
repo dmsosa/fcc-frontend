@@ -1,10 +1,10 @@
-import type { TProjektKarte } from "../components/home/ProjektKarte";
-import ProjektKarte, { karteArray } from "../components/home/ProjektKarte";
+import ProjektKarte from "../components/Home/ProjektKarte";
+import { PROJECTS_ARRAY, type TProject } from "../service/projectService";
 
 export default function Home () {
     
     return (
-        <section className="section scroll-snap-child">
+        <section className="section scroll-snap-">
             <div className='container'>
                 <div className="row">
                     <h1>Free Code Camp: Frontend Challenges</h1>
@@ -14,8 +14,8 @@ export default function Home () {
                 </div>
                 <div className="row">
                     <div className="d-flex justify-content-center align-items-start flex-wrap gap-2">
-                        {karteArray.map((karte: TProjektKarte) => {
-                            return (<ProjektKarte title={karte.title} description={karte.description} img={karte.img} link={karte.link} repo={karte.repo}/>)
+                        {PROJECTS_ARRAY.map((p: TProject) => {
+                            return (<ProjektKarte project={p}/>)
                         })}
                     </div>
                 </div>
@@ -23,7 +23,7 @@ export default function Home () {
                     <p>Lass mich wissen, ob es cool war!</p>
                 </div>              
             </div>       
-    </section>
+        </section>
     
   );
 }

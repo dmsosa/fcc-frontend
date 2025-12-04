@@ -1,5 +1,9 @@
-import { type TTodo } from "../store/todoSlice"
-
+export type TTodo = {
+    id: number,
+    title: string,
+    completed: boolean,
+    priority: 'high'| 'mid' | 'low',
+};
 export const staticTodoMap: { [id:number] : TTodo} = {
     1: {
   "id": 1,
