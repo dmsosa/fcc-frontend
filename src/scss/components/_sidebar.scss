@@ -13,13 +13,72 @@
         top: 0;
         bottom: 0;
         right: 0;
-        left: auto;
+        left: 100%;
         width: 2rem;
         background-color: blue;
         cursor: col-resize;
     }
 }
 
+.sidebar-header {
+        overflow: hidden;
+        width: 100%;
+    }
+
+// .sidebar-container {
+//     &:not(.sidebar-container--expanded) {
+//         max-width: 2rem;
+//     }
+// }
+// .sidebar-container {
+//     &:not(.sidebar-container--expanded) {
+//         .sidebar-header {
+//             max-width: 100%;
+//         }
+//     }
+// }
+
+.sidebar-toggler {
+    svg {
+        fill: transparent;
+        @include themify('stroke', 'bgPri');
+        path {
+            fill: inherit;
+            stroke: inherit;
+            stroke-width: 2rem;
+            transition: d 0.4s ease;
+        }
+    }
+    &.sidebar-opener {
+        svg {
+            #line1 {
+                d: 'M 400 100 L 200 245.915 L 400 400';
+            }
+            #line2 {
+                d: 'M 249 134 L 100 240 L 250 355';
+            }
+            &:hover {
+            #line1 {
+                d: 'M 347 360 L 200 254 L 347 139';
+            }
+            #line2 {
+                d: 'M 347 360 L 200 254 L 347 139';
+            }
+            }
+        }
+    }
+    &.sidebar-closer {
+        svg {
+            #line1 {
+                d: 'M 347 360 L 200 254 L 347 139';
+            }
+            #line2 {
+                d: 'M 347 360 L 200 254 L 347 139';
+            }
+        }
+    }
+    
+}
 @media only screen and (min-width: 768px) {
     .sidebar-container {
         display: block;

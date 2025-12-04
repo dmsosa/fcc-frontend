@@ -1,4 +1,15 @@
-
+.themed-border {
+    @include themify('fill', 'colorTer');
+}
+.themed-color {
+    @include themify('fill', 'colorPri');
+}
+.themed-fill {
+    @include themify('fill', 'colorPri');
+}
+.themed-stroke {
+    @include themify('stroke', 'colorTer');
+}
 .no-scroll {
     overflow: hidden !important;
 }

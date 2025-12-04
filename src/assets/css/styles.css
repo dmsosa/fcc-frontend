@@ -9517,10 +9517,43 @@ index-1 {
   top: 0;
   bottom: 0;
   right: 0;
-  left: auto;
+  left: 100%;
   width: 2rem;
   background-color: blue;
   cursor: col-resize;
+}
+
+.sidebar-header {
+  overflow: hidden;
+  width: 100%;
+}
+
+.sidebar-toggler svg {
+  fill: transparent;
+}
+.sidebar-toggler svg path {
+  fill: inherit;
+  stroke: inherit;
+  stroke-width: 2rem;
+  transition: d 0.4s ease;
+}
+.sidebar-toggler.sidebar-opener svg #line1 {
+  d: "M 400 100 L 200 245.915 L 400 400";
+}
+.sidebar-toggler.sidebar-opener svg #line2 {
+  d: "M 249 134 L 100 240 L 250 355";
+}
+.sidebar-toggler.sidebar-opener svg:hover #line1 {
+  d: "M 347 360 L 200 254 L 347 139";
+}
+.sidebar-toggler.sidebar-opener svg:hover #line2 {
+  d: "M 347 360 L 200 254 L 347 139";
+}
+.sidebar-toggler.sidebar-closer svg #line1 {
+  d: "M 347 360 L 200 254 L 347 139";
+}
+.sidebar-toggler.sidebar-closer svg #line2 {
+  d: "M 347 360 L 200 254 L 347 139";
 }
 
 @media only screen and (min-width: 768px) {
@@ -10016,8 +10049,7 @@ a.handler.handler-col {
   min-height: 1.5rem;
   width: 100%;
   height: 100%;
-  fill: #fff366;
-  stroke: orange;
+  transition: fill 0.3s ease, stroke 0.3s ease;
 }
 .theme-toggle svg path {
   fill: inherit;
@@ -10788,11 +10820,8 @@ input[type=checkbox]:checked::before {
 @media only screen and (min-width: 768px) {
   .app-wrapper {
     display: grid;
-    grid-template-columns: [sidebar-start] 0px [sidebar-end main-content-start] 390px [main-content-end];
-    transition: grid-template-columns 0.2s linear;
-  }
-  .app-wrapper:has(.sidebar-container--expanded) {
     grid-template-columns: [sidebar-start] var(--sidebar-width, 250px) [main-content-start sidebar-end] var(--main-content-width, calc(100vw - 250px)) [main-content-end];
+    transition: grid-template-columns 0.2s linear;
   }
   .main-content {
     grid-column: main-content;

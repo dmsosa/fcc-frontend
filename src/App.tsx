@@ -1,5 +1,4 @@
 import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
 import { Outlet } from 'react-router'
 import SectionButtons from './components/Widgets/SectionButtons'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -7,6 +6,7 @@ import { useRef, useState } from 'react'
 import { SidebarContextProvider } from './context/sidebarContext'
 import { ThemeReadyContextProvider } from './context/themeContext'
 import { useLocalStorage } from './hooks'
+import Header from './components/AppHeader/Header'
 
 
 
@@ -17,7 +17,7 @@ function App() {
   const [ isResizing, setIsResizing ] = useState<boolean>(false);
   const storageKey = "sidebarWidth";
   const initialWidth = 280;
-  const minWidth = 200;
+  const minWidth = 96;
   const maxWidth = 680;
   const appWrapperRef = useRef(null);
 

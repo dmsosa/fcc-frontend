@@ -2,7 +2,7 @@ import { type MouseEvent } from "react";
 import { useThemeContext } from "../../context/createThemeContext";
 import useToggler from "../../hooks/useToggler";
 
-export default function ThemeToggler () {
+export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: React.SVGAttributes<SVGSVGElement> }) {
 
     const { theme, setThemeToContextAndDocument } = useThemeContext();
     const [ active, toggleActive ] = useToggler(theme === "dark");
@@ -31,6 +31,7 @@ export default function ThemeToggler () {
     stroke-linecap="round"
     className="theme-toggle__classic"
     viewBox="0 0 32 32"
+    {...svgAttributes}
   >
     <clipPath id="theme-toggle__classic__cutout">
       <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
