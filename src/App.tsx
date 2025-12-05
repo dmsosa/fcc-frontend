@@ -7,6 +7,7 @@ import { SidebarContextProvider } from './context/sidebarContext'
 import { ThemeReadyContextProvider } from './context/themeContext'
 import { useLocalStorage } from './hooks'
 import Header from './components/AppHeader/Header'
+import { useThemeContext } from './context/createThemeContext'
 
 
 
@@ -22,6 +23,7 @@ function App() {
   const appWrapperRef = useRef(null);
 
   const [ widthCheckedInLS , setWidthLS, removeWidthLS ] = useLocalStorage(storageKey, initialWidth);
+  const { theme } = useThemeContext();
 
     //   //Resize logic
     // useEffect(() => {
@@ -56,7 +58,7 @@ function App() {
   return (
     <ThemeReadyContextProvider>
       <SidebarContextProvider value={{ isResizing, setIsResizing, widthCheckedInLS, setWidthLS, removeWidthLS, expanded, setExpanded, initialWidth, minWidth, maxWidth, storageKey, appWrapperRef }}>
-      <div id='app-wrapper' className={`app-wrapper theme-dark`} ref={appWrapperRef}>
+      <div id='app-wrapper' className={`app-wrapper theme-${theme}`} ref={appWrapperRef}>
         <Sidebar></Sidebar>
         <div id='main-content' className="main-content">
           <Header></Header>

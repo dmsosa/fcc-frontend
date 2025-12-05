@@ -1,2 +1,3 @@
-export * from './helpers'
-export * from './localStorageHelpers'
+export * from './helpers';
+export * from './cookies';
+export * from './localStorageHelpers';

@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { staticTodoIds, staticTodoMap, type TTodo } from '../../service/todoService';
 
 
+export type TPriority = 'high' | 'mid' | 'low';
 
 export type TTodoState = {
     todoMap: { [id:number] : TTodo};

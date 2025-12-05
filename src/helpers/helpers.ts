@@ -4,3 +4,4 @@ export function sliceArray<T>(array: T[], offset?: number, limit?: number) : T[]
     const to = limit > 0 ? from + limit : undefined;
     return array.slice(from, to);
 }
+

@@ -8,7 +8,7 @@ export default function Header () {
   return (
     <header id='header' className="header">
         <nav className="nav-wrapper">
-            <BrandLogo></BrandLogo>
+            <BrandLogo expanded></BrandLogo>
             <DropdownButton show={show} setShow={setShow}></DropdownButton>
             <DropdownMenu  show={show} />
         </nav>

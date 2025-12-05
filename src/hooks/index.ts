@@ -1,4 +1,5 @@
 export * from "./useArray";
-export * from "./useClickOutside";
+export * from "./hooks";
 export * from "./useLS";
+export * from "./localStorage";
 export * from "./useToggler";

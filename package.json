@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"vite\" \"sass -w src/scss/:src/assets/css/\"",
+    "sass": "sass -w src/scss/:src/assets/css/",
     "vite": "vite",
     "build": "vite build",
     "lint": "eslint .",

@@ -1,13 +1,15 @@
 
 
 import { useDispatch} from "react-redux";
-import { deleteTodo, putTodo, toggleTodo, type TTodo } from "../../store/todoSlice";
+import { deleteTodo, putTodo, toggleTodo, type TPriority } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
-import { getTodoById } from "../../service/todoService";
+import { getTodoById, priorityOptions, type TTodo } from "../../service/todoService";
 import { Checkbox } from "../Widgets/Form/Checkbox";
 import DeleteModal from "../Widgets/Modal/DeleteModal";
 import { useTodoContext } from "../../context/todoAppContext";
+import FormFieldset from "../Widgets/Form/FormFieldset";
+import CustomSelect from "../Widgets/Form/CustomSelect";
 
 export default function TodoAppModals () {
     
@@ -23,7 +25,9 @@ export function TodoEditorModal () {
 
     const { editModalShow, setEditModalShow, targetId } = useTodoContext() ;
     const dispatch = useDispatch();
-    const [{ title, priority, completed }, setForm  ] = useState<Omit<TTodo, 'id'>>({title:  '', priority: 'low', completed: false,});
+    const [form, setForm  ] = useState<Omit<TTodo, 'id'>>({title:  '', priority: 'low', completed: false,});
+    
+    const { title, priority, completed } = form;
 
     useEffect(() => {
         if (!targetId) return;
@@ -32,6 +36,14 @@ export function TodoEditorModal () {
         setForm({...targetTodo});
     }, [targetId]);
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const name = e.currentTarget.name;
+        const value = e.currentTarget.value;
+        setForm((prev) => ({...prev, [name]:value }));
+        if (!targetId) return;
+        toggleTodo({id: targetId});
+    }
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (!targetId) return;
@@ -43,6 +55,17 @@ export function TodoEditorModal () {
         if (!targetId) return;
         toggleTodo({id: targetId});
     }
+    const handleCustomSelect = (value: TPriority | null) =>  {
+            if (!targetId) return;
+            if (!value) return;
+            dispatch(putTodo({id: targetId, form: { ...form, priority: value }}));
+    }
+
+    const handleCloseModal = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setEditModalShow(!editModalShow);
+    }
+
 
     return (
         <div className={`modal modal-flex ${editModalShow ? 'show': 'hide'}`} id="editor-modal">
@@ -50,13 +73,29 @@ export function TodoEditorModal () {
                 {targetId ? 
                     <form action="">
                         <h3>Todo #{targetId}</h3>
-                        <p>{title}</p>
-                        <Checkbox value={completed} name={`completed-${targetId}`} id={`completed-${targetId}`} handleChange={handleToggleCheckbox}></Checkbox>
+                        <div className="d-flex justify-content-center align-items-center">
+                            <Checkbox value={completed} name={`completed-${targetId}`} id={`completed-${targetId}`} handleChange={handleToggleCheckbox}></Checkbox>
+                            <FormFieldset
+                            name="title"
+                            id="title"
+                            value={title}
+                            handleChange={handleChange}
+                            type="text"
+                            label="Title"
+                            expanded
+                            ></FormFieldset>
+                            <CustomSelect
+                            options={priorityOptions}
+                            value={priority}
+                            onChange={handleCustomSelect}
+                            ></CustomSelect>
+                        </div>
+                        
                         <div className="d-flex justify-content-center align-items-center gap-2">
                             <button className="btn btn-primary" onClick={handleSubmit}>confirm</button>
                             <button className="btn btn-danger" onClick={() => setEditModalShow(!editModalShow)}>cancel</button>
                         </div>
-                        <CloseBtn value={editModalShow} setter={setEditModalShow}/> 
+                        <CloseBtn handleClick={handleCloseModal}/> 
                     </form>
                         :
                     <div>No todo targeted</div>

@@ -1,3 +1,7 @@
+import type { Option } from "../components/Widgets/Form/CustomSelect";
+import store from "../store/store";
+import type { TPriority } from "../store/todoSlice";
+
 export type TTodo = {
     id: number,
     title: string,
@@ -122,6 +126,11 @@ export const staticTodoMap: { [id:number] : TTodo} = {
 
 export const staticTodoIds : number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
+export const priorityOptions: Option<TPriority>[] =[{value: 'high', label: 'High'}, {value: 'mid', label: 'Mid'}, {value: 'low', label: 'Low'}];
+
+export const getTodoState = () => store.getState().todo;
+export const getTodoIds = (): number[] =>
+  getTodoState() ? getTodoState().todoIds : []
 
 export const getTodosWithFilter = ( ): TTodo[] => {
     //For each todo, check if equals das FilterObjekt, 
