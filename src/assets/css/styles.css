@@ -10151,6 +10151,7 @@ a.handler.handler-col {
 }
 html {
   font-size: 16px;
+<<<<<<< HEAD
   scroll-behavior: smooth;
   --c-name: #002b5c;
   --c-name: #003b73;
@@ -10202,6 +10203,8 @@ html {
   --c-name: #002c2d;
   --c-name: #003319;
   --c-name: #003808;
+=======
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
 }
 
 body {
@@ -10430,6 +10433,7 @@ ul.icon-ul li.icon-li:last-child {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .svg-container svg {
   width: 100%;
   height: 100%;
@@ -10470,6 +10474,9 @@ ul.icon-ul li.icon-li:last-child {
 =======
 .nav-links {
 >>>>>>> f86bf71a904261ed18e5e6f61d416147408045fa
+=======
+.nav-ul {
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -10477,18 +10484,30 @@ ul.icon-ul li.icon-li:last-child {
   padding: 0;
   margin: 0;
 }
+<<<<<<< HEAD
 .icon-list-ul li.icon-list-item {
+=======
+.nav-ul li {
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
   padding: 0.35rem;
   border-radius: 5px;
   transition: background-color 0.2s ease;
 }
+<<<<<<< HEAD
 .icon-list-ul li.icon-list-item:not(:last-child) {
   margin-right: 0.5rem;
 }
 .theme-light .icon-list-ul li.icon-list-item:hover {
+=======
+.nav-ul li:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.nav-ul li:hover {
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
   background-color: #999;
   background-color: var(--theme-bgHover-light, #999);
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 .theme-dark .icon-list-ul li.icon-list-item:hover {
   background-color: #555;
@@ -10501,15 +10520,18 @@ ul.icon-ul li.icon-li:last-child {
 .icon-list-ul li.icon-list-item a.link {
 =======
 .nav-links li a {
+=======
+.nav-ul li a {
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
-.nav-links li a[aria-expanded=true] span {
+.nav-ul li a[aria-expanded=true] span {
   display: block;
 }
-.nav-links li a span {
+.nav-ul li a span {
   display: none;
   color: inherit;
 }
@@ -10623,6 +10645,12 @@ ul.icon-ul li.icon-li:last-child {
   flex: 1 1 100%;
   position: relative;
   overflow: hidden scroll;
+}
+
+.section-nav {
+  position: fixed;
+  right: 3rem;
+  bottom: 1rem;
 }
 
 .header {
@@ -10746,6 +10774,10 @@ ul.icon-ul li.icon-li:last-child {
     right: 0%;
   }
 }
+footer {
+  height: 100vh;
+}
+
 .nav-wrapper {
   background-color: inherit;
   padding: 0.5rem 1.5rem;
@@ -11414,6 +11446,7 @@ a.handler.handler-col {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 input[type=checkbox]:checked::before {
   transform: scale(1);
 }
@@ -11444,12 +11477,17 @@ input[type=checkbox]:checked::before {
   padding: 0.25em 0.45em;
   border: solid 0.125em;
 =======
+=======
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
 .toggler.toggler-active::after {
   right: 0%;
   left: 50%;
   top: 0;
   bottom: 0;
+<<<<<<< HEAD
 >>>>>>> f86bf71a904261ed18e5e6f61d416147408045fa
+=======
+>>>>>>> a4e74300350b2bf944bae20a587b62be67bdf6d7
 }
 
 /*# sourceMappingURL=styles.css.map */

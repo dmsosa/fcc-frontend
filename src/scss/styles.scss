@@ -33,15 +33,8 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
+// 8. themes init and setup
 
-<<<<<<< HEAD
-=======
-// 9. themes init and setup
-//utils & functions
-@import "./utils";
-@import "./functions";
-
->>>>>>> f86bf71a904261ed18e5e6f61d416147408045fa
 //themes
 @import "./themes/themes";
 
@@ -51,23 +44,15 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 //mixins
 @import "./mixins";
 
-<<<<<<< HEAD
 //utils 
 @import "./utils";
 
-
-
-
-
 // //keyframes
 // @import "./keyframes/keyframes";
-=======
-
 // @import "./keyframes";
->>>>>>> f86bf71a904261ed18e5e6f61d416147408045fa
 
 
-//Code
+//9. App code
 //Default Farben, wenn kein Theme ausgewahlt ist 
 @include initThemeValues;
 @include initThemeVariables;
@@ -94,6 +79,7 @@ html {
     @include generateColorVariables();
     @include generateThemeVariables();
     @include generateThemeValues();
+
 }
 
 body {
@@ -131,11 +117,6 @@ svg#test {
         stroke-dashoffset: 686px !important;
         animation:3s ease-in 0s infinite forwards animateStroke;
     }
-}
-#laptop {
-
-}
-.main-content-inner {
 }
 .bg1 {
     @include themify('background-color', 'bgPri');
