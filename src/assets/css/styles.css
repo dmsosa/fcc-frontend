@@ -9603,7 +9603,6 @@ body {
   display: grid;
   grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
   width: 100%;
-  background-color: lightblue;
 }
 
 @keyframes animateStroke {
@@ -9939,7 +9938,6 @@ ul.icon-ul li.icon-li:last-child {
   height: 100vh;
   position: relative;
   transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
-  background-color: lightpink;
 }
 .sidebar-container--expanded {
   opacity: 1;
@@ -9950,7 +9948,7 @@ ul.icon-ul li.icon-li:last-child {
   top: 0;
   bottom: 0;
   right: 0;
-  left: 100%;
+  left: auto;
   width: 2rem;
   background-color: blue;
   cursor: col-resize;
@@ -9961,7 +9959,12 @@ ul.icon-ul li.icon-li:last-child {
   width: 100%;
 }
 
+.sidebar-toggler {
+  font-size: 2rem;
+}
 .sidebar-toggler svg {
+  width: 1em;
+  height: 1em;
   fill: transparent;
   stroke-width: 4rem;
   stroke: currentColor;
@@ -9979,11 +9982,17 @@ ul.icon-ul li.icon-li:last-child {
 .sidebar-toggler svg path#line2 {
   d: path("M 300 100 L 300 424.365");
 }
-.sidebar-toggler:hover svg path#line1 {
-  d: path("M 183.244 444.96 L 401.069 259.393 L 191.024 59.163");
+.sidebar-toggler--close svg path#line1 {
+  d: path("M 303.997 403.284 L 101.858 246.569 L 301.091 95.495");
 }
-.sidebar-toggler:hover svg path#line2 {
-  d: path("M 233.127 100 L 232.059 99.11");
+.sidebar-toggler--close:hover svg path#line1 {
+  d: path("M 354.222 459.92 L 62.32 257.255 L 350.247 46.339");
+}
+.sidebar-toggler--open svg path#line1 {
+  d: path("M 197.136 406.49 L 401.068 251.912 L 199.573 99.77");
+}
+.sidebar-toggler--open:hover svg path#line1 {
+  d: path("M 199.273 458.852 L 444.881 257.255 L 202.779 55.957");
 }
 
 @media only screen and (min-width: 768px) {

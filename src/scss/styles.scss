@@ -62,8 +62,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
     --header-height: 4rem;
     --footer-height: 100vh;
     --backdrop-blur: 0.6rem;
-    --border-width: 0.25rem;
-    
+    --border-width: 0.25rem;  
 }
 // 9. custom code
 
@@ -95,9 +94,7 @@ body {
     grid-column:  main-content-start / main-content-end;
     display: grid;
     grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
-    width: 100%;
-    background-color: lightblue;
-    
+    width: 100%;  
 }
 @keyframes animateStroke {
     to {

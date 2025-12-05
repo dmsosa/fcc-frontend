@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaHome } from "react-icons/fa";
-import type { TIconLink } from "../Sidebar/Sidebar";
+import type { TIconLink } from "./IconList";
 
 type TSection = "projekt" | "beschreibung" | "footer";
 const sections: TSection[] = ["projekt", "beschreibung", "footer"];
@@ -28,7 +28,7 @@ const icons: TIconLink[] = [
 ]
 function SectionButtons() {
     const [targetSection, setTargetSection] = useState<TSection>('projekt');
-    console.log(icons)
+    if(!icons) return;
     return (
         <nav id="section-nav" className="section-nav">
             <ul className={'links-ul links-ul-vertical'}>
