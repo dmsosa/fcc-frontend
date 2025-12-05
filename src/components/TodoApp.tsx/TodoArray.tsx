@@ -1,5 +1,5 @@
 
-import { useTodoArrayWithFilter } from "../../hooks";
+import { useTodoArrayWithFilter } from "../../hooks/todo";
 import ArrayPagination from "../Widgets/ArrayPagination";
 import TodoKarte from "./TodoKarte";
 

@@ -1,5 +1,5 @@
 import { type MouseEvent } from "react";
-import { useThemeContext } from "../../context/createThemeContext";
+import { useThemeContext } from "../../context/themeContext";
 import useToggler from "../../hooks/useToggler";
 
 export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: React.SVGAttributes<SVGSVGElement> }) {

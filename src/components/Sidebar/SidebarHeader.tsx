@@ -9,7 +9,7 @@ export default function SidebarHeader () {
             <header className="sidebar-header px-4 py-2 border-bottom border-color border-2 shadow-sm">
                 <div className="d-flex justify-content-between align-items-center  ">
                     <BrandLogo expanded={expanded}></BrandLogo>
-                    <SidebarToggler role="close"></SidebarToggler>
+                    <SidebarToggler></SidebarToggler>
                     <ThemeToggler svgAttributes={{ width: '2rem', height: '2rem' }}></ThemeToggler>
                 </div>
             </header>

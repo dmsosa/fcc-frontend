@@ -84,15 +84,15 @@
     transition: all 0.2s ease;
     display: block;
     fill: transparent;
-    @include themifyProp('stroke', 'colorPrimary');
-    @include themifyProp('color', 'colorPrimary');
+    // @include themifyProp('stroke', 'colorPrimary');
+    // @include themifyProp('color', 'colorPrimary');
 
 
     &:hover,&:focus, &:active {
-        @include themifyProp('background-color', 'linkHoverBg');
-        @include themifyProp('outline-color', 'borderPrimary');
-        @include themifyProp('stroke', 'linkHoverColor');
-        @include themifyProp('color', 'linkHoverColor');
+        // @include themifyProp('background-color', 'linkHoverBg');
+        // @include themifyProp('outline-color', 'borderPrimary');
+        // @include themifyProp('stroke', 'linkHoverColor');
+        // @include themifyProp('color', 'linkHoverColor');
     }
     &.x {
         svg {

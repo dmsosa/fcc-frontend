@@ -81,11 +81,11 @@ ul.icon-ul {
 .pagination-li, .pagination-ul .prev, .pagination-ul .next {
     border: 0.1rem solid;
     padding: 0;
-    @include themifyProp('border-color', 'borderPrimary');
+    // @include themifyProp('border-color', 'borderPrimary');
 //    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     &.active, &:hover {
-        @include themifyProp('background-color', 'linkHoverBg');
-        @include themifyProp('color', 'linkHoverColor');
+        // @include themifyProp('background-color', 'linkHoverBg');
+        // @include themifyProp('color', 'linkHoverColor');
     }
     &:not(:last-of-type) {
         margin-right: 0.25rem;

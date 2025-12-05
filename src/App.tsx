@@ -2,12 +2,12 @@ import Footer from './components/Footer/Footer'
 import { Outlet } from 'react-router'
 import SectionButtons from './components/Widgets/SectionButtons'
 import Sidebar from './components/Sidebar/Sidebar'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SidebarContextProvider } from './context/sidebarContext'
-import { ThemeReadyContextProvider } from './context/themeContext'
+import { THEME_VALUES, type TTheme } from './context/themeContext'
 import { useLocalStorage } from './hooks'
 import Header from './components/AppHeader/Header'
-import { useThemeContext } from './context/createThemeContext'
+import { ThemeContextProvider } from './context/themeContext'
 
 
 
@@ -23,40 +23,50 @@ function App() {
   const appWrapperRef = useRef(null);
 
   const [ widthCheckedInLS , setWidthLS, removeWidthLS ] = useLocalStorage(storageKey, initialWidth);
-  const { theme } = useThemeContext();
+  const [ theme, setTheme, removeTheme ] = useLocalStorage<TTheme>('theme', 'light', { ns: 'fcc-aio-app', ttl: 1 });
 
-    //   //Resize logic
-    // useEffect(() => {
-    //   if (!isRezising) return;
-    //   const appWrapper = appWrapperRef.current;
-    //   if (!appWrapper) return;
-    //   if (!expanded) {
-    //     setWidthLS(96);
-    //     return;
-    //   } 
-    //   const onMove = (e: MouseEvent) => {
-    //     const newWidth = e.clientX;
-    //     const clampedWidth = Math.min(350, Math.max(96, newWidth));
-    //     console.log(clampedWidth, appWrapper)
-    //     appWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
-    //     appWrapper.style.setProperty('--main-content-width', `calc(100% - ${clampedWidth}px)`);
-    //     };
-    //     const resizeUp = () => {
-    //         window.removeEventListener('mousemove', resizeMove);
-    //         window.removeEventListener('mouseup', resizeUp);
-    //     }
-    //     window.addEventListener('mousemove', resizeMove);
-    //     window.addEventListener('mouseup', resizeUp);
-    //     return () => {
-    //       window.removeEventListener('mousemove', onMove);
-    //       window.removeEventListener('mouseup', onMouseUp);
-    //     }
-    // }, [expanded, isRezising])
+    const setThemeToContextAndDocument = (value: TTheme) => {
+        const root = document.documentElement;
+        if (!root) return;
+        // Tailwind needs the class "dark" on html
 
+        //1. Remove any prev value from ClassList
+        //2. Set new value
+        for (const themeValue of THEME_VALUES ) {
+            root.classList.remove(themeValue);
+        }
+        root.classList.add(value);
+        setTheme(value);
+    }
+
+    //UseEffect: check vorherigen Werte von CSS Media Queries
+    useEffect(() => {
+        
+        let media = window.matchMedia(`(prefers-color-scheme: )`);
+        for (const themeValue of THEME_VALUES ) {
+            media = window.matchMedia(`(prefers-color-scheme: ${themeValue})`);
+
+            if (media.matches) {
+                setThemeToContextAndDocument(themeValue);
+            }
+        }
+
+    //Listen to mediaQuerie changes
+
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? "dark" : "light");
+    };
+
+    media.addEventListener('change', handleMediaChange );
+
+    return () => {
+        media.removeEventListener("change", handleMediaChange);
+    }
+    }, [theme]);
 
   
   return (
-    <ThemeReadyContextProvider>
+    <ThemeContextProvider value={{theme, setThemeToContextAndDocument, removeTheme}}>
       <SidebarContextProvider value={{ isResizing, setIsResizing, widthCheckedInLS, setWidthLS, removeWidthLS, expanded, setExpanded, initialWidth, minWidth, maxWidth, storageKey, appWrapperRef }}>
       <div id='app-wrapper' className={`app-wrapper theme-${theme}`} ref={appWrapperRef}>
         <Sidebar></Sidebar>
@@ -73,7 +83,7 @@ function App() {
         </div>
       </div>
     </SidebarContextProvider>
-    </ThemeReadyContextProvider>
+    </ThemeContextProvider>
     
         
   )

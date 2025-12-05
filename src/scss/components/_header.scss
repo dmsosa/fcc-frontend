@@ -21,66 +21,6 @@
     transform: scaleX(0);
     will-change: transform;
 }
-.logo {
-    cursor: pointer;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: color 0.4s;
-    &:hover {
-        @include themifyProp('color', 'linkHoverColorPrimary');
-    }
-    span {
-        font-size: 0.8em;
-        align-self: end;
-        font-weight: 600;
-    }
-    img {
-        width: 2em;
-    }
-    &.x {
-        svg {
-          path#dropdown-path-1 {
-                d: path('M 100 450 L 400 100');
-            }
-            path#dropdown-path-2 {
-                d: path('M 100 279.694 L 100 280.142');
-            }
-            path#dropdown-path-3 {
-                d: path('M 100 100 L 400 450');
-            }
-        }  
-    }
-    svg {
-        stroke-width: 3rem;
-        path {
-            transition: d 0.2s ease;
-        }
-        path#dropdown-path-1 {
-            d: path('M 100.062 98.047 L 400 100');
-        }
-        path#dropdown-path-2 {
-            d: path('M 99.269 246.379 L 400 250');
-        }
-        path#dropdown-path-3 {
-            d: path('M 100.855 398.677 L 400 400');
-        }
-        &:hover {
-        path#dropdown-path-1 {
-            d: path('M 100 450 L 400 100');
-        }
-        path#dropdown-path-2 {
-            d: path('M 100 279.694 L 100 280.142');
-        }
-        path#dropdown-path-3 {
-            d: path('M 100 100 L 400 450');
-        }
-        }
-    }
-}
 
 @media only screen and (min-width: 768px) {
     .collapsable {

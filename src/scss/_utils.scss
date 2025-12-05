@@ -1,33 +1,18 @@
-<<<<<<< HEAD
 .themed-border {
-    @include themify('fill', 'colorTer');
-=======
-
-.no-scroll {
-    overflow: hidden !important;
-}
-.show {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-.hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-.container-1 {
-    background-color: $dark;
->>>>>>> f86bf71a904261ed18e5e6f61d416147408045fa
+    @include themify('fill', 'colorPri');
+    transition: border var(--link-transition-duration) ease;
 }
 .themed-color {
     @include themify('fill', 'colorPri');
+    transition: color var(--link-transition-duration) ease;
 }
 .themed-fill {
     @include themify('fill', 'colorPri');
+    transition: fill var(--link-transition-duration) ease;
 }
 .themed-stroke {
-    @include themify('stroke', 'colorTer');
-}
+    @include themify('stroke', 'colorPri');
+    transition: stroke var(--link-transition-duration) ease;}
 .no-scroll {
     overflow: hidden !important;
 }

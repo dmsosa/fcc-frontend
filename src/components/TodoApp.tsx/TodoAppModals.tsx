@@ -4,12 +4,13 @@ import { useDispatch} from "react-redux";
 import { deleteTodo, putTodo, toggleTodo, type TPriority } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
-import { getTodoById, priorityOptions, type TTodo } from "../../service/todoService";
+import { getTodoById } from "../../service/todoService";
 import { Checkbox } from "../Widgets/Form/Checkbox";
 import DeleteModal from "../Widgets/Modal/DeleteModal";
 import { useTodoContext } from "../../context/todoAppContext";
 import FormFieldset from "../Widgets/Form/FormFieldset";
 import CustomSelect from "../Widgets/Form/CustomSelect";
+import { priorityOptions, type TTodo } from "../../service/todoData";
 
 export default function TodoAppModals () {
     

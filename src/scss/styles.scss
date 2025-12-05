@@ -53,12 +53,6 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 
 //9. App code
-//Default Farben, wenn kein Theme ausgewahlt ist 
-@include initThemeValues;
-@include initThemeVariables;
-
-
-
 :root {
     --sidebar-width: 250px;
     --main-content-width: calc(100% - var(var(--sidebar-width)));
@@ -258,24 +252,7 @@ ul.icon-ul {
         @include themify('stroke', 'strokePri');
     }
 }
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    cursor: pointer;
-    text-decoration: none;
-    &:hover {
-    color: $primary !important;
-    }
-    span {
-        color: inherit;
-        transition: color 0.2s ease;
-    }
-    img {
-        max-width: 100%;
-    }
-}
+
 
 .icon-list-ul {
     display: flex;
@@ -326,9 +303,6 @@ ul.icon-ul {
 .link {
     transition: color 0.4s;
     color: inherit;
-    &:hover {
-        @include themifyProp('color', 'linkHoverColorPrimary');
-    }
 }
 .avatar {
     position: relative;
@@ -384,15 +358,6 @@ ul.icon-ul {
         background: linear-gradient(to top, #111, transparent);
         bottom: 0;
     }
-}
-.box {
-    border: solid var(--border-width);
-    @include themifyProp('background-color', 'bgTertiary');
-    @include themifyProp('border-color', 'borderPrimary');
-}
-.box-secondary {
-    @include themifyProp('background-color', 'bgTertiary');
-    @include themifyProp('border-color', 'borderSecondary');
 }
 
 .box-flex {

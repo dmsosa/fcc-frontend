@@ -9,8 +9,8 @@ import { useState, type ChangeEventHandler, type MouseEvent } from "react";
 import type { AppDispatch } from "../../store";
 import InputWithButtons from "../Widgets/Form/InputWithButtons";
 import CustomSelect from "../Widgets/Form/CustomSelect";
-import { priorityOptions, type TTodo } from "../../service/todoService";
 import { useTodoContext } from "../../context/todoAppContext";
+import { priorityOptions, type TTodo } from "../../service/todoData";
 
 //Weg 1: jeder Knopf kann ein neues Event dispatchen
 //Weg 2: Wir haben EditorKomponent, dass wie ein Form funktionierst
