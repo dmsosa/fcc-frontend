@@ -3,6 +3,7 @@ import { useSidebarContext } from "../../context/sidebarContext";
 import { IconList, type TIconLink } from "../Widgets/IconList";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
+import { Button, Dropdown, Stack } from "react-bootstrap";
 
 
 const sidebarIcons: { [key:string ]: TIconLink } = 
@@ -35,6 +36,25 @@ export default function SidebarContent () {
 
     return (
             <div className="sidebar-content">
+                <Stack  gap={2}>
+                    <Button as="a" variant="primary">
+                        Button as link
+                    </Button>
+                    <Button as="a" variant="success">
+                        Button as link
+                    </Button>
+                    </Stack>;
+                <Dropdown as={"label"}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Dropdown Button
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
                 <IconList icons={Object.values(icons)} expanded={expanded}></IconList>
             </div>
   );
