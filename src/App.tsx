@@ -4,7 +4,7 @@ import SectionButtons from './components/Widgets/SectionButtons'
 import Sidebar from './components/Sidebar/Sidebar'
 import { useEffect, useRef, useState } from 'react'
 import { SidebarContextProvider } from './context/sidebarContext'
-import { THEME_VALUES, type TTheme } from './context/themeContext'
+import { type TTheme } from './context/themeContext'
 import { useLocalStorage } from './hooks'
 import Header from './components/AppHeader/Header'
 import { ThemeContextProvider } from './context/themeContext'
@@ -25,30 +25,12 @@ function App() {
   const [ widthCheckedInLS , setWidthLS, removeWidthLS ] = useLocalStorage(storageKey, initialWidth);
   const [ theme, setTheme, removeTheme ] = useLocalStorage<TTheme>('theme', 'light', { ns: 'fcc-aio-app', ttl: 1 });
 
-    const setThemeToContextAndDocument = (value: TTheme) => {
-        const root = document.documentElement;
-        if (!root) return;
-        // Tailwind needs the class "dark" on html
-
-        //1. Remove any prev value from ClassList
-        //2. Set new value
-        for (const themeValue of THEME_VALUES ) {
-            root.classList.remove(themeValue);
-        }
-        root.classList.add(value);
-        setTheme(value);
-    }
-
     //UseEffect: check vorherigen Werte von CSS Media Queries
     useEffect(() => {
         
-        let media = window.matchMedia(`(prefers-color-scheme: )`);
-        for (const themeValue of THEME_VALUES ) {
-            media = window.matchMedia(`(prefers-color-scheme: ${themeValue})`);
-
-            if (media.matches) {
-                setThemeToContextAndDocument(themeValue);
-            }
+        const media: MediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        if (media && media.matches) {
+          setTheme('dark');
         }
 
     //Listen to mediaQuerie changes
@@ -62,11 +44,10 @@ function App() {
     return () => {
         media.removeEventListener("change", handleMediaChange);
     }
-    }, [theme]);
-
-  
+    }, []);
+    
   return (
-    <ThemeContextProvider value={{theme, setThemeToContextAndDocument, removeTheme}}>
+    <ThemeContextProvider value={{theme, setTheme, removeTheme}}>
       <SidebarContextProvider value={{ isResizing, setIsResizing, widthCheckedInLS, setWidthLS, removeWidthLS, expanded, setExpanded, initialWidth, minWidth, maxWidth, storageKey, appWrapperRef }}>
       <div id='app-wrapper' className={`app-wrapper theme-${theme}`} ref={appWrapperRef}>
         <Sidebar></Sidebar>

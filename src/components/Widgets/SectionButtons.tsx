@@ -37,7 +37,7 @@ function SectionButtons() {
                 const activeClass = targetSection === section;    
                     
                 return (
-                <a href={section} className={activeClass ? 'active':''} onClick={() => setTargetSection(section)}>
+                <a key={section} href={section} className={activeClass ? 'active':''} onClick={() => setTargetSection(section)}>
                     {section}
                 </a>
                 )}

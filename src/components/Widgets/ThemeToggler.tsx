@@ -3,38 +3,30 @@ import { useThemeContext } from "../../context/themeContext";
 
 export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: React.SVGAttributes<SVGSVGElement> }) {
 
-    const { theme, setThemeToContextAndDocument } = useThemeContext();
-            console.log('rendered');
-
-    const toggleButtonAndThemeContext = (e: MouseEvent<HTMLButtonElement>) => {
+    const { theme, setTheme } = useThemeContext();
+    console.log('rende')
+    const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         if (theme === "dark") {
-            setThemeToContextAndDocument('light');
+            setTheme('light');
         } else {
-            setThemeToContextAndDocument('dark');
+            setTheme('dark');
         }
     }
-    //active is false
-    //theme changes to light, themeToggler re render
-    //theme is dark
-    //changed theme to dark again, brandLogo re render
-    //changed active to true
-    //toggler re renders, theme is dark
-    //active is true
-    //
 
     return (
-    <button
-  className={`theme-toggle ${theme === "dark" ? 'theme-toggle--toggled':''}`}
+    <a
+  className={`theme-toggle link-regular ${theme === "dark" ? 'theme-toggle--toggled':''}`}
   type="button"
   title="Toggle theme"
   aria-label="Toggle theme"
-  onClick={toggleButtonAndThemeContext}
+  onClick={handleClick}
+  href="#"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
-    stroke-linecap="round"
+    strokeLinecap="round"
     className="theme-toggle__classic"
     viewBox="0 0 32 32"
     {...svgAttributes}
@@ -42,9 +34,9 @@ export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: Reac
     <clipPath id="theme-toggle__classic__cutout">
       <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
     </clipPath>
-    <g clip-path="url(#theme-toggle__classic__cutout)">
+    <g clipPath="url(#theme-toggle__classic__cutout)">
       <circle cx="16" cy="16" r="9.34" />
-      <g stroke="currentColor" stroke-width="1.5">
+      <g>
         <path d="M16 5.5v-4" />
         <path d="M16 30.5v-4" />
         <path d="M1.5 16h4" />
@@ -56,7 +48,7 @@ export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: Reac
       </g>
     </g>
   </svg>
-</button>
+</a>
     
   );
 };

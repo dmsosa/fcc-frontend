@@ -25,7 +25,7 @@ export function SidebarToggler() {
         setIsResizing(false);
     }
     return ( 
-        <a role="button" aria-label="sidebar-toggler" aria-expanded={expanded} className={`themed-border border-1 themed-bg py-0 px-0 sidebar-toggler ${expanded ? 'sidebar-toggler--close' : 'sidebar-toggler--open'}`} onClick={handleExpanded}>
+        <a role="button" href="#" aria-label="sidebar-toggler" aria-expanded={expanded} className={`link link-regular py-0 px-0 sidebar-toggler d-flex align-items-center justify-content-between ${expanded ? 'sidebar-toggler--close' : 'sidebar-toggler--open'}`} onClick={handleExpanded}>
             <SVGArrow></SVGArrow>
         </a>
     )

@@ -3,6 +3,8 @@
     height: 100vh;
     position: relative;
     transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+    @include themify('background-color', 'bgSec');  
+    @include themify('color', 'colorPri');
     &--expanded {
         opacity: 1;
         visibility: visible;
@@ -38,8 +40,6 @@
 // }
 
 .sidebar-toggler {
-    font-size: 2rem;
-
     svg {
         width: 1em;
         height: 1em;

@@ -59,7 +59,7 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
     --inner-margin-right: 2rem;
     --inner-margin-left: 2rem;
     --main-content-inner-width: calc(100% - var(--inner-margin-right) - var(--inner-margin-left));
-    --header-height: 4rem;
+    --header-height: 3.5rem;
     --footer-height: 100vh;
     --backdrop-blur: 0.6rem;
     --border-width: 0.25rem;  
@@ -90,11 +90,9 @@ body {
     width: var(--main-content-width);
     max-height: 100vh;
     overflow: hidden scroll;
-    scroll-snap-type: y mandatory;
-    grid-column:  main-content-start / main-content-end;
-    display: grid;
-    grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
-    width: 100%;  
+    position: relative;
+    @include themify('background-color', 'bgPri');
+    @include themify('color', 'colorPri');
 }
 @keyframes animateStroke {
     to {
@@ -120,7 +118,6 @@ svg#test {
 }
 .section {
     width: 100%;
-    height: 100vh;
     min-height: 100vh;
     padding-top: calc(var(--header-height) + 2rem);
     overflow: hidden;
@@ -143,14 +140,6 @@ p {
         background-color: tint-color($primary, 30) !important;
     }
 }
-
-
-a {
-    cursor: pointer;
-    transition: color 0.2s ease;
-    color: inherit;
-}
-
 h1 + span {
     display: block;
     font-size: 1rem;
@@ -187,21 +176,22 @@ ul.icon-ul {
 // Das Personliches Scrollbar 
 ::-webkit-scrollbar {
     width: 0.5rem;
-    border: 5px solid $dark;
+    border: 5px solid;
+    @include themify('border-color', 'colorPri');
   }
   
   ::-webkit-scrollbar-thumb {
-    background-color: red;
+    @include themify('background-color', 'bgSec');
     border: 0.05rem solid #222;
     border-radius: 0.25rem;
     cursor: pointer;
     &:hover {
-        background-color: $dark3;
+        @include themify('background-color', 'colorPri');
     }
   }
   
   ::-webkit-scrollbar-track {
-    background-color: $dark2;
+    @include themify('background-color', 'bgTer');
     cursor: pointer;
 
   }
@@ -295,11 +285,6 @@ ul.icon-ul {
             }
         }
     }
-}
-
-.link {
-    transition: color 0.4s;
-    color: inherit;
 }
 .avatar {
     position: relative;
@@ -402,7 +387,11 @@ ul.icon-ul {
     }
     }
     .main-content {
-        grid-column: main-content;
+        scroll-snap-type: y mandatory;
+        grid-column:  main-content;
+        display: grid;
+        grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
+        width: 100%;  
     }
 }
 

@@ -12,7 +12,7 @@ export function IconList({ icons, expanded=false }: { icons: TIconLink[], expand
             {icons.map((icon) => {
                 const clazz = `icon-list-li ${icon.active ? 'active':''}`;
                 return (
-                    <li className={clazz}>
+                    <li key={icon.title} className={clazz}>
                         <a className="link" href={icon.href}>
                             {icon.svg}
                             { expanded && <span>{icon.title}</span>}

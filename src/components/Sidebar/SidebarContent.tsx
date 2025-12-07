@@ -23,10 +23,8 @@ export default function SidebarContent () {
     
     //Handle active icon
     useEffect(() => {
-        console.log(location, icons, expanded);
         for (const key of Object.keys(icons)) {
             const iconLink = icons[key];
-            console.log(iconLink, icons, key)
             if (iconLink.title === location.pathname ) {
                 if (!iconLink.active) {
                     setIcons((prev) => ({ ...prev, [iconLink.title]: { ...iconLink, active: true }}));

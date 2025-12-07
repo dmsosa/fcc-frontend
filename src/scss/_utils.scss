@@ -1,9 +1,9 @@
 .themed-border {
-    @include themify('fill', 'colorPri');
+    @include themify('border', 'colorPri');
     transition: border var(--link-transition-duration) ease;
 }
 .themed-color {
-    @include themify('fill', 'colorPri');
+    @include themify('color', 'colorPri');
     transition: color var(--link-transition-duration) ease;
 }
 .themed-fill {

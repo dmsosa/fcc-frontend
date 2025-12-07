@@ -1,6 +1,7 @@
 .header {
-    position: fixed;
-    width: 100vw;
+    position: absolute;
+    left: 0;
+    right: 0;
     padding: 0;
     transform: translateY(0);
     transition: transform 0.2s ease;
@@ -20,28 +21,4 @@
     transform-origin: left center;
     transform: scaleX(0);
     will-change: transform;
-}
-
-@media only screen and (min-width: 768px) {
-    .collapsable {
-        display: flex;
-        justify-content: center;
-        align-items: start;
-        position: relative;
-        max-height: none;
-        width: fit-content;
-        height: fit-content;
-    }
-    .collapsable-nav {
-        flex-direction: row;
-        align-items: center;
-        .links-li {
-            .link span {
-                display: none;
-            }
-        }
-    }
-    .dropdown-toggler {
-        display: none;
-    }
 }

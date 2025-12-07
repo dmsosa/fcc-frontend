@@ -15,7 +15,7 @@ export default function Home () {
                 <div className="row">
                     <div className="d-flex justify-content-center align-items-start flex-wrap gap-2">
                         {PROJECTS_ARRAY.map((p: TProject) => {
-                            return (<ProjektKarte project={p}/>)
+                            return (<ProjektKarte key={p.title} project={p}/>)
                         })}
                     </div>
                 </div>

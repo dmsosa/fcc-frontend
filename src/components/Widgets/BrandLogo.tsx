@@ -7,7 +7,6 @@ function BrandLogo({ expanded=false }: { expanded?: boolean}) {
     const { theme } = useThemeContext();
     const [logo, setLogo ] = useState(theme === 'dark' ? blackLogo : whiteLogo);
     useEffect(() => {
-        console.log('theme:', theme);
         if (theme === 'dark') {
             setLogo(whiteLogo);
         } else {
@@ -19,7 +18,7 @@ function BrandLogo({ expanded=false }: { expanded?: boolean}) {
     //theme is dark
     //theme is Dark
     return (
-        <a className="logo link">
+        <a className="logo link-regular">
             <img src={logo}></img>
             {expanded && <span>dmsosa</span>}
         </a>
