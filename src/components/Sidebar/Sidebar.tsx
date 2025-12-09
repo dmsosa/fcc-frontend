@@ -72,7 +72,7 @@ export default function Sidebar () {
             setWidthLS(clampedWidth);
             console.log(widthCheckedInLS);
             appWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
-            appWrapper.style.setProperty('--main-content-width', `calc(100% - ${clampedWidth}px)`);
+            appWrapper.style.setProperty('--app-content-width', `calc(100% - ${clampedWidth}px)`);
 
         };
 

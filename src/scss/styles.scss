@@ -1,35 +1,112 @@
+
+
+
+$enable-gradients: true;
+$enable-shadows: true;
+
+$offcanvas-box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
+$grid-breakpoints: (
+  xs: 1,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// 1. Include functions first
 @import "../../node_modules/bootstrap/scss/functions";
 
-// 2. Include any default variable overrides here
+// 2. Include any default variable overrides here.  Place variable overrides first, then import just the styles you need. Note that some stylesheets are required no matter what.
+
+// Toggle global options
+
 @import "./variables/custom_variables";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
-
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/reboot";
 // 4. Include any default map overrides here
 
 $theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
 $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 
 // 5. Include remainder of required parts
-@import "../../node_modules/bootstrap/scss/maps";
-@import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/root";
+
 
 // 6. Optionally include any other parts as needed
-@import "../../node_modules/bootstrap/scss/utilities";
-@import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
 @import "../../node_modules/bootstrap/scss/images";
 @import "../../node_modules/bootstrap/scss/containers";
 @import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
 @import "../../node_modules/bootstrap/scss/buttons";
-@import "../../node_modules/bootstrap/scss/nav";
-@import "../../node_modules/bootstrap/scss/navbar";
-@import "../../node_modules/bootstrap/scss/helpers";
 @import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/nav";
+// @import "bootstrap/scss/navbar"; // Requires nav
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/card";
+@import "../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../node_modules/bootstrap/scss/accordion";
+@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+@import "../../node_modules/bootstrap/scss/alert";
+@import "../../node_modules/bootstrap/scss/progress";
+@import "../../node_modules/bootstrap/scss/list-group";
+@import "../../node_modules/bootstrap/scss/close";
+@import "../../node_modules/bootstrap/scss/toasts";
+@import "../../node_modules/bootstrap/scss/modal"; // Requires transitions
+@import "../../node_modules/bootstrap/scss/tooltip";
+@import "../../node_modules/bootstrap/scss/popover";
+@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../node_modules/bootstrap/scss/spinners";
+@import "../../node_modules/bootstrap/scss/offcanvas"; // Requires transitions
+@import "../../node_modules/bootstrap/scss/placeholders";
 
+/*
+
+
+@import "bootstrap/scss/type";
+// @import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+// @import "bootstrap/scss/tables";
+// @import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+// @import "bootstrap/scss/button-group";
+// @import "bootstrap/scss/nav";
+// @import "bootstrap/scss/navbar"; // Requires nav
+// @import "bootstrap/scss/card";
+// @import "bootstrap/scss/breadcrumb";
+// @import "bootstrap/scss/accordion";
+// @import "bootstrap/scss/pagination";
+// @import "bootstrap/scss/badge";
+// @import "bootstrap/scss/alert";
+// @import "bootstrap/scss/progress";
+// @import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+// @import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal"; // Requires transitions
+// @import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+// @import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas"; // Requires transitions
+// @import "bootstrap/scss/placeholders";
+
+// Helpers
+// @import "bootstrap/scss/helpers";
+*/
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
@@ -55,14 +132,15 @@ $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
 //9. App code
 :root {
     --sidebar-width: 250px;
-    --main-content-width: calc(100% - var(var(--sidebar-width)));
+    --app-content-width: calc(100% - var(var(--sidebar-width)));
     --inner-margin-right: 2rem;
     --inner-margin-left: 2rem;
-    --main-content-inner-width: calc(100% - var(--inner-margin-right) - var(--inner-margin-left));
+    --main-content-width: calc(100% - var(--inner-margin-right) - var(--inner-margin-left));
     --header-height: 3.5rem;
     --footer-height: 100vh;
     --backdrop-blur: 0.6rem;
     --border-width: 0.25rem;  
+    --bs-dropdown-item-border-radius: var(--bs-border-radius);
 }
 // 9. custom code
 
@@ -86,13 +164,16 @@ body {
     display: block;
     overflow: hidden;
 }
-.main-content {
-    width: var(--main-content-width);
-    max-height: 100vh;
-    overflow: hidden scroll;
+.app-content {
+    width: var(--app-content-width);
     position: relative;
     @include themify('background-color', 'bgPri');
     @include themify('color', 'colorPri');
+}
+.main-content {
+    max-height: 100vh;
+    overflow: hidden scroll;
+    position: relative;
 }
 @keyframes animateStroke {
     to {
@@ -116,12 +197,7 @@ svg#test {
 .bg3 {
     @include themify('background-color', 'bgTer');
 }
-.section {
-    width: 100%;
-    min-height: 100vh;
-    padding-top: calc(var(--header-height) + 2rem);
-    overflow: hidden;
-}
+
 p {
     font-weight: 400; 
     font-size: 0.9rem;
@@ -153,6 +229,20 @@ h1 + span {
     fill: inherit;
 }
 
+.section {
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding-top: calc(var(--header-height) + 2rem);
+    overflow: scroll;
+}
+section::-webkit-scrollbar {
+    width: 0.5rem;
+    border: 5px solid;
+    background-color: red !important;
+    display: none !important;
+}
+
 ul.icon-ul {
     padding: 0;
     list-style: none;
@@ -172,62 +262,6 @@ ul.icon-ul {
     stroke-dasharray: 132;
     stroke-dashoffset: 0;
 }
-
-// Das Personliches Scrollbar 
-::-webkit-scrollbar {
-    width: 0.5rem;
-    border: 5px solid;
-    @include themify('border-color', 'colorPri');
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @include themify('background-color', 'bgSec');
-    border: 0.05rem solid #222;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    &:hover {
-        @include themify('background-color', 'colorPri');
-    }
-  }
-  
-  ::-webkit-scrollbar-track {
-    @include themify('background-color', 'bgTer');
-    cursor: pointer;
-
-  }
-  /* Buttons */
-  ::-webkit-scrollbar-button:single-button {
-    display: block;
-    height: 2rem;
-    width: 2.5rem;
-    background: $dark2;
-    cursor: pointer;
-  }
-  /* Up */
-  ::-webkit-scrollbar-button:single-button:vertical:decrement {
-    border-width: 0 0.8rem 0.8rem 0.8rem;
-    border-color: transparent transparent #222 transparent;
-  }
-  
-  ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
-    border-color: transparent transparent #555 transparent;
-  }
-  /* Down */
-  ::-webkit-scrollbar-button:single-button:vertical:increment {
-    border-width: 8px 8px 0 8px;
-    border-color: #222 transparent transparent transparent;
-  }
-  
-  ::-webkit-scrollbar-button:vertical:single-button:increment:hover {
-    border-color: #555 transparent transparent transparent;
-  }
-// ::-webkit-scrollbar the scrollbar.
-// ::-webkit-scrollbar-button the buttons on the scrollbar (arrows pointing upwards and downwards).
-// ::-webkit-scrollbar-thumb the draggable scrolling handle.
-// ::-webkit-scrollbar-track the track (progress bar) of the scrollbar.
-// ::-webkit-scrollbar-track-piece the track (progress bar) NOT covered by the handle.
-// ::-webkit-scrollbar-corner the bottom corner of the scrollbar, where both horizontal and vertical scrollbars meet.
-// ::-webkit-resizer the draggable resizing handle that appears at the bottom corner of some elements.
 
 
 //Widgets
@@ -381,14 +415,17 @@ ul.icon-ul {
 @media only screen and (min-width: 768px) {
     .app-wrapper {
     display: grid;
-    grid-template-columns: [sidebar-start] var(--sidebar-width, 250px) [main-content-start sidebar-end] var(--main-content-width, calc(100vw - 250px)) [main-content-end];    transition: grid-template-columns 0.2s linear;
+    grid-template-columns: [sidebar-start] var(--sidebar-width, 250px) [app-content-start sidebar-end] var(--app-content-width, calc(100vw - 250px)) [app-content-end];    
+    transition: grid-template-columns 0.2s linear;
     &:has(.sidebar-container--expanded) {
         
     }
     }
+    .app-content {
+        grid-column:  app-content;
+    }
     .main-content {
         scroll-snap-type: y mandatory;
-        grid-column:  main-content;
         display: grid;
         grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
         width: 100%;  
@@ -397,6 +434,8 @@ ul.icon-ul {
 
 // 10. components
 @import "./components/sidebar";
+@import "./components/widgets";
+@import "./components/scrollbar";
 @import "./components/header";
 @import "./components/home";
 @import "./components/footer";
@@ -404,7 +443,6 @@ ul.icon-ul {
 @import "./components/inputs";
 @import "./components/lists";
 @import "./components/modals";
-@import "./components/widgets";
 @import "./components/markdown";
 @import "./components/drum";
 @import "./components/theme_toggler";

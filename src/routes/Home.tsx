@@ -4,7 +4,8 @@ import { PROJECTS_ARRAY, type TProject } from "../service/projectService";
 export default function Home () {
     
     return (
-        <section className="section scroll-snap-">
+        <>
+        <section className="section scroll-snap-child">
             <div className='container'>
                 <div className="row">
                     <h1>Free Code Camp: Frontend Challenges</h1>
@@ -24,6 +25,11 @@ export default function Home () {
                 </div>              
             </div>       
         </section>
+        <section id='beschreibung' className='h-100vh bg1 scroll-snap-child'></section>
+        <section id='beschreibung' className='h-100vh bg2 scroll-snap-child'></section>
+        <section id='beschreibung' className='h-100vh bg3 scroll-snap-child'></section>
+        </>
+
     
   );
 }

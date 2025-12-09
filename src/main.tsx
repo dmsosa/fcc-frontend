@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <Routes>
         <Route element={<App/>}>
-                  <Route path='/home' index element={<Home/>}></Route>
+                  <Route path='/' index element={<Home/>}></Route>
                   <Route path='/01' element={<TodoApp/>}></Route>
                   <Route path='/02'  element={<TodoApp/>}></Route>
                   <Route path='/03' element={<TodoApp/>}></Route>
