@@ -5,7 +5,7 @@ export default function Home () {
     
     return (
         <>
-        <section className="section scroll-snap-child">
+        <section className="section scroll-snap-child invisible-scrollbar">
             <div className='container'>
                 <div className="row">
                     <h1>Free Code Camp: Frontend Challenges</h1>

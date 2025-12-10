@@ -44,22 +44,22 @@ ensure there is enough color contrast and touch targets are at least 44px wide a
 //   outline: 2px dashed cornflowerblue;
 // }
 
-// .invisible-scrollbar::-webkit-scrollbar {
-//   display: none;
-// }
 
-// /* Demonstrate a "mostly customized" scrollbar
-//  * (won't be visible otherwise if width/height is specified) */
-// .mostly-customized-scrollbar::-webkit-scrollbar {
-//   width: 5px;
-//   height: 8px;
-//   background-color: #aaaaaa; /* or add it to the track */
-// }
 
-// /* Add a thumb */
-// .mostly-customized-scrollbar::-webkit-scrollbar-thumb {
-//   background: black;
-// }
+
+
+/* Demonstrate a "mostly customized" scrollbar
+ * (won't be visible otherwise if width/height is specified) */
+body::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaaaaa; /* or add it to the track */
+}
+
+/* Add a thumb */
+body::-webkit-scrollbar-thumb {
+  background: black;
+}
 
 // FALLBACKS 
 // Adding a fallback for scrollbar styles
@@ -87,26 +87,17 @@ ensure there is enough color contrast and touch targets are at least 44px wide a
 //   }
 // }
 
-// Das Personliches Scrollbar 
-::-webkit-scrollbar {
-    max-width: 44px;
-    width: 1.5rem;
+/* Only use `::-webkit-scrollbar-*` pseudo-elements 
+Fur irgendeine Grund,*/
+@supports selector(::-webkit-scrollbar) {
+  body::-webkit-scrollbar {
+    background: aquamarine !important;
   }
-  
-::-webkit-scrollbar-thumb {
-    @include themify('background-color', 'bgSec');
-    @include themify('border-color', 'colorPri');
-    border-radius: 0.5rem;
-    cursor: pointer;
-    &:hover {
-        @include themify('background-color', 'colorPri');
-    }
+  body::-webkit-scrollbar-thumb {
+    background: cornflowerblue;
+  }
+  section::-webkit-scrollbar {
+    display: none !important;
 }
-  
-::-webkit-scrollbar-track {
-    @include themify('background-color', 'bgTer');
-  }
-  /* Buttons */
-  ::-webkit-scrollbar-button {
-    background: red !important;
-  }
+}
+

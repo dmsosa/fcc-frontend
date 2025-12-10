@@ -55,7 +55,7 @@ export default function SidebarContent () {
                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                <IconList icons={Object.values(icons)} expanded={expanded}></IconList>
+                <IconList iconLinks={Object.values(icons)} expanded={expanded}></IconList>
                 <div className="container container-sm">
                                   <Stack  gap={2}>
                     <Button as="a" variant="primary">

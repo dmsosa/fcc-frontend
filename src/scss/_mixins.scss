@@ -37,7 +37,6 @@
     @each $themeName, $themeMap in $themeMaps {
         @if themeExists($key, $themeName) {
             $value: getThemeValue($key, $themeName);
-            @debug $property, $key, $value;
             .theme-#{$themeName} & {
                 #{$property}: $value;
                 #{$property}: var(--theme-#{$key}-#{$themeName}, $value);
