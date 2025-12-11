@@ -12,7 +12,9 @@
 }
 .themed-stroke {
     @include themify('stroke', 'colorPri');
-    transition: stroke var(--link-transition-duration) ease;}
+    transition: stroke var(--link-transition-duration) ease;
+}
+
 .no-scroll {
     overflow: hidden !important;
 }
@@ -355,40 +357,10 @@ index-1 {
 .shake {
     animation: shake 0.2s 2 ease-in;
 }
+.border-hover-25 {
+    &:hover {
+        --bs-border-opacity: 0.25;
 
-@media only screen and (min-width: 576px) {
-    .order-sm-0 {
-        order: 0;
     }
-    .order-msmd-1 {
-        order: 1;
-    }
-    .order-sm-2 {
-        order: 2;
-    }
-    .w-sm-80 {
-        width: 80% !important;
-    }
-    .w-sm-100 {
-        width: 100% !important;
-    }
-    
 }
-@media only screen and (min-width: 768px) {
-    .order-md-0 {
-        order: 0;
-    }
-    .order-md-1 {
-        order: 1;
-    }
-    .order-md-2 {
-        order: 2;
-    }
-    .w-md-80 {
-        width: 80% !important;
-    }
-    .w-md-100 {
-        width: 100% !important;
-    }
-    
-}
+

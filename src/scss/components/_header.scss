@@ -9,7 +9,11 @@
     z-index: 10;
     backdrop-filter: blur(var(--backdrop-blur));
     height: var(--header-height);
+    &.scrolled {
+    transform: translateY(-2.780rem) !important;
+    }
 }
+
 .progress-bar {
     position: absolute;
     width: 100%;

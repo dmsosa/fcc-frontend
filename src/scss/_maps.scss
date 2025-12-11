@@ -1,0 +1,2 @@
+$theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
+$spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
