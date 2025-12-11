@@ -1,5 +1,5 @@
 import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
+import Header from './components/AppHeader/Header'
 import { Outlet } from 'react-router'
 import SectionButtons from './components/Widgets/SectionButtons'
 import Sidebar from './components/Sidebar/Sidebar'
