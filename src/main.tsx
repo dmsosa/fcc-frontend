@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import './assets/css/styles.css';
+import './assets/css/main.css';
 import TodoApp from './routes/TodoApp.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store.ts';

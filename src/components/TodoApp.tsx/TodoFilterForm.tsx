@@ -1,10 +1,10 @@
 
 
-import {  type TTodo } from "../../store/todoSlice";
 import {  useState, type ChangeEvent } from "react";
 import FormFieldset from "../Widgets/Form/FormFieldset";
 import { useTodoArrayWithFilter } from "../../hooks/todo";
 import { Checkbox } from "../Widgets/Form/Checkbox";
+import type { TTodo } from "../../service/todoData";
 
 // return form with fields for title, priority and completed
 
@@ -47,7 +47,7 @@ export default function TodoFilterForm() {
                 <FormFieldset 
                 id="todo-filter-title"
                 name="title"
-                text="title"
+                label="title"
                 type="text"
                 value={title ? title : ''}
                 handleChange={handleChangeForm}

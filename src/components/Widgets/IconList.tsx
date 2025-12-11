@@ -1,22 +1,24 @@
-import type { ReactNode } from "react";
+import type { ForwardRefExoticComponent, ReactNode, RefAttributes } from "react";
+import { Link, type LinkProps } from "react-router";
 
 export type TIconLink = {
     title: string,
     href: string,
     active?: boolean,
+    state?: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>,
     svg?: ReactNode,
 }
-export function IconList({ icons, expanded=false }: { icons: TIconLink[], expanded?: boolean }) {
+export function IconList({ iconLinks, expanded=false }: { iconLinks: TIconLink[], expanded?: boolean }) {
     return (
         <ul className="icon-list">
-            {icons.map((icon) => {
-                const clazz = `icon-list-li ${icon.active ? 'active':''}`;
+            {iconLinks.map((link) => {
+                const clazz = `icon-list-li ${link.active ? 'active':''}`;
                 return (
-                    <li className={clazz}>
-                        <a className="link" href={icon.href}>
-                            {icon.svg}
-                            { expanded && <span>{icon.title}</span>}
-                        </a>
+                    <li key={link.title} className={clazz}>
+                        <Link to={link.href} state={link.state}>
+                            {link.svg}
+                            { expanded && <span>{link.title}</span>}
+                        </Link>
                     </li>
                 )
             })}

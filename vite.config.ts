@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/fcc-frontend',
+  root: './',
+  base: 'fcc-frontend',
+  publicDir: 'public',
   build: {
     outDir: './dist'
   },
@@ -11,6 +13,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
         scss: {
+          quietDeps: true,
           silenceDeprecations: [
             'import',
             'color-functions',
@@ -20,4 +23,5 @@ export default defineConfig({
         },
     },
   },
+  assetsInclude: ['**/*.woff2']
 })

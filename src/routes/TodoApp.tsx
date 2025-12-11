@@ -24,7 +24,7 @@ export default function TodoApp () {
                     <em className='text-center'>Happy coding!</em>
                     <br></br>
                 </div>
-                <div className="row bg-2">
+                <div className="row">
                     <div>
                         <AddTodo/>
                         <TodoFilterForm></TodoFilterForm>

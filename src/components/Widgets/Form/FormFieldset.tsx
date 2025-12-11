@@ -1,29 +1,26 @@
 import type { ChangeEvent } from "react";
-import { Checkbox } from "./Checkbox";
-
+type TInputHandlers = ((e: ChangeEvent<HTMLInputElement> ) => void) | ((e: ChangeEvent<HTMLTextAreaElement> ) => void);
 interface IFormFieldsetProps {
     type: string;
     name: string;
     id: string;
     value: boolean | string | number;
-    text: string;
-    handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => void;
+    label: string;
+    placeholder?: string;
+    expanded?: boolean;
+    handleChange: TInputHandlers;
 }
 
-export default function FormFieldset({ type, name, id, value, text, handleChange}: IFormFieldsetProps) {
+export default function FormFieldset({ type, name, id, value, label, placeholder, expanded, handleChange}: IFormFieldsetProps) {
     return (
         <fieldset>
-            { type === 'checkbox' ?
-                <Checkbox handleChange={handleChange} name={name} id={id} value={value as boolean}></Checkbox> :
-                type === 'select' ?
-                <select name="" id=""></select>
-                :
+            {
                 type === 'textarea' ?
-                <textarea name="" id=""></textarea>
+                <textarea name={name} id={id} onChange={handleChange as ((e: ChangeEvent<HTMLTextAreaElement> ) => void)} value={value.toString()} placeholder={placeholder ?? ''} ></textarea>
                 :
-                <input type={type} name={name} id={id} onChange={handleChange} value={value.toString()} />
+                <input type={type} name={name} id={id} onChange={handleChange as ((e: ChangeEvent<HTMLInputElement> ) => void)} value={value.toString()} placeholder={placeholder ?? ''} />
             }
-            <label htmlFor={id}>{text}</label>
+            {expanded && <label htmlFor={id}>{label}</label>}
         </fieldset>
     )
 }

@@ -23,3 +23,5 @@ export default function TodoArray () {
      :
     <div><p>no results!</p></div>
 }
+
+//IST OFFSET LOKAL ODER IMMER MIT HOOK GESETZT?

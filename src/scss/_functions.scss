@@ -22,3 +22,7 @@
 @function getThemeValue($key, $themeName) {
   @return map-get(map-get($themeValues, $key), $themeName);
 }
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}

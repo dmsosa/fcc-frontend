@@ -1,22 +1,10 @@
-//Fonts
-// @font-face {
-//     font-family: 'HerculesPixel';
-//     src: url('/fonts/PixelifySans-Regular.ttf') format('truetype');
-// };
-// @font-face {
-//     font-family: pixel-bold;
-//     src: url('../assets/fonts/PixelifySans-Bold.ttf');
-// };
-// @font-face {
-//     font-family: pixel-medium;
-//     src: url('../assets/fonts/PixelifySans-Medium.ttf');
-// };
-// @font-face {
-//     font-family: pixel-semibold;
-//     src: url('../assets/fonts/PixelifySans-SemiBold.ttf');
-// };
+$enable-gradients: false;
+$enable-shadows: true;
 
-$navbar-padding-x: 1.5rem;
+$offcanvas-box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
+
+$body-color: #fff;
+$link-transition-duration: 0.2s;
 $primary: #65ff65;
 $secondary: #dbdbdb;
 $success: #00ffdd;
@@ -39,7 +27,7 @@ $btn-hover-bg-tint-amount: 75%;
 $btn-active-bg-tint-amount: 20%;
 $btn-hover-bg-shade-amount: 75%;
 $btn-active-bg-shade-amount: 20%;
-$border-radius: 0rem;
+$border-radius: 0.2rem;
 
 $h1-font-size: 3.35rem;
 $h2-font-size: 3rem;
@@ -52,3 +40,15 @@ $btn-padding-x: .35rem;
 $btn-padding-y: 0.25rem;
 $btn-font-size: 0.75rem;
 
+:root {
+    --sidebar-width: 250px;
+    --app-content-width: calc(100% - var(var(--sidebar-width)));
+    --inner-margin-right: 2rem;
+    --inner-margin-left: 2rem;
+    --main-content-width: calc(100% - var(--inner-margin-right) - var(--inner-margin-left));
+    --header-height: 3.5rem;
+    --footer-height: 100vh;
+    --backdrop-blur: 0.6rem;
+    --border-width: 0.25rem;  
+    --bs-dropdown-item-border-radius: var(--bs-border-radius);
+}

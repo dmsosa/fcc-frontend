@@ -1,0 +1,41 @@
+//BRAND LOGO
+.logo {
+    cursor: pointer;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: fit-content;
+    font-size: 1rem;
+    text-decoration: none;
+    gap: 0.1rem;
+    span {
+        font-size: 0.8em;
+        align-self: end;
+        font-weight: 600;
+        color: inherit;
+    }
+    img {
+        width: 2em;
+    }
+}
+.link {
+    outline: none;
+    border: none;
+    transition: color 0.2s ease, background-color 0.2s ease, outline 0.2s ease;
+    &:hover {
+        @include themify('background-color', 'bgTer');
+        @include themify('color', 'colorSec');
+    }
+    &:focus, &:active {
+        outline: solid 0.4rem;
+        @include themify('outline-color', 'colorSec');
+    }
+}
+.link-regular {
+    color: currentColor !important;
+    transition: opacity 0.2s ease;
+    &:hover {
+        opacity: 0.25;
+    }
+}

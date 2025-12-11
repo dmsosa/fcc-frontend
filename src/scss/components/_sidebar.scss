@@ -3,7 +3,8 @@
     height: 100vh;
     position: relative;
     transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
-    background-color: lightpink;
+    @include themify('background-color', 'bgSec');  
+    @include themify('color', 'colorPri');
     &--expanded {
         opacity: 1;
         visibility: visible;
@@ -20,6 +21,74 @@
     }
 }
 
+.sidebar-header {
+        overflow: hidden;
+        width: 100%;
+    }
+
+// .sidebar-container {
+//     &:not(.sidebar-container--expanded) {
+//         max-width: 2rem;
+//     }
+// }
+// .sidebar-container {
+//     &:not(.sidebar-container--expanded) {
+//         .sidebar-header {
+//             max-width: 100%;
+//         }
+//     }
+// }
+
+.sidebar-toggler {
+    svg {
+        width: 1em;
+        height: 1em;
+        fill: transparent;
+        stroke-width: 4rem;
+        stroke: currentColor;
+        path {
+            fill: inherit;
+            stroke: inherit;
+            stroke-width: 2rem;
+            transition: d 0.4s ease;
+            stroke-width: inherit;
+        }
+        path#line1 {
+            d: path("M 328.195 68.78 L 100 251.142 L 326.294 457.256");
+        }
+        path#line2 {
+            d: path("M 300 100 L 300 424.365");
+        }
+    }
+    &--close {
+        svg {
+            path#line1 {
+                d: path("M 303.997 403.284 L 101.858 246.569 L 301.091 95.495");
+            }
+        }
+        &:hover {
+            svg {
+                path#line1 {
+                    d: path("M 354.222 459.92 L 62.32 257.255 L 350.247 46.339");
+                }
+            }
+        }
+    }
+    &--open {
+        svg {
+            path#line1 {
+                d: path("M 197.136 406.49 L 401.068 251.912 L 199.573 99.77");
+            }
+        }
+        &:hover {
+            svg {
+                path#line1 {
+                    d: path("M 199.273 458.852 L 444.881 257.255 L 202.779 55.957");
+                }
+            }
+        }
+    }
+}
 @media only screen and (min-width: 768px) {
     .sidebar-container {
         display: block;

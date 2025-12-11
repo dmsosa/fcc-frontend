@@ -9,7 +9,7 @@ export default function Sidebar () {
     // const resizerRef = useRef<HTMLAnchorElement | null>(null);
     // const draggingRef = useRef(false);
 
-    const { isResizing, setIsResizing, expanded, setExpanded, setWidthLS, minWidth, maxWidth, appWrapperRef } = useSidebarContext();
+    const { isResizing, setIsResizing, expanded, setExpanded, setWidthLS, minWidth, widthCheckedInLS, maxWidth, appWrapperRef } = useSidebarContext();
     const containerClass = `sidebar-container ${expanded ? 'sidebar-container--expanded':''}`;
 
     const onMouseDown = (e: React.MouseEvent<HTMLAnchorElement> ) => {
@@ -32,7 +32,7 @@ export default function Sidebar () {
     };
     
       // keyboard support for accessibility
-      const onKeyDown = (e: React.KeyboardEvent) => {
+    const onKeyDown = (e: React.KeyboardEvent) => {
         // Left/Right arrows decrease/increase by step
         const step = 20;
         if (e.key === "ArrowLeft") {
@@ -48,7 +48,7 @@ export default function Sidebar () {
           e.preventDefault();
           setWidthLS(maxWidth);
         }
-      };
+    };
 
 
 
@@ -57,10 +57,7 @@ export default function Sidebar () {
         if (!isResizing) return;
         const appWrapper = appWrapperRef.current;
         if (!appWrapper) return;
-        if (!expanded) {
-        setWidthLS(96);
-        return;
-        } 
+        
         //1st solution: Mit State + Sidebar derselber Grosse als unseres clientX
         const onMove = (e: MouseEvent | TouchEvent) => {
             let clientX: number;
@@ -71,9 +68,11 @@ export default function Sidebar () {
             }
 
             const clampedWidth = Math.min(maxWidth, Math.max(minWidth, clientX));
-            console.log(clampedWidth, appWrapper)
+            setExpanded(true);
+            setWidthLS(clampedWidth);
+            console.log(widthCheckedInLS);
             appWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
-            appWrapper.style.setProperty('--main-content-width', `calc(100% - ${clampedWidth}px)`);
+            appWrapper.style.setProperty('--app-content-width', `calc(100% - ${clampedWidth}px)`);
 
         };
 

@@ -1,11 +1,12 @@
 
 
 import { useDispatch} from "react-redux";
-import { putTodo, toggleTodo, type TTodo } from "../../store/todoSlice";
+import { putTodo, toggleTodo  } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import { useTodoContext } from "../../context/todoAppContext";
 import { getTodoById } from "../../service/todoService";
 import ModalContainer from "../Widgets/Modal/ModalContainer";
+import type { TTodo } from "../../service/todoData";
 
 export default function TodoEditorModal () {
 

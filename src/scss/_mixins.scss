@@ -37,7 +37,6 @@
     @each $themeName, $themeMap in $themeMaps {
         @if themeExists($key, $themeName) {
             $value: getThemeValue($key, $themeName);
-            @debug $property, $key, $value;
             .theme-#{$themeName} & {
                 #{$property}: $value;
                 #{$property}: var(--theme-#{$key}-#{$themeName}, $value);
@@ -49,3 +48,13 @@
     }
 }
 
+
+// Ich mochte mixin, um fur jedes theme, css variabeln uberschreiben
+@mixin themeOverrideBsVariables($themeName, $themeMap) {
+    &  {
+        @each $key, $value in $themeMap {
+        --#{$prefix}#{$key}: #{$value} !important;
+        @debug 'applying theme' $prefix 'with keys ' $key ' and value ' $value ': ' --#{$prefix}#{$key}':' #{$value};
+    }
+    }
+}

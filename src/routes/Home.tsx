@@ -4,7 +4,8 @@ import { PROJECTS_ARRAY, type TProject } from "../service/projectService";
 export default function Home () {
     
     return (
-        <section className="section scroll-snap-">
+        <>
+        <section className="section scroll-snap-child invisible-scrollbar">
             <div className='container'>
                 <div className="row">
                     <h1>Free Code Camp: Frontend Challenges</h1>
@@ -15,7 +16,7 @@ export default function Home () {
                 <div className="row">
                     <div className="d-flex justify-content-center align-items-start flex-wrap gap-2">
                         {PROJECTS_ARRAY.map((p: TProject) => {
-                            return (<ProjektKarte project={p}/>)
+                            return (<ProjektKarte key={p.title} project={p}/>)
                         })}
                     </div>
                 </div>
@@ -24,6 +25,11 @@ export default function Home () {
                 </div>              
             </div>       
         </section>
+        <section id='beschreibung' className='h-100vh bg1 scroll-snap-child'></section>
+        <section id='beschreibung' className='h-100vh bg2 scroll-snap-child'></section>
+        <section id='beschreibung' className='h-100vh bg3 scroll-snap-child'></section>
+        </>
+
     
   );
 }

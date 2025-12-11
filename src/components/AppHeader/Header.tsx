@@ -1,17 +1,12 @@
-import { useState } from "react";
-import BrandLogo from "../Widgets/BrandLogo";
-import DropdownButton from "./DropdownButton";
-import DropdownMenu from "./DropdownMenu";
+
+import  Navbar from "react-bootstrap/Navbar";
 
 export default function Header () {
-  const [ show, setShow ] = useState(false);
   return (
     <header id='header' className="header">
-        <nav className="nav-wrapper">
-            <BrandLogo></BrandLogo>
-            <DropdownButton show={show} setShow={setShow}></DropdownButton>
-            <DropdownMenu  show={show} />
-        </nav>
+      <Navbar expand="lg" >
+        <div className="border border-5 border-success border-hover-25">hey</div>
+      </Navbar>
     </header>
   );
 }
