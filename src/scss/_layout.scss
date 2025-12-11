@@ -7,7 +7,8 @@ html {
 body {
     height: 100vh;
     overflow: hidden;
-    font-family: 'lil';
+    font-family: 'Lilex';
+    font-weight: bold;
     @include themeOverrideBsVariables('light', $themeLight);
 }
 .app-wrapper {

@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   root: './',
+  base: 'fcc-frontend',
   publicDir: 'public',
   build: {
     outDir: './dist'
@@ -22,4 +23,5 @@ export default defineConfig({
         },
     },
   },
+  assetsInclude: ['**/*.woff2']
 })
