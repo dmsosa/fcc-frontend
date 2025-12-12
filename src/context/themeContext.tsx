@@ -1,7 +1,7 @@
 import { createStrictContext } from "./createStrictContext";
 
-export type TTheme = 'light' | 'dark' | 'default';
-export const THEME_VALUES: TTheme[] = ['light' ,'dark','default'];
+export type TTheme = 'light' | 'dark' | 'omega';
+export const THEME_VALUES: TTheme[] = ['light' ,'dark','omega'];
 export type TThemeContext = {
     theme: TTheme;
     setTheme: (value: TTheme) => void;

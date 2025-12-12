@@ -7,11 +7,10 @@ export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: Reac
     console.log('rende')
     const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        if (theme === "dark") {
-            setTheme('light');
-        } else {
-            setTheme('dark');
-        }
+        const body = document.body;
+        if (!body) return;
+        body.dataset.bsTheme = theme === "dark" ? "light":"dark";
+        setTheme(theme === "dark" ? "light":"dark");
     }
 
     return (

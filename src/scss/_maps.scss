@@ -1,2 +1,43 @@
 $theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
 $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
+$utilities: map-merge($map1: $utilities, $map2: (
+    "pad":(
+        css-var: true,
+        css-variable-name: pad,
+        class: pad,
+        values: (
+        25: .25,
+        50: .5,
+        75: .75,
+        100: 1
+        )
+        ),
+        "anchor": (
+            css-var: true,
+            css-variable-name: pad,
+            local-vars: ("link-opacity": 0.25),
+            class: anch,
+            values: (
+            "pri": $primary,
+            "sec": $secondary,
+            )
+        ),
+        "bgResp": (
+            property: background-color,
+            responsive: true,
+            state: hover,
+            class: 'bgr',
+            values: (
+                "white":#fff,
+                "pri":$primary
+            )
+        )
+));
+$omega: (
+    "text": (),
+    "background": (),
+    "border": (),
+    "text-emphasis": (),
+    "background-subtle": (),
+    "border-subtle": (),
+)

@@ -27,17 +27,27 @@ function App() {
 
     //UseEffect: check vorherigen Werte von CSS Media Queries
     useEffect(() => {
-        
+        const body = document.body;
+        if (!body) return;
         const media: MediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         if (media && media.matches) {
-          setTheme('dark');
+          body.dataset.bsTheme = 'dark';
+          setTheme('dark');  
+        } else {
+          body.dataset.bsTheme = 'light';
         }
 
     //Listen to mediaQuerie changes
 
     const handleMediaChange = (e: MediaQueryListEvent) => {
-      setTheme(e.matches ? "dark" : "light");
-    };
+        for (const c of body.classList) {
+          if (c.includes('theme')) {
+            body.classList.remove(c);
+          }
+        }
+        body.dataset.bsTheme = e.matches ? "dark" : "light";
+        setTheme(e.matches ? "dark" : "light");   
+      };
 
     media.addEventListener('change', handleMediaChange );
 
@@ -49,7 +59,7 @@ function App() {
   return (
     <ThemeContextProvider value={{theme, setTheme, removeTheme}}>
       <SidebarContextProvider value={{ isResizing, setIsResizing, widthCheckedInLS, setWidthLS, removeWidthLS, expanded, setExpanded, initialWidth, minWidth, maxWidth, storageKey, appWrapperRef }}>
-      <div id='app-wrapper' className={`app-wrapper theme-${theme}`} ref={appWrapperRef}>
+      <div id='app-wrapper' className="app-wrapper">
         <Sidebar></Sidebar>
         <div id='app-content' className="app-content">
           <Header></Header>

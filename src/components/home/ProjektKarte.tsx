@@ -18,7 +18,7 @@ export default function ProjektKarte ({ project }: IProjektKarteProps) {
             <a href={repo} className='svg-link'><FaGithub/></a>
         </div>
         <div className="projekt-karte-screen">
-            <p>{description}</p>
+            <p className='text-body-secondary'>{description}</p>
             <a className="btn btn-primary" href={link}>Watch now</a>
         </div>
     </div>

@@ -1,15 +1,29 @@
+
+:root {
+    --sidebar-width: 250px;
+    --app-content-width: calc(100% - var(var(--sidebar-width)));
+    --inner-margin-right: 2rem;
+    --inner-margin-left: 2rem;
+    --main-content-width: calc(100% - var(--inner-margin-right) - var(--inner-margin-left));
+    --header-height: 3.5rem;
+    --footer-height: 100vh;
+    --backdrop-blur: 0.6rem;
+    --border-width: 0.25rem;  
+    --bs-dropdown-item-border-radius: var(--bs-border-radius);
+
+}
+
 html {
     font-size: 16px;
     scroll-behavior: smooth;
-
 }
 
 body {
     height: 100vh;
     overflow: hidden;
     font-family: 'Lilex';
-    font-weight: bold;
-    @include themeOverrideBsVariables('light', $themeLight);
+    // @include themeOverrideBsVariables('light', $themeLight);
+
 }
 .app-wrapper {
     width: 100vw;
@@ -35,10 +49,7 @@ body {
     padding-top: calc(var(--header-height) + 2rem);
     overflow: scroll;
 }
-p {
-    font-weight: 400; 
-    font-size: 0.9rem;
-}
+
 @media only screen and (min-width: 768px) {
     .app-wrapper {
     display: grid;
