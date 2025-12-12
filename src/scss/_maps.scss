@@ -1,38 +1,39 @@
 $theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
 $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
-$utilities: map-merge($map1: $utilities, $map2: (
-    "pad":(
-        css-var: true,
-        css-variable-name: pad,
-        class: pad,
-        values: (
-        25: .25,
-        50: .5,
-        75: .75,
-        100: 1
-        )
-        ),
-        "anchor": (
-            css-var: true,
-            css-variable-name: pad,
-            local-vars: ("link-opacity": 0.25),
-            class: anch,
-            values: (
-            "pri": $primary,
-            "sec": $secondary,
-            )
-        ),
-        "bgResp": (
-            property: background-color,
-            responsive: true,
-            state: hover,
-            class: 'bgr',
-            values: (
-                "white":#fff,
-                "pri":$primary
+
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+
+//Farbe utility fur alle Farben erstellen;
+$utilitiesColor: ("color" : map-merge(
+        map-get($utilities, "color"),
+        (   
+            "class": "color",
+            "values": map-merge(
+                map-get(map-get($utilities, "color"), "values"),
+                (
+                    $all-colors
+                )
             )
         )
 ));
+
+//Neues Wert zum Border opacity fugen hinzu;
+$utilitiesBorderOpacity: ( "border-opacity": map-merge(
+    $map1: map-get($utilities, "border-opacity"), 
+    $map2: ( 
+        "values": map-merge(
+            map-get(map-get($utilities, "border-opacity"), "values"), 
+            ( "80": .8)
+            )
+        )
+));
+
+$utilities: map-merge(
+    $utilities, 
+    $map2: map-merge-multiple(
+        $utilitiesColor,
+        $utilitiesBorderOpacity
+    ));
 $omega: (
     "text": (),
     "background": (),
