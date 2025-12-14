@@ -4,7 +4,7 @@ export type TTheme = 'light' | 'dark' | 'omega';
 export const THEME_VALUES: TTheme[] = ['light' ,'dark','omega'];
 export type TThemeContext = {
     theme: TTheme;
-    setTheme: (value: TTheme) => void;
+    setTheme: (val: TTheme | ((prev: TTheme) => TTheme), setLocally?: boolean) => void;
     removeTheme: () => void;
     
 };

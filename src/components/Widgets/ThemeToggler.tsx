@@ -1,21 +1,15 @@
-import { type MouseEvent } from "react";
 import { useThemeContext } from "../../context/themeContext";
 
 export default function ThemeToggler ({ svgAttributes } : { svgAttributes?: React.SVGAttributes<SVGSVGElement> }) {
 
     const { theme, setTheme } = useThemeContext();
-    console.log('rende')
-    const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        const body = document.body;
-        if (!body) return;
-        body.dataset.bsTheme = theme === "dark" ? "light":"dark";
+    const handleClick = () => {
         setTheme(theme === "dark" ? "light":"dark");
     }
 
     return (
     <a
-  className={`theme-toggle link-regular ${theme === "dark" ? 'theme-toggle--toggled':''}`}
+  className={`theme-toggle link-regular ${theme === "light" ? 'theme-toggle--toggled':''}`}
   type="button"
   title="Toggle theme"
   aria-label="Toggle theme"

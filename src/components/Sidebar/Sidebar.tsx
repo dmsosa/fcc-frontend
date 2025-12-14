@@ -1,21 +1,28 @@
-import { useSidebarContext } from "../../context/sidebarContext";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SidebarHeader from "./SidebarHeader";
 import SidebarContent from "./SidebarContent";
 import SidebarFooter from "./SidebarFooter";
+import { useLocalStorage } from "../../hooks";
 
-export default function Sidebar () {
+const SIDEBAR_MIN_WIDTH = 240;
+const SIDEBAR_MAX_WIDTH = 400;
+const STORAGE_KEY = 'sidebaWidth';
+
+export default function Sidebar ({ sidebarExpanded, setSidebarExpanded }: { sidebarExpanded: boolean, setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>> }) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     // const resizerRef = useRef<HTMLAnchorElement | null>(null);
     // const draggingRef = useRef(false);
 
-    const { isResizing, setIsResizing, expanded, setExpanded, setWidthLS, minWidth, widthCheckedInLS, maxWidth, appWrapperRef } = useSidebarContext();
-    const containerClass = `sidebar-container ${expanded ? 'sidebar-container--expanded':''}`;
+    const startXRef = useRef<number>(0);
+    const sidebarWrapperRef = useRef<HTMLDivElement | null>(null);
+    const [ isResizing, setIsResizing ] = useState<boolean>(false);
+    const [ width, setWidthLS ] = useLocalStorage<number>(STORAGE_KEY, SIDEBAR_MIN_WIDTH, { ns: 'fcc-sidebar', ttl: 3600 });
+    const containerClass = `sidebar-container ${sidebarExpanded ? 'sidebar-container--expanded':''}`;
 
     const onMouseDown = (e: React.MouseEvent<HTMLAnchorElement> ) => {
             e.preventDefault();
             setIsResizing(true);
-            setExpanded(true);
+            setSidebarExpanded(true);
             document.body.style.cursor = "col-resize";
             document.body.style.userSelect = "none";
     }
@@ -26,60 +33,64 @@ export default function Sidebar () {
     const onTouchStart = (e: React.TouchEvent) => {
          e.preventDefault();
         setIsResizing(true);
-        setExpanded(true);
+        setSidebarExpanded(true);
         document.body.style.cursor = "col-resize";
         document.body.style.userSelect = "none";
     };
-    
+
       // keyboard support for accessibility
     const onKeyDown = (e: React.KeyboardEvent) => {
         // Left/Right arrows decrease/increase by step
         const step = 20;
+        setSidebarExpanded(true);
         if (e.key === "ArrowLeft") {
           e.preventDefault();
-          setWidthLS((w) => Math.max(minWidth, w - step));
+          setWidthLS((w) => Math.max(SIDEBAR_MIN_WIDTH, w - step));
         } else if (e.key === "ArrowRight") {
           e.preventDefault();
-          setWidthLS((w) => Math.min(maxWidth, w + step));
+          setWidthLS((w) => Math.min(SIDEBAR_MAX_WIDTH, w + step));
         } else if (e.key === "Home") {
           e.preventDefault();
-          setWidthLS(minWidth);
+          setWidthLS(SIDEBAR_MIN_WIDTH);
         } else if (e.key === "End") {
           e.preventDefault();
-          setWidthLS(maxWidth);
+          setWidthLS(SIDEBAR_MAX_WIDTH);
         }
     };
 
-
+    //CSS Custom Property setzen (nur 1 Mal)
+    useEffect(() => {
+        const sidebarWrapper = sidebarWrapperRef.current;
+        if (!sidebarWrapper) return;
+        if (width !== SIDEBAR_MIN_WIDTH) {
+            const clampedWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, width));
+            sidebarWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
+        }
+    }, []);
 
     //Resize logic
     useEffect(() => {
         if (!isResizing) return;
-        const appWrapper = appWrapperRef.current;
-        if (!appWrapper) return;
+        const sidebarWrapper = sidebarWrapperRef.current;
+        if (!sidebarWrapper) return;
         
         //1st solution: Mit State + Sidebar derselber Grosse als unseres clientX
         const onMove = (e: MouseEvent | TouchEvent) => {
             let clientX: number;
             if (e instanceof TouchEvent) {
-                clientX = e.touches[0]?.clientX ?? minWidth;
+                clientX = e.touches[0]?.clientX ?? SIDEBAR_MIN_WIDTH;
             } else {
                 clientX = (e as MouseEvent).clientX;
             }
-
-            const clampedWidth = Math.min(maxWidth, Math.max(minWidth, clientX));
-            setExpanded(true);
+            const delta = clientX - startXRef.current;
+            const clampedWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, delta));
+            setSidebarExpanded(true);
             setWidthLS(clampedWidth);
-            console.log(widthCheckedInLS);
-            appWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
-            appWrapper.style.setProperty('--app-content-width', `calc(100% - ${clampedWidth}px)`);
-
+            sidebarWrapper.style.setProperty('--sidebar-width', `${clampedWidth}px`);
         };
 
         const onUp = () => {
             setIsResizing(false);
-            window.removeEventListener('mousemove', onMove);
-            window.removeEventListener('mouseup', onUp);
             document.body.style.cursor = "";
             document.body.style.userSelect = "";
         };
@@ -97,14 +108,14 @@ export default function Sidebar () {
             window.removeEventListener("touchend", onUp);
             window.removeEventListener("touchcancel", onUp);
         };
-    }, [ minWidth, maxWidth, isResizing ]);
+    }, [ SIDEBAR_MIN_WIDTH, SIDEBAR_MAX_WIDTH, isResizing ]);
     
     return (
         <aside id="sidebar" className={containerClass} ref={containerRef}>
             <nav>
-                <SidebarHeader></SidebarHeader>
-                <SidebarContent></SidebarContent>
-                <SidebarFooter></SidebarFooter>
+                <SidebarHeader sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarHeader>
+                <SidebarContent sidebarExpanded={sidebarExpanded}></SidebarContent>
+                <SidebarFooter sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarFooter>
             </nav>
             {/* Resizer */}
             <a

@@ -1,39 +1,24 @@
 import { FaHome } from "react-icons/fa";
-import { useSidebarContext } from "../../context/sidebarContext";
 import { IconList, type TIconLink } from "../Widgets/IconList";
-import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Stack from "react-bootstrap/Stack";
 
 
-const sidebarIcons: { [key:string ]: TIconLink } = 
+const sidebarIcons: TIconLink[] = 
+[    
     {
-        'home' : {
-            title: 'home',
-            href: '/',
-            active: false,
-            svg: <FaHome/>
-        }
-    };
-export default function SidebarContent () {
-    const { expanded } = useSidebarContext();
-    const [ icons, setIcons  ] = React.useState<{ [key:string ]: TIconLink }>(sidebarIcons);
+        title: 'home',
+        href: '/',
+        active: false,
+        svg: <FaHome/>
+    }
+];
+export default function SidebarContent ({ sidebarExpanded }: { sidebarExpanded: boolean }) {
     const location = useLocation();
+    console.log('loc', location)
 
-    
-    //Handle active icon
-    useEffect(() => {
-        for (const key of Object.keys(icons)) {
-            const iconLink = icons[key];
-            if (iconLink.title === location.pathname ) {
-                if (!iconLink.active) {
-                    setIcons((prev) => ({ ...prev, [iconLink.title]: { ...iconLink, active: true }}));
-                }
-            }
-        }
-    }, [icons]);
 
     return (
             <div className="sidebar-content">
@@ -55,7 +40,7 @@ export default function SidebarContent () {
                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                <IconList iconLinks={Object.values(icons)} expanded={expanded}></IconList>
+                <IconList iconLinks={sidebarIcons} expanded={sidebarExpanded}></IconList>
                 <div className="container container-sm">
                                   <Stack  gap={2}>
                     <Button as="a" variant="primary">

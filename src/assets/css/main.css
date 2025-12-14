@@ -13207,7 +13207,6 @@ index-1 {
 }
 
 :root {
-  --sidebar-width: 250px;
   --app-content-width: calc(100% - var(var(--sidebar-width)));
   --inner-margin-right: 2rem;
   --inner-margin-left: 2rem;
@@ -13233,7 +13232,8 @@ body {
 .app-wrapper {
   width: 100vw;
   height: 100vh;
-  display: block;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -13258,29 +13258,29 @@ body {
 
 @media only screen and (min-width: 768px) {
   .app-wrapper {
-    display: grid;
-    grid-template-columns: [sidebar-start] var(--sidebar-width, 250px) [app-content-start sidebar-end] var(--app-content-width, calc(100vw - 250px)) [app-content-end];
-    transition: grid-template-columns 0.2s linear;
+    display: flex;
+    flex-direction: row;
   }
   .app-content {
     grid-column: app-content;
   }
-  .main-content {
-    scroll-snap-type: y mandatory;
-    display: grid;
-    grid-template-columns: [full-start] var(--margin-left-width, var(--margin-width)) [content-start] var(--content-width) [content-end] var(--margin-right-width, var(--margin-width)) [full-end];
-    width: 100%;
+  .app-content {
+    order: 3;
+    flex: 0 1 auto;
   }
 }
 .sidebar-container {
+  order: 1;
   display: none;
   height: 100vh;
   position: relative;
+  max-width: var(--sidebar-max-width, 400px);
+  min-width: 7.5rem;
+  width: var(--sidebar-width, 240px);
   transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
 }
 .sidebar-container--expanded {
-  opacity: 1;
-  visibility: visible;
+  min-width: var(--sidebar-min-width, 240px);
 }
 .sidebar-container .resizer {
   position: absolute;
@@ -13288,7 +13288,7 @@ body {
   bottom: 0;
   right: 0;
   left: auto;
-  width: 2rem;
+  width: 1rem;
   background-color: blue;
   cursor: col-resize;
 }
@@ -13334,7 +13334,8 @@ body {
 @media only screen and (min-width: 768px) {
   .sidebar-container {
     display: block;
-    grid-column: sidebar;
+    flex: 1 0 auto;
+    transition: width;
   }
 }
 .swatch-dark2 {

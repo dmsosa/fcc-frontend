@@ -1,31 +1,7 @@
-import type { MouseEvent } from "react";
-import { useSidebarContext } from "../../context/sidebarContext";
+export function SidebarToggler({ sidebarExpanded, setSidebarExpanded }: { sidebarExpanded: boolean, setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>> }) {
 
-export function SidebarToggler() {
-
-    const { setIsResizing, expanded, setExpanded, widthCheckedInLS, appWrapperRef } = useSidebarContext();
-
-
-    const handleExpanded = (e: MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        const appWrapper = appWrapperRef.current;
-        if (!appWrapper) return;
-        let newWidth: number;
-        console.log(expanded);
-        console.log(widthCheckedInLS);
-        if (!expanded) {
-          setExpanded(true);
-          newWidth = widthCheckedInLS;
-        } else {
-          setExpanded(false);
-          newWidth = 96;
-        }
-        appWrapper.style.setProperty('--sidebar-width', `${newWidth}px`);
-        appWrapper.style.setProperty('--main-content-width',`calc(100% - ${newWidth}px)`);
-        setIsResizing(false);
-    }
     return ( 
-        <a role="button" href="#" aria-label="sidebar-toggler" aria-expanded={expanded} className={`link link-regular py-0 px-0 sidebar-toggler d-flex align-items-center justify-content-between ${expanded ? 'sidebar-toggler--close' : 'sidebar-toggler--open'}`} onClick={handleExpanded}>
+        <a role="button" href="#" aria-label="sidebar-toggler" aria-expanded={sidebarExpanded} className={`link link-regular py-0 px-0 sidebar-toggler d-flex align-items-center justify-content-between ${sidebarExpanded ? 'sidebar-toggler--close' : 'sidebar-toggler--open'}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
             <SVGArrow></SVGArrow>
         </a>
     )

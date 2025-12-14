@@ -1,13 +1,16 @@
 .sidebar-container {
+    order: 1;
     display: none;
     height: 100vh;
     position: relative;
+    max-width: var(--sidebar-max-width, 400px);
+    min-width: 7.5rem;
+    width: var(--sidebar-width, 240px);
     transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
-    @include themify('background-color', 'bgSec');  
-    @include themify('color', 'colorPri');
     &--expanded {
-        opacity: 1;
-        visibility: visible;
+        // opacity: 1;
+        // visibility: visible;
+        min-width: var(--sidebar-min-width, 240px)
     }
     .resizer {
         position: absolute;
@@ -15,7 +18,7 @@
         bottom: 0;
         right: 0;
         left: auto;
-        width: 2rem;
+        width: 1rem;
         background-color: blue;
         cursor: col-resize;
     }
@@ -92,6 +95,7 @@
 @media only screen and (min-width: 768px) {
     .sidebar-container {
         display: block;
-        grid-column: sidebar;
+        flex: 1 0 auto;
+        transition: width ;
     }
 }

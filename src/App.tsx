@@ -2,8 +2,7 @@ import Footer from './components/Footer/Footer'
 import { Outlet } from 'react-router'
 import SectionButtons from './components/Widgets/SectionButtons'
 import Sidebar from './components/Sidebar/Sidebar'
-import { useEffect, useRef, useState } from 'react'
-import { SidebarContextProvider } from './context/sidebarContext'
+import { useEffect,  useState } from 'react'
 import { type TTheme } from './context/themeContext'
 import { useLocalStorage } from './hooks'
 import Header from './components/AppHeader/Header'
@@ -12,40 +11,21 @@ import { ThemeContextProvider } from './context/themeContext'
 
 
 function App() {
-  //Sidebar Constants
-  // const [ width, setWidth ] = useState<number>(250);
-  const [ expanded, setExpanded ] = useState<boolean>(true);
-  const [ isResizing, setIsResizing ] = useState<boolean>(false);
-  const storageKey = "sidebarWidth";
-  const initialWidth = 280;
-  const minWidth = 96;
-  const maxWidth = 680;
-  const appWrapperRef = useRef(null);
-
-  const [ widthCheckedInLS , setWidthLS, removeWidthLS ] = useLocalStorage(storageKey, initialWidth);
-  const [ theme, setTheme, removeTheme ] = useLocalStorage<TTheme>('theme', 'light', { ns: 'fcc-aio-app', ttl: 1 });
+  //Sidebar
+  const [ sidebarExpanded, setSidebarExpanded ] = useState<boolean>(window.innerWidth >= 768 ? true : false);
+  const [ theme, setTheme, removeTheme ] = useLocalStorage<TTheme>('theme', 'light', { ns: 'fcc-aio-app', ttl: 2000 });
 
     //UseEffect: check vorherigen Werte von CSS Media Queries
     useEffect(() => {
         const body = document.body;
         if (!body) return;
-        const media: MediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
-        if (media && media.matches) {
-          body.dataset.bsTheme = 'dark';
-          setTheme('dark');  
-        } else {
-          body.dataset.bsTheme = 'light';
-        }
-
-    //Listen to mediaQuerie changes
+        body.dataset.bsTheme = theme;
+        // body immer starts als theme an
+        const media: MediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');      
+    //Listen to mediaQuerie changes, aber ls?
+    //ja, wenn du themesets. useLS hook wurde sich noch einmal render
 
     const handleMediaChange = (e: MediaQueryListEvent) => {
-        for (const c of body.classList) {
-          if (c.includes('theme')) {
-            body.classList.remove(c);
-          }
-        }
-        body.dataset.bsTheme = e.matches ? "dark" : "light";
         setTheme(e.matches ? "dark" : "light");   
       };
 
@@ -54,13 +34,12 @@ function App() {
     return () => {
         media.removeEventListener("change", handleMediaChange);
     }
-    }, []);
+    }, [theme]);
     
   return (
     <ThemeContextProvider value={{theme, setTheme, removeTheme}}>
-      <SidebarContextProvider value={{ isResizing, setIsResizing, widthCheckedInLS, setWidthLS, removeWidthLS, expanded, setExpanded, initialWidth, minWidth, maxWidth, storageKey, appWrapperRef }}>
       <div id='app-wrapper' className="app-wrapper">
-        <Sidebar></Sidebar>
+        <Sidebar sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></Sidebar>
         <div id='app-content' className="app-content">
           <Header></Header>
           <main className='main-content scroll-snap-wrapper'>
@@ -70,7 +49,6 @@ function App() {
           <SectionButtons></SectionButtons>
         </div>
       </div>
-    </SidebarContextProvider>
     </ThemeContextProvider>
     
         
