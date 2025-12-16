@@ -23,15 +23,15 @@ export default function SidebarContent ({ sidebarExpanded }: { sidebarExpanded: 
     return (
             <div className="sidebar-content">
                 <Stack  gap={2}>
-                    <Button as="a" variant="primary">
+                    <Button className="focus-ring focus-ring-x-3" as="a" variant="primary">
                         Button as link
                     </Button>
-                    <Button as="a" variant="success">
+                    <Button className="focus-ring" as="a" variant="success">
                         Button as link
                     </Button>
                 </Stack>;
                 <Dropdown onToggle={(next, meta) => console.log(next, meta)}>
-                  <Dropdown.Toggle bsPrefix="mak" variant="success" id="dropdown-basic">
+                  <Dropdown.Toggle className="focus-ring" bsPrefix="mak" variant="success" id="dropdown-basic">
                     Dropdown Button
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -43,10 +43,10 @@ export default function SidebarContent ({ sidebarExpanded }: { sidebarExpanded: 
                 <IconList iconLinks={sidebarIcons} expanded={sidebarExpanded}></IconList>
                 <div className="container container-sm">
                                   <Stack  gap={2}>
-                    <Button as="a" variant="primary">
+                    <Button className="focus-ring" as="a" variant="primary">
                         Button as link
                     </Button>
-                    <Button as="a" variant="success">
+                    <Button className="focus-ring" as="a" variant="success">
                         Button as link
                     </Button>
                 </Stack>;

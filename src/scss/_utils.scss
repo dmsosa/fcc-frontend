@@ -1,19 +1,52 @@
-.themed-border {
-    @include themify('border', 'colorPri');
-    transition: border var(--link-transition-duration) ease;
-}
-.themed-color {
-    @include themify('color', 'colorPri');
-    transition: color var(--link-transition-duration) ease;
-}
-.themed-fill {
-    @include themify('fill', 'colorPri');
-    transition: fill var(--link-transition-duration) ease;
-}
-.themed-stroke {
-    @include themify('stroke', 'colorPri');
-    transition: stroke var(--link-transition-duration) ease;
-}
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+
+//Farbe utility fur alle Farben erstellen;
+$utilitiesColor: ("color" : map-merge(
+        map-get($utilities, "color"),
+        (   
+            "class": "color",
+            "values": map-merge(
+                map-get(map-get($utilities, "color"), "values"),
+                (
+                    $all-colors
+                )
+            )
+        )
+));
+
+//Neues Wert zum Border opacity fugen hinzu;
+$utilitiesBorderOpacity: ( "border-opacity": map-merge(
+    $map1: map-get($utilities, "border-opacity"), 
+    $map2: ( 
+        "values": map-merge(
+            map-get(map-get($utilities, "border-opacity"), "values"), 
+            ( "80": .8)
+            )
+        )
+));
+
+$utilitiesFocusRing: ( 'focus-ring-x': (
+    css-var: true,
+    css-variable-name: focus-ring-x,
+    class: focus-ring-x,
+    values: $spacers
+));
+
+$utilities: map-merge(
+    $utilities, 
+    $map2: map-merge-multiple(
+        $utilitiesColor,
+        $utilitiesBorderOpacity,
+        $utilitiesFocusRing
+    ));
+$omega: (
+    "text": (),
+    "background": (),
+    "border": (),
+    "text-emphasis": (),
+    "background-subtle": (),
+    "border-subtle": (),
+);
 
 .no-scroll {
     overflow: hidden !important;
