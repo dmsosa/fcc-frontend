@@ -113,27 +113,29 @@ export default function Sidebar ({ sidebarExpanded, setSidebarExpanded }: { side
     
     return (
         <aside id="sidebar" className={containerClass} ref={sidebarWrapperRef}>
-            <nav>
-                <SidebarHeader sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarHeader>
-                <SidebarContent sidebarExpanded={sidebarExpanded}></SidebarContent>
-                <SidebarFooter sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarFooter>
-            </nav>
-            {/* Resizer */}
-            <a
-                role="separator"
-                aria-orientation="vertical"
-                tabIndex={0}
-                onClick={onClick}
-                onKeyDown={onKeyDown}
-                onMouseDown={onMouseDown}
-                onTouchStart={onTouchStart}
-                className="resizer"
-                title="Größe ändern (Drag oder Pfeiltasten)"
-                style={{ touchAction: "none" }}
-            >
-                {/* Visual handle */}
-                <div className="h-12 w-px bg-gray-200 pointer-events-none" />
-            </a>
+            <div className="sidebar-inner">
+                <nav>
+                    <SidebarHeader sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarHeader>
+                    <SidebarContent sidebarExpanded={sidebarExpanded}></SidebarContent>
+                    <SidebarFooter sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarFooter>
+                </nav>
+                {/* Resizer */}
+                <a
+                    role="separator"
+                    aria-orientation="vertical"
+                    tabIndex={0}
+                    onClick={onClick}
+                    onKeyDown={onKeyDown}
+                    onMouseDown={onMouseDown}
+                    onTouchStart={onTouchStart}
+                    className="resizer"
+                    title="Größe ändern (Drag oder Pfeiltasten)"
+                    style={{ touchAction: "none" }}
+                >
+                    {/* Visual handle */}
+                    <div className="h-12 w-px bg-gray-200 pointer-events-none" />
+                </a>
+            </div>
         </aside>
     
   );
