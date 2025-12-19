@@ -3,14 +3,15 @@
     display: none;
     height: 100vh;
     position: relative;
-    max-width: var(--sidebar-max-width, 400px);
-    min-width: 7.5rem;
+    max-width: 6.8rem;
+    min-width: none;
     width: var(--sidebar-width, 240px);
     transition: width 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
     &--expanded {
         // opacity: 1;
         // visibility: visible;
-        min-width: var(--sidebar-min-width, 240px)
+        min-width: var(--sidebar-min-width, 240px);
+        max-width: var(--sidebar-max-width, 400px);
     }
     .resizer {
         position: absolute;
@@ -96,6 +97,5 @@
     .sidebar-container {
         display: block;
         flex: 1 0 auto;
-        transition: width ;
     }
 }

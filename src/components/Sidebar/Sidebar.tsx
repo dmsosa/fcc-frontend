@@ -6,17 +6,16 @@ import { useLocalStorage } from "../../hooks";
 
 const SIDEBAR_MIN_WIDTH = 240;
 const SIDEBAR_MAX_WIDTH = 400;
-const STORAGE_KEY = 'sidebaWidth';
+const STORAGE_KEY = 'sidebarWidth';
 
 export default function Sidebar ({ sidebarExpanded, setSidebarExpanded }: { sidebarExpanded: boolean, setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>> }) {
-    const containerRef = useRef<HTMLDivElement | null>(null);
     // const resizerRef = useRef<HTMLAnchorElement | null>(null);
     // const draggingRef = useRef(false);
 
     const startXRef = useRef<number>(0);
     const sidebarWrapperRef = useRef<HTMLDivElement | null>(null);
     const [ isResizing, setIsResizing ] = useState<boolean>(false);
-    const [ width, setWidthLS ] = useLocalStorage<number>(STORAGE_KEY, SIDEBAR_MIN_WIDTH, { ns: 'fcc-sidebar', ttl: 3600 });
+    const [ width, setWidthLS ] = useLocalStorage<number>(STORAGE_KEY, SIDEBAR_MIN_WIDTH, { ns: 'fcc-sidebar' });
     const containerClass = `sidebar-container ${sidebarExpanded ? 'sidebar-container--expanded':''}`;
 
     const onMouseDown = (e: React.MouseEvent<HTMLAnchorElement> ) => {
@@ -60,6 +59,8 @@ export default function Sidebar ({ sidebarExpanded, setSidebarExpanded }: { side
 
     //CSS Custom Property setzen (nur 1 Mal)
     useEffect(() => {
+                console.log(width + 'resi')
+
         const sidebarWrapper = sidebarWrapperRef.current;
         if (!sidebarWrapper) return;
         if (width !== SIDEBAR_MIN_WIDTH) {
@@ -111,7 +112,7 @@ export default function Sidebar ({ sidebarExpanded, setSidebarExpanded }: { side
     }, [ SIDEBAR_MIN_WIDTH, SIDEBAR_MAX_WIDTH, isResizing ]);
     
     return (
-        <aside id="sidebar" className={containerClass} ref={containerRef}>
+        <aside id="sidebar" className={containerClass} ref={sidebarWrapperRef}>
             <nav>
                 <SidebarHeader sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></SidebarHeader>
                 <SidebarContent sidebarExpanded={sidebarExpanded}></SidebarContent>
