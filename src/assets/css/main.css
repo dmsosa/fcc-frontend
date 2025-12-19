@@ -12303,20 +12303,6 @@ textarea.form-control-lg {
   overflow: hidden !important;
 }
 
-.scroll-snap-wrapper {
-  overflow: hidden scroll;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-}
-
-.scroll-snap-child {
-  scroll-snap-align: start;
-}
-
-.scroll-snap-stop {
-  scroll-snap-stop: always;
-}
-
 .show {
   opacity: 1 !important;
   visibility: visible !important;
@@ -12483,7 +12469,6 @@ textarea.form-control-lg {
 
 .h-100vh {
   height: 100vh !important;
-  min-height: 100vh;
 }
 
 .w-1 {
@@ -12760,7 +12745,6 @@ body {
 }
 
 .app-wrapper {
-  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12776,14 +12760,15 @@ body {
   max-height: 100vh;
   overflow: hidden scroll;
   position: relative;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 .section {
-  width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
   padding-top: calc(var(--header-height) + 2rem);
-  overflow: scroll;
+  overflow: hidden scroll;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 @media only screen and (min-width: 768px) {
