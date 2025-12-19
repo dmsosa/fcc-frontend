@@ -13801,14 +13801,17 @@ ensure there is enough color contrast and touch targets are at least 44px wide a
 /* Demonstrate a "mostly customized" scrollbar
  * (won't be visible otherwise if width/height is specified) */
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 2.25px;
   height: 8px;
-  background-color: #aaaaaa; /* or add it to the track */
 }
 
 /* Add a thumb */
 body::-webkit-scrollbar-thumb {
   background: black;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Only use `::-webkit-scrollbar-*` pseudo-elements 

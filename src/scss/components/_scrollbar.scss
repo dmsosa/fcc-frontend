@@ -47,13 +47,12 @@ ensure there is enough color contrast and touch targets are at least 44px wide a
 
 
 
-
 /* Demonstrate a "mostly customized" scrollbar
  * (won't be visible otherwise if width/height is specified) */
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 2.25px;
   height: 8px;
-  background-color: #aaaaaa; /* or add it to the track */
+  // background-color: #aaaaaa; /* or add it to the track */
 }
 
 /* Add a thumb */
@@ -61,6 +60,23 @@ body::-webkit-scrollbar-thumb {
   background: black;
 }
 
+
+// *[data-bs-theme="light"] ::-webkit-scrollbar {
+//   background-color: $light;
+// }
+// *[data-bs-theme="dark"] ::-webkit-scrollbar {
+//   background-color: $dark;
+// }
+// *[data-bs-theme="light"] ::-webkit-scrollbar-thumb {
+//   background-color: $dark;
+// }
+// *[data-bs-theme="dark"] ::-webkit-scrollbar-thumb {
+//   background-color: $light;
+// }
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 // FALLBACKS 
 // Adding a fallback for scrollbar styles
 // You can use a @supports at-rule to detect if a browser supports the standard scrollbar-color 
