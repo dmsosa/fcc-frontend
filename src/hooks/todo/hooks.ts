@@ -4,7 +4,7 @@ import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { type LSOptions } from "../../helpers/localStorageHelpers";
 import {  getTodosWithFilter } from "../../service/todoService";
-import { useLocalStorage } from "../useLS";
+import { useLocalStorage } from "../useLocalStorage";
 import { sliceArray } from "../../helpers";
 import type { TTodo } from "../../service/todoData";
 

@@ -14,7 +14,6 @@ function App() {
   //Sidebar
   const [ sidebarExpanded, setSidebarExpanded ] = useState<boolean>(window.innerWidth >= 768 ? true : false);
   const [ theme, setTheme, removeTheme ] = useLocalStorage<TTheme>('theme', 'light', { ns: 'fcc-aio-app', ttl: 2000 });
-
     //UseEffect: check vorherigen Werte von CSS Media Queries
     useEffect(() => {
         const body = document.body;

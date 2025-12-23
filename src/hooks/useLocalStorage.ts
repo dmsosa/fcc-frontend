@@ -14,7 +14,7 @@ export function useLocalStorage<T>(key: string, initValue: T | (() => T), option
         return typeof initValue === "function" ? (initValue as () => T)() : initValue;
     }
     const [ value, setValue ] = useState<T>(getValueHook());
-  useEffect(() => {
+    useEffect(() => {
     mounted.current = true;
 
     function handleStorageEvent(e: StorageEvent) {
@@ -55,7 +55,6 @@ export function useLocalStorage<T>(key: string, initValue: T | (() => T), option
         }
         // update local state immediately
         setValue(newValue);
-                console.log('setted')
         } catch (e) {
         console.warn("setLocalStorageHook error", e);
         }

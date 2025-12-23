@@ -7,6 +7,7 @@ import TodoApp from './routes/TodoApp.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store.ts';
 import Home from './routes/Home.tsx';
+import PomodoroApp from './routes/PomodoroApp.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='/02'  element={<TodoApp/>}></Route>
                   <Route path='/03' element={<TodoApp/>}></Route>
                   <Route path='/04'  element={<TodoApp/>}></Route>
-                  <Route path='/05'  element={<TodoApp/>}></Route>
+                  <Route path='/05'  element={<PomodoroApp/>}></Route>
                   <Route path='/06'  element={<TodoApp/>}></Route>
         </Route>
       </Routes>

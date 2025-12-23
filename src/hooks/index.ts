@@ -1,5 +1,5 @@
 export * from "./useArray";
 export * from "./hooks";
-export * from "./useLS";
-export * from "./localStorage";
+export * from "./useLocalStorage";
 export * from "./useToggler";
+export * from "./useInterval";
