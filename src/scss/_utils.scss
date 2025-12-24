@@ -12,15 +12,51 @@ $utilitiesColor: ("color" : map-merge(
 ));
 
 //Neues Wert zum Border opacity fugen hinzu;
-$utilitiesBorderOpacity: ( "border-opacity": map-merge(
-    $map1: map-get($utilities, "border-opacity"), 
-    $map2: ( 
-        "values": map-merge(
-            map-get(map-get($utilities, "border-opacity"), "values"), 
-            ( "80": .8)
+// $utilitiesOpacity: ( 
+//     "border-opacity": map-merge(
+//     $map1: map-get($utilities, "border-opacity"), 
+//     $map2: ( 
+//         "values": map-merge(
+//             map-get(map-get($utilities, "border-opacity"), "values"), 
+//             ( "80": .8)
+//             )
+//         )
+// ));
+$utilitiesOpacity: ( 
+    "border-opacity": map-merge(
+        $map1: map-get($utilities, "border-opacity"), 
+        $map2: ( 
+            "values": map-merge(
+                map-get(map-get($utilities, "border-opacity"), "values"), ( "80": .8)
+                )
             )
-        )
-));
+        ),
+    "bg-opacity": map-merge(
+        $map1: map-get($utilities, "bg-opacity"), 
+        $map2: ( 
+            "values": map-merge(
+                map-get(map-get($utilities, "bg-opacity"), "values"), ( "80": .8)
+                )
+            )
+        ),
+    "border-opacity-hover" : (
+        class: border-opacity,
+        css-var: true,
+        state: hover,
+        values: map-merge(
+            map-get(map-get($utilities, "border-opacity"), "values"), ( "80": .8)
+            )
+        ),
+    "bg-opacity-hover" : (
+        class: bg-opacity-hover,
+        css-var: true,
+        state: hover,
+        values: map-merge(
+            map-get(map-get($utilities, "bg-opacity"), "values"), ( "80": .8)
+            )
+        ),
+
+);
 
 $utilitiesFocusRing: (
     'focus-ring-x': (
@@ -43,7 +79,7 @@ $utilities: map-merge(
     $utilities, 
     $map2: map-merge-multiple(
         $utilitiesColor,
-        $utilitiesBorderOpacity,
+        $utilitiesOpacity,
         $utilitiesFocusRing
 ));
 
@@ -131,10 +167,6 @@ $utilities: map-merge(
     display: block;
     overflow: hidden;
 }
-.text-epic {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
 .mh-60 {
     max-height: 60%;
 }
@@ -309,54 +341,8 @@ index-1 {
 .h-70vw {
     height: 70vw;
 }
-.bg-1 {
-    background-color: rgba(var(--rgb-primary), 1);
-}
-.bg-2 {
-    background-color: $dark2;
-}
-.bg-3 {
-    background-color: $dark3;
-}
-.bg-1-opacity-1 {
-    background-color: rgba($rgb-dark, 1);
-}
-.bg-1-hover-opacity-1 {
-    background-color: rgba($rgb-dark, 0.5);
-    transition: background-color 0.2s ease;
-    &:hover {
-        background-color: rgba($rgb-dark, 1);
-    }
-}
-.bg-1-opacity-5 {
-    background-color: $dark;
-}
-.bg-000 {
-    background-color: #000;
-}
-.color-inherit {
-    color: inherit;
-}
-.color-light {
-    color: $light !important;
-}
 .z-index-2 {
     z-index: 2;
-}
-.over-primary {
-    &:hover {
-        color: $primary;
-    }
-}
-.over-secondary {
-    &:hover {
-        color: $secondary;
-    }
-}
-.over-danger {
-    &:hover {
-        color: $danger;
-    }
 }
 .in-front {
     transform: rotate3d(0,1,0,0deg);
@@ -366,22 +352,11 @@ index-1 {
     transform: rotate3d(0,1,0,180deg);
     backface-visibility: hidden;
 }
-.w-2 {
-    width: 2rem;
-}
-.w-4 {
-    width: 4rem;
-}
 .color-danger {
     color: $danger !important; 
 }
 .shake {
     animation: shake 0.2s 2 ease-in;
 }
-.border-hover-25 {
-    &:hover {
-        --bs-border-opacity: 0.25;
 
-    }
-}
 

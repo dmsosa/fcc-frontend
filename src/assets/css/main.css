@@ -7532,10 +7532,6 @@ textarea.form-control-lg {
   overflow: hidden;
 }
 
-.text-epic {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-}
-
 .mh-60 {
   max-height: 60%;
 }
@@ -7768,60 +7764,8 @@ index-1 {
   height: 70vw;
 }
 
-.bg-1 {
-  background-color: rgba(var(--rgb-primary), 1);
-}
-
-.bg-2 {
-  background-color: #053142;
-}
-
-.bg-3 {
-  background-color: #0b4c67;
-}
-
-.bg-1-opacity-1 {
-  background-color: #21130d;
-}
-
-.bg-1-hover-opacity-1 {
-  background-color: rgba(33, 19, 13, 0.5);
-  transition: background-color 0.2s ease;
-}
-.bg-1-hover-opacity-1:hover {
-  background-color: #21130d;
-}
-
-.bg-1-opacity-5 {
-  background-color: #04212d;
-}
-
-.bg-000 {
-  background-color: #000;
-}
-
-.color-inherit {
-  color: inherit;
-}
-
-.color-light {
-  color: #e7e7e7 !important;
-}
-
 .z-index-2 {
   z-index: 2;
-}
-
-.over-primary:hover {
-  color: #0d6efd;
-}
-
-.over-secondary:hover {
-  color: #6c757d;
-}
-
-.over-danger:hover {
-  color: #ff3636;
 }
 
 .in-front {
@@ -7834,24 +7778,12 @@ index-1 {
   backface-visibility: hidden;
 }
 
-.w-2 {
-  width: 2rem;
-}
-
-.w-4 {
-  width: 4rem;
-}
-
 .color-danger {
   color: #ff3636 !important;
 }
 
 .shake {
   animation: shake 0.2s 2 ease-in;
-}
-
-.border-hover-25:hover {
-  --bs-border-opacity: 0.25;
 }
 
 .align-baseline {
@@ -9872,6 +9804,10 @@ index-1 {
   --bs-bg-opacity: 1;
 }
 
+.bg-opacity-80 {
+  --bs-bg-opacity: 0.8;
+}
+
 .bg-primary-subtle {
   background-color: var(--bs-primary-bg-subtle) !important;
 }
@@ -10170,6 +10106,102 @@ index-1 {
 
 .z-3 {
   z-index: 3 !important;
+}
+
+.border-opacity-10 {
+  --bs-border-opacity: 0.1;
+}
+
+.border-opacity-10-hover:hover {
+  --bs-border-opacity: 0.1;
+}
+
+.border-opacity-25 {
+  --bs-border-opacity: 0.25;
+}
+
+.border-opacity-25-hover:hover {
+  --bs-border-opacity: 0.25;
+}
+
+.border-opacity-50 {
+  --bs-border-opacity: 0.5;
+}
+
+.border-opacity-50-hover:hover {
+  --bs-border-opacity: 0.5;
+}
+
+.border-opacity-75 {
+  --bs-border-opacity: 0.75;
+}
+
+.border-opacity-75-hover:hover {
+  --bs-border-opacity: 0.75;
+}
+
+.border-opacity-100 {
+  --bs-border-opacity: 1;
+}
+
+.border-opacity-100-hover:hover {
+  --bs-border-opacity: 1;
+}
+
+.border-opacity-80 {
+  --bs-border-opacity: 0.8;
+}
+
+.border-opacity-80-hover:hover {
+  --bs-border-opacity: 0.8;
+}
+
+.bg-opacity-hover-10 {
+  --bs-bg-opacity-hover: 0.1;
+}
+
+.bg-opacity-hover-10-hover:hover {
+  --bs-bg-opacity-hover: 0.1;
+}
+
+.bg-opacity-hover-25 {
+  --bs-bg-opacity-hover: 0.25;
+}
+
+.bg-opacity-hover-25-hover:hover {
+  --bs-bg-opacity-hover: 0.25;
+}
+
+.bg-opacity-hover-50 {
+  --bs-bg-opacity-hover: 0.5;
+}
+
+.bg-opacity-hover-50-hover:hover {
+  --bs-bg-opacity-hover: 0.5;
+}
+
+.bg-opacity-hover-75 {
+  --bs-bg-opacity-hover: 0.75;
+}
+
+.bg-opacity-hover-75-hover:hover {
+  --bs-bg-opacity-hover: 0.75;
+}
+
+.bg-opacity-hover-100 {
+  --bs-bg-opacity-hover: 1;
+}
+
+.bg-opacity-hover-100-hover:hover {
+  --bs-bg-opacity-hover: 1;
+}
+
+.bg-opacity-hover-80 {
+  --bs-bg-opacity-hover: 0.8;
+}
+
+.bg-opacity-hover-80-hover:hover {
+  --bs-bg-opacity-hover: 0.8;
 }
 
 .focus-ring-x-6 {

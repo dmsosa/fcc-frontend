@@ -120,10 +120,10 @@ function PomodoroApp() {
       
     }, [mode]);
   return (
-      <div className="container w-100 h-100 bg-1 d-flex justify-content-center align-items-center position-relative">
+      <div className="section">
           <audio className="opacity-0 position-absolute" src={startBeep} id="start-beep" ref={startBeepRef}></audio>
           <audio className="opacity-0 position-absolute" src={beep} id="beep" ref={beepRef}></audio>
-          <div className="pomodoro-wrapper container-sm border border-width-2 bg-2 py-3 px-2">
+          <div className="container-sm border border-width-2 py-3 px-2 bg-body-secondary bg-opacity-hover-25">
             <div className="row">
               <div className="d-flex justify-content-center align-items-center gap-2">
                 {POMODORO_MODES.map((pomodoroMode) => <ModeButton key={pomodoroMode} targetMode={pomodoroMode} currentMode={mode} setMode={setMode}></ModeButton>
