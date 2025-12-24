@@ -23,7 +23,7 @@ export default function Home () {
         <section className="section invisible-scrollbar">
             <div className='container bg-body-primary'>
                 <div className="row">
-                    <h1>
+                    <h1 className="font-sizee-6">
                         <span>Hi,</span>
                         <span>I'm Durian!</span>
                     </h1>

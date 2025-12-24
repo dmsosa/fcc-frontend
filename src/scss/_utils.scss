@@ -4,13 +4,10 @@ $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oran
 $utilitiesColor: ("color" : map-merge(
         map-get($utilities, "color"),
         (   
-            "class": "color",
-            "values": map-merge(
-                map-get(map-get($utilities, "color"), "values"),
-                (
-                    $all-colors
+            css-var: true,
+            values: map-merge(
+                map-get(map-get($utilities, "color"), "values"), $all-colors
                 )
-            )
         )
 ));
 
@@ -25,12 +22,22 @@ $utilitiesBorderOpacity: ( "border-opacity": map-merge(
         )
 ));
 
-$utilitiesFocusRing: ( 'focus-ring-x': (
-    css-var: true,
-    css-variable-name: focus-ring-x,
-    class: focus-ring-x,
-    values: $spacers
-));
+$utilitiesFocusRing: (
+    'focus-ring-x': (
+        css-var: true,
+        class: focus-ring-x,
+        values: $spacers
+    ),
+    'focus-ring-y': (
+        css-var: true,
+        class: focus-ring-y,
+        values: $spacers
+    ),
+    'focus-ring-width': (
+        css-var: true,
+        class: focus-ring-width,
+        values: $spacers
+    ), );
 
 $utilities: map-merge(
     $utilities, 
@@ -38,15 +45,7 @@ $utilities: map-merge(
         $utilitiesColor,
         $utilitiesBorderOpacity,
         $utilitiesFocusRing
-    ));
-$omega: (
-    "text": (),
-    "background": (),
-    "border": (),
-    "text-emphasis": (),
-    "background-subtle": (),
-    "border-subtle": (),
-);
+));
 
 .no-scroll {
     overflow: hidden !important;

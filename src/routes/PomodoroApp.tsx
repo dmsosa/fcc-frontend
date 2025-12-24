@@ -131,7 +131,7 @@ function PomodoroApp() {
               </div>
             </div>
             <div className="row my-2">
-                <h1 className="text-center text-body-primary">{parseTime(remaining)}</h1>
+                <h1 className="text-center text-blue-200">{parseTime(remaining)}</h1>
                 <h1 id="timer-label" className='text-center'>{mode.toUpperCase()}</h1>
             </div>
             <div className="row">
