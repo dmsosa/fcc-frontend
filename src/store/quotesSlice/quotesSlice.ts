@@ -1,56 +1,61 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
+import type { IAsyncSlice } from '../types';
+import { getQuotes } from '../../service/quotesService';
 
-type TQuote = {
-    q: string,
-    a: string
+export type TQuote = {
+    id: number,
+    text: string,
+    author: string
 };
-export type TQuoteState = {
+interface IQuoteState extends IAsyncSlice {
     quotes: TQuote[];
-    quoteIndex: number;
-    isLoading: boolean;
-    error: string | null;
 };
-const initialState: TQuoteState = {
+const initialState: IQuoteState = {
     quotes: [],
-    quoteIndex: 0,
-    isLoading: false,
+    status: 'idle',
     error: null,
 }
+export const fetchQuotes = createAsyncThunk(
+  "quotes/fetchQuotes",
+  async (_, thunkAPI) => {
+    return getQuotes().catch((error) => thunkAPI.rejectWithValue(error));
+  }
+);
+
 const quotesSlice = createSlice({
     name: 'quote',
     initialState: initialState,
     reducers: {
-        quotesLoading: (state) => {
-            state.isLoading = true;
-            state.quotes = [];
-            state.error = null;
+        quoteUpdated: (state, action: PayloadAction<TQuote>) => {
+            const { id, text, author } = action.payload
+            const existingQuote = state.quotes.find(quote => quote.id === id)
+            if (existingQuote) {
+                existingQuote.text = text;
+                existingQuote.author = author;
+            }
         },
-        quotesLoaded: (state, action: PayloadAction<{ quotes: TQuote[]}>) => {
-            state.quotes = action.payload.quotes;
-            state.isLoading = false;
-            state.error = null;
-        },
-        quotesFailed: (state, action: PayloadAction<{ errorMessage: string}>) => {
-            state.quotes = [];
-            state.isLoading = false;
-            state.error = action.payload.errorMessage;
-        },
-        indexIncreased: (state) => {
-            if (state.quoteIndex === state.quotes.length - 1) return;
-            state.quoteIndex++;
-        },
-        indexDecreased: (state) => {
-            if (state.quoteIndex === 0) return;
-            state.quoteIndex--;
-        },
-        indexChanged: (state, action: PayloadAction<{ selected: number }>) => {
-            state.quoteIndex = action.payload.selected;
-        },
-    }
+        quoteAdded: (state, action: PayloadAction<TQuote>) => {
+                state.quotes.push({...action.payload, id: state.quotes.length + 1});
+            }
+    },
+    extraReducers: (builder) => {
+        builder
+        .addCase(fetchQuotes.pending, (state) => {
+            state.status = "loading";
+        })
+        .addCase(fetchQuotes.fulfilled, (state, action) => {
+            state.status = "completed";
+            state.quotes = action.payload;
+        })
+        .addCase(fetchQuotes.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.payload.error;
+        });
+    },
 });
 
-export const { quotesLoading, quotesLoaded, quotesFailed, indexIncreased, indexDecreased, indexChanged } = quotesSlice.actions;
+export const { quoteAdded, quoteUpdated } = quotesSlice.actions;
 
 //async attions
 // const getQuotes = createAsyncThunk('quotes/getQuotesStatus', )

@@ -1,9 +1,6 @@
 import axios from "axios";
+import type { TQuote } from "../store/quotesSlice/quotesSlice";
 
-export type TQuote = {
-    q: string,
-    a: string
-};
 export type TQuoteAxios = {
     quote: string,
     author: string
@@ -16,7 +13,7 @@ const instance = axios.create({
 })
 
 const formatData = (data: TQuoteData): TQuote[] => {
-    return data.quotes.map((item) => ({ q: item.quote, a: item.author }));
+    return data.quotes.map((item, index) => ({ id: index + 1, text: item.quote, author: item.author }));
 }
 export async function getQuotes(): Promise<TQuote[]> {
     try {

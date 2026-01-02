@@ -1,11 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, type Action, type ThunkAction } from "@reduxjs/toolkit";
 import quotesSlice from "./quotesSlice/quotesSlice";
 import todoSlice from "./todoSlice/todoSlice";
-
-export interface IAsyncSlice {
-    isLoading: boolean;
-    error: string | null;
-};
 
 const store = configureStore({
     reducer: {
@@ -20,5 +15,7 @@ export type AppStore = typeof store
 export type RootState = ReturnType<AppStore['getState']>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = AppStore['dispatch']
+// Export a reusable type for handwritten thunks
+export type AppThunk = ThunkAction<void, RootState, unknown, Action>
 
 export default store;

@@ -10,6 +10,19 @@ $utilitiesColor: ("color" : map-merge(
                 )
         )
 ));
+//box mit allen Properties geset
+/**
+.box {
+    min-width: 
+    min-height: 
+    max-width: 
+}
+.box-md {
+    min-width: 
+    min-height: 
+    max-width: 
+}
+**/
 //Neues Wert zum Border opacity hinzufugen
 $utilitiesOpacity: ( 
     "border-opacity": map-merge(

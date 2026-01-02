@@ -59,9 +59,6 @@ body {
     .app-wrapper {
     display: flex;
     flex-direction: row;
-    &:has(.sidebar-container--expanded) {
-        
-    }
     }
     .app-content {
         grid-column:  app-content;

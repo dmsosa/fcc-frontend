@@ -2,13 +2,14 @@ import { FaTumblr, FaTwitter } from "react-icons/fa";
 import { indexChanged, indexDecreased, indexIncreased, useQuoteState, type TQuoteState } from "../store/quotesSlice/quotesSlice";
 import { useEffect } from "react";
 import { getQuotesThunk } from "../store/quotesSlice/thunks";
-import store from "../store/store";
+import { type AppDispatch } from "../store/store";
 import AppPaginate from "../components/Widgets/Paginate/AppPaginate";
+import { useDispatch } from "react-redux";
 
 
 export function RandomQuotes() {
     const { quotes, quoteIndex, isLoading, error }: TQuoteState = useQuoteState();
-    const dispatch = store.dispatch;
+    const dispatch = useDispatch<AppDispatch>()
     const { q, a } = quotes.length > 0 ? quotes[quoteIndex] : {q: undefined, a: undefined};
     const twitterHref = q ? `https://twitter.com/intent/tweet?text=${`"${encodeURI(q)}" -${a}`}&hashtags=quotes,fccQuotes,quotesAPI` : '';
     const tumblrHref = q ? `https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,fccQuotes,quotesAPI&caption=${encodeURI(a)}&content=${encodeURI(q)}&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button` : '';
@@ -39,8 +40,6 @@ export function RandomQuotes() {
         
     }
     useEffect(() => {
-        //dispatchAction, redux stat zu isLoading wechseln, isFehler ist falsch.
-        //dispatchStopFetching
         dispatch(getQuotesThunk());
     }, []);
 

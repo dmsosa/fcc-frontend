@@ -7863,6 +7863,18 @@ textarea.form-control-lg {
   opacity: 0.25;
 }
 
+/**
+.box {
+    min-width: 
+    min-height: 
+    max-width: 
+}
+.box-md {
+    min-width: 
+    min-height: 
+    max-width: 
+}
+**/
 .no-scroll {
   overflow: hidden !important;
 }

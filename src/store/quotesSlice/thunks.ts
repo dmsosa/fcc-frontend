@@ -6,12 +6,11 @@ export const getQuotesThunk = () => {
     return async function (dispatch: AppDispatch) {
         dispatch(quotesLoading());
         getQuotes().then((data) => {
-            dispatch(quotesLoaded({ quotes: data}))
-            console.log(data);
+            dispatch(quotesLoaded({ quotes: data}));
         }).catch((err) => {
             console.group();
-            console.log('error');
-            console.log(err);
+            console.error('error');
+            console.error(err);
             console.groupEnd();
         });
     }
