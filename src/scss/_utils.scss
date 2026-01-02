@@ -10,18 +10,7 @@ $utilitiesColor: ("color" : map-merge(
                 )
         )
 ));
-
-//Neues Wert zum Border opacity fugen hinzu;
-// $utilitiesOpacity: ( 
-//     "border-opacity": map-merge(
-//     $map1: map-get($utilities, "border-opacity"), 
-//     $map2: ( 
-//         "values": map-merge(
-//             map-get(map-get($utilities, "border-opacity"), "values"), 
-//             ( "80": .8)
-//             )
-//         )
-// ));
+//Neues Wert zum Border opacity hinzufugen
 $utilitiesOpacity: ( 
     "border-opacity": map-merge(
         $map1: map-get($utilities, "border-opacity"), 
@@ -58,6 +47,7 @@ $utilitiesOpacity: (
 
 );
 
+//Beispiel fur Utility als Variabeln
 $utilitiesFocusRing: (
     'focus-ring-x': (
         css-var: true,
@@ -80,7 +70,7 @@ $utilities: map-merge(
     $map2: map-merge-multiple(
         $utilitiesColor,
         $utilitiesOpacity,
-        $utilitiesFocusRing
+        $utilitiesFocusRing,
 ));
 
 .no-scroll {

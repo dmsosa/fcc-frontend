@@ -1,19 +1,24 @@
 // NICHT DEFAULT VARIABELN KOMMENTIERT SIND
-
+$enable-grid-classes: true;
+$enable-cssgrid: true;
 $enable-gradients: false;
 $enable-dark-mode: true;
 $enable-shadows: true;
-
 $offcanvas-box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
-
-$custom-tint-amount: 0.55%;
 
 $btn-box-shadow: inset 0 5px 5px rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
 // scss-docs-start focus-ring-variables
 $focus-ring-x: 3px;
 $focus-ring-y: 5px;
 $focus-ring-blur: 0 !default;
+// scss-docs-end focus-ring-variables
 
+
+$btn-hover-bg-tint-amount: 75%;
+$btn-active-bg-tint-amount: 20%;
+$btn-hover-bg-shade-amount: 75%;
+$btn-active-bg-shade-amount: 20%;
+$border-radius: 0.025rem;
 
 $blue: #0d6efd;
 $indigo: #6610f2;
@@ -102,10 +107,9 @@ $emphasis-color: #000;
 // $tertiary-bg: #f8f9fa;
 // $tertiary-bg-rgb: 248, 249, 250;
 $heading-color: inherit;
-// $link-color: $primary;
-// $link-color-rgb: 101, 255, 101;
+$link-color: $primary;
+
 $link-decoration: underline;
-$link-hover-color-rgb: 81, 204, 81;
 $code-color: #d63384;
 $highlight-color: #9e5353;
 $highlight-bg: rgb(255, 242.6, 205.4);
@@ -142,9 +146,4 @@ $light3: #bebebe;
 $rgb-dark: rgb(33, 19, 13);
 $rgb-dark2: to-rgb($dark2);
 
-$btn-hover-bg-tint-amount: 75%;
-$btn-active-bg-tint-amount: 20%;
-$btn-hover-bg-shade-amount: 75%;
-$btn-active-bg-shade-amount: 20%;
-$border-radius: 0.2rem;
 

@@ -19,19 +19,7 @@
         width: 2em;
     }
 }
-.link {
-    outline: none;
-    border: none;
-    transition: color 0.2s ease, background-color 0.2s ease, outline 0.2s ease;
-    &:hover {
-        @include themify('background-color', 'bgTer');
-        @include themify('color', 'colorSec');
-    }
-    &:focus, &:active {
-        outline: solid 0.4rem;
-        @include themify('outline-color', 'colorSec');
-    }
-}
+
 .link-regular {
     color: currentColor !important;
     transition: opacity 0.2s ease;

@@ -18,12 +18,13 @@ const instance = axios.create({
 const formatData = (data: TQuoteData): TQuote[] => {
     return data.quotes.map((item) => ({ q: item.quote, a: item.author }));
 }
-export async function getQuoteArray(): Promise<TQuote[]> {
+export async function getQuotes(): Promise<TQuote[]> {
     try {
         const res = await instance.get('');
         const data = res.data;
         return formatData(data);
     } catch (error) {
+        console.error('Fehler bei Axios Anruf:', error);
         throw error;
     }
 }

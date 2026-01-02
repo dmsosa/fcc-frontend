@@ -8,14 +8,12 @@ type TQuote = {
 export type TQuoteState = {
     quotes: TQuote[];
     quoteIndex: number;
-    amount: number;
     isLoading: boolean;
     error: string | null;
 };
 const initialState: TQuoteState = {
     quotes: [],
     quoteIndex: 0,
-    amount: 1,
     isLoading: false,
     error: null,
 }
@@ -23,32 +21,39 @@ const quotesSlice = createSlice({
     name: 'quote',
     initialState: initialState,
     reducers: {
-        getQuotesStart: (state) => {
-            state.quotes = [];
+        quotesLoading: (state) => {
             state.isLoading = true;
+            state.quotes = [];
             state.error = null;
         },
-        getQuotesStartSuccess: (state, action: PayloadAction<{ quotes: TQuote[]}>) => {
+        quotesLoaded: (state, action: PayloadAction<{ quotes: TQuote[]}>) => {
             state.quotes = action.payload.quotes;
             state.isLoading = false;
             state.error = null;
         },
-        getQuotesStartError: (state, action: PayloadAction<{ errorMessage: string}>) => {
+        quotesFailed: (state, action: PayloadAction<{ errorMessage: string}>) => {
             state.quotes = [];
             state.isLoading = false;
             state.error = action.payload.errorMessage;
         },
-        incrementIndex: (state, action: PayloadAction<{ amount: number }>) => {
-            state.quoteIndex += action.payload.amount
+        indexIncreased: (state) => {
+            if (state.quoteIndex === state.quotes.length - 1) return;
+            state.quoteIndex++;
         },
-        decrementIndex: (state, action: PayloadAction<{ amount: number }>) => {
-            state.quoteIndex -= action.payload.amount
-        }
+        indexDecreased: (state) => {
+            if (state.quoteIndex === 0) return;
+            state.quoteIndex--;
+        },
+        indexChanged: (state, action: PayloadAction<{ selected: number }>) => {
+            state.quoteIndex = action.payload.selected;
+        },
     }
 });
 
-export const { getQuotesStart, getQuotesStartSuccess, getQuotesStartError, incrementIndex, decrementIndex } = quotesSlice.actions;
+export const { quotesLoading, quotesLoaded, quotesFailed, indexIncreased, indexDecreased, indexChanged } = quotesSlice.actions;
 
-export const selectQuoteState = () => useSelector((state: { quotes: TQuoteState }) => state.quotes);
+//async attions
+// const getQuotes = createAsyncThunk('quotes/getQuotesStatus', )
+export const useQuoteState = () => useSelector((state: { quotes: TQuoteState }) => state.quotes);
 
 export default quotesSlice;

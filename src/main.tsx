@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import store from './store/store.ts';
 import Home from './routes/Home.tsx';
 import PomodoroApp from './routes/PomodoroApp.tsx';
+import CalculatorApp from './routes/PomodoroApp.tsx';
+import RandomQuotes from './routes/RandomQuotes.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,9 +19,9 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<App/>}>
                   <Route path='/' index element={<Home/>}></Route>
                   <Route path='/01' element={<TodoApp/>}></Route>
-                  <Route path='/02'  element={<TodoApp/>}></Route>
+                  <Route path='/02'  element={<RandomQuotes/>}></Route>
                   <Route path='/03' element={<TodoApp/>}></Route>
-                  <Route path='/04'  element={<TodoApp/>}></Route>
+                  <Route path='/04'  element={<CalculatorApp/>}></Route>
                   <Route path='/05'  element={<PomodoroApp/>}></Route>
                   <Route path='/06'  element={<TodoApp/>}></Route>
         </Route>
