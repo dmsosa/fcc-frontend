@@ -12,6 +12,7 @@ export const fetchQuotes = createTypedAsyncThunk(
   async (_, thunkAPI) => {
     return quotesService.getAll()
     .then(data => { 
+      console.log('fetching')
        return data; 
     })
     .catch((error) => { 

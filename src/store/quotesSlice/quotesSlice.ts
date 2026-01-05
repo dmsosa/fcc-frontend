@@ -4,6 +4,8 @@ import { v4 } from 'uuid';
 import { fetchQuotes } from './thunks';
 import type { RootState } from '../store';
 
+
+
 export type TQuote = {
     index: number | undefined,
     id: string,
@@ -16,7 +18,7 @@ export interface IQuoteState extends IAsyncSlice {
 const initialState: IQuoteState = {
     array: [],
     status: 'idle',
-    error: undefined,
+    error: undefined
 }
 
 
@@ -37,6 +39,8 @@ const quotesSlice = createSlice({
                 state.array.push({...action.payload, index: state.array.length + 1});
             },
             prepare: (text: string , author: string ) => {
+                console.log(this, 'prepare');
+                console.log('')
                 return { 
                     payload: {
                         index: undefined,
@@ -47,13 +51,9 @@ const quotesSlice = createSlice({
                 }
             }
         },
-        quoteFavorited: (state, action: PayloadAction<number>) => {
-            const index = action.payload
-            const existingQuote = state.array.find(quote => quote.index === index)
-            if (existingQuote) {
-                existingQuote.text = 'text';
-            }
-        },
+        quoteRemoved: (state, action: PayloadAction<{ id: string }>) => {
+            state.array = state.array.filter(({id}) => id != action.payload.id);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -71,7 +71,7 @@ const quotesSlice = createSlice({
     },
 });
 
-export const { quoteAdded, quoteUpdated, quoteFavorited } = quotesSlice.actions;
+export const { quoteAdded, quoteUpdated, quoteRemoved } = quotesSlice.actions;
 
 //async attions
 // const getQuotes = createAsyncThunk('quotes/getQuotesStatus', );

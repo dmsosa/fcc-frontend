@@ -1,8 +1,7 @@
 import { configureStore, type Action, type ThunkAction } from "@reduxjs/toolkit";
-import quotesSlice from "./quotesSlice/quotesSlice";
 import todoSlice from "./todoSlice/todoSlice";
 import { listenerMiddleware } from "./listenerMiddleware";
-
+import quotesSlice from "./quotesSlice/quotesSlice";
 
 const store = configureStore({
     reducer: {
@@ -22,5 +21,7 @@ export type AppDispatch = AppStore['dispatch']
 // Export a reusable type for handwritten thunks
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>
 
+export const AppLSOptions = { ns: 'fcc-app' };
 
 export default store;
+

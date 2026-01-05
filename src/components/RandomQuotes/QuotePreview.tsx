@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { quoteFavorited, type TQuote } from "../../store/quotesSlice/quotesSlice";
+import {  type TQuote } from "../../store/quotesSlice/quotesSlice";
 import { useDispatch } from "react-redux";
 
 
@@ -8,7 +8,7 @@ export function QuotePreview({ quote } : { quote: TQuote }) {
     const {  id, index, text, author, } = quote;
     const dispatch = useDispatch();
     const handleClick = () => {
-        dispatch(quoteFavorited(2));
+        console.log(dispatch)
     }
     return <div className="row bg-body-tertiary list-item">
                 <div className="col">
