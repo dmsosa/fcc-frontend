@@ -13,3 +13,9 @@ export function parseTime (seconds: number): string {
 };
 
 export function clamp(min: number, max: number, n: number): number  { return Math.min(max, Math.max(n, min)) };
+
+export function throwMockError(message:string) {
+    const error =  new Error(message);
+    console.error('Fehler bei Axios Anruf:', error);
+    throw error;
+}

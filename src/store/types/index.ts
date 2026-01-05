@@ -9,5 +9,5 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
 
 export interface IAsyncSlice {
     status: 'idle' | 'loading' | 'completed' | 'failed';
-    error: string | null;
+    error: string | undefined;
 }

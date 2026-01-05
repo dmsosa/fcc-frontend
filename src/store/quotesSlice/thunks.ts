@@ -1,17 +1,22 @@
-import { getQuotes } from "../../service/quotesService";
-import type { AppDispatch } from "../store"
-import { quotesLoaded, quotesLoading } from "./quotesSlice"
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import quotesService from "../../service/quotesService";
+import type { AppDispatch, RootState } from "../store";
+//Typed createAsyncThunk
+export const createTypedAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState
+  dispatch: AppDispatch
+}>();
 
-export const getQuotesThunk = () => {
-    return async function (dispatch: AppDispatch) {
-        dispatch(quotesLoading());
-        getQuotes().then((data) => {
-            dispatch(quotesLoaded({ quotes: data}));
-        }).catch((err) => {
-            console.group();
-            console.error('error');
-            console.error(err);
-            console.groupEnd();
-        });
-    }
-}
+export const fetchQuotes = createTypedAsyncThunk(
+  "quotes/fetchQuotes",
+  async (_, thunkAPI) => {
+    return quotesService.getAll()
+    .then(data => { 
+       return data; 
+    })
+    .catch((error) => { 
+        console.log(error);
+        return thunkAPI.rejectWithValue({ error: error.message });
+    });
+  }
+);

@@ -18,12 +18,12 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route element={<App/>}>
                   <Route path='/' index element={<Home/>}></Route>
-                  <Route path='/01' element={<TodoApp/>}></Route>
-                  <Route path='/02'  element={<RandomQuotes/>}></Route>
-                  <Route path='/03' element={<TodoApp/>}></Route>
-                  <Route path='/04'  element={<CalculatorApp/>}></Route>
-                  <Route path='/05'  element={<PomodoroApp/>}></Route>
-                  <Route path='/06'  element={<TodoApp/>}></Route>
+                  <Route path='/todos' element={<TodoApp/>}></Route>
+                  <Route path='/quotes'  element={<RandomQuotes/>}></Route>
+                  {/* <Route path='/quotes/:id' element={<QuotePage/>}></Route> */}
+                  <Route path='/calculator'  element={<CalculatorApp/>}></Route>
+                  <Route path='/pomodoro'  element={<PomodoroApp/>}></Route>
+                  <Route path='/drum'  element={<TodoApp/>}></Route>
         </Route>
       </Routes>
     </Provider>

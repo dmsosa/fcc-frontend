@@ -1,12 +1,16 @@
 import { configureStore, type Action, type ThunkAction } from "@reduxjs/toolkit";
 import quotesSlice from "./quotesSlice/quotesSlice";
 import todoSlice from "./todoSlice/todoSlice";
+import { listenerMiddleware } from "./listenerMiddleware";
+
 
 const store = configureStore({
     reducer: {
         quotes: quotesSlice.reducer,
-        todo: todoSlice.reducer,
+        todos: todoSlice.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware)
 });
 
 // Get the type of our store variable
@@ -17,5 +21,6 @@ export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']
 // Export a reusable type for handwritten thunks
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>
+
 
 export default store;

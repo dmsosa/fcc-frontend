@@ -1,23 +1,28 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { staticTodoIds, staticTodoMap, type TTodo } from '../../service/todoData';
+import type { RootState } from '../store';
+import type { IAsyncSlice } from '../types';
 
 
 export type TPriority = 'high' | 'mid' | 'low'; 
 
-export type TTodoState = {
+export interface ITodoState extends IAsyncSlice {
     todoMap: { [id:number] : TTodo};
     todoIds: number[];
-    todoArray: TTodo[];
+    array: TTodo[];
 };
-const initialState: TTodoState = {
+const initialState: ITodoState = {
     todoMap: staticTodoMap,
     todoIds: staticTodoIds,
-    todoArray: []
-}
+    array: [],
+    status: 'idle',
+    error: undefined,
+};
+
 let nextTodoId = 0;
 
 const todoSlice = createSlice({
-    name: 'todo',
+    name: 'todos',
     initialState: initialState,
     reducers: {
         postTodo: (state, action: PayloadAction<{ title: string }>) => {
@@ -48,6 +53,8 @@ const todoSlice = createSlice({
 
 
 export const { postTodo, toggleTodo, deleteTodo, putTodo } = todoSlice.actions;
+export const selectTodos = (state: RootState) => state.todos;
+export const selectTodosArray = (state: RootState) => state.todos.array;
 
 export default todoSlice;
 
