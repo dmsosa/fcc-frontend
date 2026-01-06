@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../store";
+import { type AppDispatch, type RootState } from "../store";
 import {  selectQuotesArray, type TQuote } from "../store/quotesSlice/quotesSlice";
 import { fetchQuotes } from "../store/quotesSlice/thunks";
 import {  selectTodosArray } from "../store/todoSlice";
 import type { TTodo } from "../service/todoData";
+import { getLS } from "../helpers";
+import { AppLSOptions } from "../store/types";
 
 export interface IService {
     getAll: () => Promise<unknown[]>;
@@ -47,7 +49,10 @@ export default function useArray<T>({serviceName, limitAmount} : {serviceName: T
 
     //Dispatch first thunk
     useEffect(() => {
-        dispatch(THUNKS[serviceName]());
+        if (!getLS('quotes', AppLSOptions)) {
+            console.log('Quotes Array already exists in Local Storage, skipping fetching');
+            dispatch(THUNKS[serviceName]());
+        }
     }, [])
 
     //Pagination Logic

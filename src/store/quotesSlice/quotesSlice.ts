@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { IAsyncSlice } from '../types';
-import { v4 } from 'uuid';
+import { createSlice, nanoid, type PayloadAction } from '@reduxjs/toolkit';
+import { AppLSOptions, type IAsyncSlice } from '../types';
 import { fetchQuotes } from './thunks';
-import type { RootState } from '../store';
+import { type RootState } from '../store';
+import { getLS } from '../../helpers';
 
 
 
@@ -18,10 +18,9 @@ export interface IQuoteState extends IAsyncSlice {
 const initialState: IQuoteState = {
     array: [],
     status: 'idle',
-    error: undefined
+    error: undefined,
+    ...(getLS('quotes', AppLSOptions))
 }
-
-
 const quotesSlice = createSlice({
     name: 'quotes',
     initialState: initialState,
@@ -36,21 +35,19 @@ const quotesSlice = createSlice({
         },
         quoteAdded: {
             reducer: (state, action: PayloadAction<TQuote>) => {
-                state.array.push({...action.payload, index: state.array.length + 1});
+                state.array.push({...action.payload, index: state.array.length + 1, id: nanoid()});
             },
-            prepare: (text: string , author: string ) => {
-                console.log(this, 'prepare');
-                console.log('')
-                return { 
+            prepare: (text: string, author: string) => {
+                return {
                     payload: {
                         index: undefined,
                         text,
                         author,
-                        id: v4(),
+                        id: nanoid()
                     }
                 }
             }
-        },
+           },
         quoteRemoved: (state, action: PayloadAction<{ id: string }>) => {
             state.array = state.array.filter(({id}) => id != action.payload.id);
         }
@@ -62,12 +59,13 @@ const quotesSlice = createSlice({
         })
         .addCase(fetchQuotes.fulfilled, (state, action) => {
             state.status = "completed";
-            state.array = action.payload;
+            state.array = action.payload as TQuote[];
+            console.log(action.meta.arg);
         })
         .addCase(fetchQuotes.rejected, (state, action) => {
             state.status = "failed";
             state.error = action.error.message;
-        });
+        })
     },
 });
 

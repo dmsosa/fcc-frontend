@@ -14,7 +14,7 @@ const AddQuotes = () => {
 
     if (!text || !author) return;
 
-    dispatch(quoteAdded(text, author));
+    dispatch(quoteAdded({text, author}));
     setForm({});
     setActive(false);
   };

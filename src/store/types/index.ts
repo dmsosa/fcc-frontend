@@ -11,3 +11,6 @@ export interface IAsyncSlice {
     status: 'idle' | 'loading' | 'completed' | 'failed';
     error: string | undefined;
 }
+
+export const AppLSOptions = { ns: 'fcc-app' };
+

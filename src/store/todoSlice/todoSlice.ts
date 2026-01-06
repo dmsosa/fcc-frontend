@@ -1,58 +1,52 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { staticTodoIds, staticTodoMap, type TTodo } from '../../service/todoData';
+import { createSlice, nanoid, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import type { IAsyncSlice } from '../types';
+import { AppLSOptions, type IAsyncSlice } from '../types';
+import { getLS } from '../../helpers';
 
-
-export type TPriority = 'high' | 'mid' | 'low'; 
-
+export type TTodoPriority = 'high'  | 'medium' | 'low';
+export type TTodo = {
+    id: string,
+    text: string,
+    completed: boolean,
+    priority: TTodoPriority; 
+};
 export interface ITodoState extends IAsyncSlice {
-    todoMap: { [id:number] : TTodo};
-    todoIds: number[];
     array: TTodo[];
 };
 const initialState: ITodoState = {
-    todoMap: staticTodoMap,
-    todoIds: staticTodoIds,
     array: [],
     status: 'idle',
     error: undefined,
-};
-
-let nextTodoId = 0;
+    ...(getLS('todos', AppLSOptions))
+}
 
 const todoSlice = createSlice({
     name: 'todos',
     initialState: initialState,
     reducers: {
-        postTodo: (state, action: PayloadAction<{ title: string }>) => {
-            const newTodo: TTodo = {
-                id: nextTodoId++,
-                title: action.payload.title,
-                completed: false,
-                priority: 'mid',
-            };
-            state.todoMap[newTodo.id] = newTodo;
-            state.todoIds.push(newTodo.id);
-        },
-        toggleTodo: (state, action: PayloadAction<{ id: number }>) => {
-            const toggled = state.todoMap[action.payload.id];
-            state.todoMap = { ...state.todoMap, [action.payload.id]: {...toggled, completed: !toggled.completed } }
-        },
-        deleteTodo: (state, action: PayloadAction<{ id: number }>) => {
-            state.todoMap = Object.fromEntries(Object.entries(state.todoMap).filter(([key]) => Number(key) !== action.payload.id));
-            state.todoIds = state.todoIds.filter(id => id !== action.payload.id);
-        },
-        putTodo: (state, action: PayloadAction<{ id: number, form: Omit<TTodo, 'id'>}>) => {
-            const target = state.todoMap[action.payload.id];
-            const {title, completed, priority} = action.payload.form;            
-            state.todoMap = {...state.todoMap, [target.id]: {...target, title, priority, completed} };
-        },
+        todoAdded: {
+            reducer: (state, action: PayloadAction<TTodo>) => {
+                state.array.push(action.payload);
+            },
+            prepare: (text: string, priority: TTodoPriority) => {
+                return {
+                    payload: {
+                        text,
+                        priority,
+                        id: nanoid(),
+                        completed: false
+                    }
+                }
+            }
+           },
+        todoRemoved: (state, action: PayloadAction<{ id: string }>) => {
+            state.array = state.array.filter(( todo ) => todo.id != action.payload.id);
+        }
     },
 });
 
 
-export const { postTodo, toggleTodo, deleteTodo, putTodo } = todoSlice.actions;
+export const { todoAdded, todoRemoved } = todoSlice.actions;
 export const selectTodos = (state: RootState) => state.todos;
 export const selectTodosArray = (state: RootState) => state.todos.array;
 

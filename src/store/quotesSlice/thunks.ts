@@ -9,15 +9,15 @@ export const createTypedAsyncThunk = createAsyncThunk.withTypes<{
 
 export const fetchQuotes = createTypedAsyncThunk(
   "quotes/fetchQuotes",
-  async (_, thunkAPI) => {
+  (_, thunkAPI) => {
     return quotesService.getAll()
     .then(data => { 
-      console.log('fetching')
-       return data; 
+        console.log('fulfilled quotesArray request')
+        return thunkAPI.fulfillWithValue(data); 
     })
     .catch((error) => { 
-        console.log(error);
-        return thunkAPI.rejectWithValue({ error: error.message });
+      console.log(error)
+      return thunkAPI.rejectWithValue({});
     });
   }
 );

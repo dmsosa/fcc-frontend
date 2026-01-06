@@ -3,11 +3,12 @@
 
 // listenerMiddleware.ts
 import { addListener, createListenerMiddleware, isAnyOf, type PayloadAction, type TypedAddListener, type TypedStartListening } from '@reduxjs/toolkit'
+import { type AppDispatch, type RootState } from './store';
+import { quoteAdded, type TQuote } from './quotesSlice/quotesSlice';
+import { AppLSOptions } from './types';
 import { getLS, setLS } from '../helpers';
-import { AppLSOptions, type AppDispatch, type RootState } from './store';
-import { fetchQuotes } from './quotesSlice/thunks';
-import type { TQuote } from './quotesSlice/quotesSlice';
-import type { TTodo } from '../service/todoData';
+import { todoAdded, type TTodo } from './todoSlice';
+
 
 
 export const listenerMiddleware = createListenerMiddleware();
@@ -15,7 +16,7 @@ export const listenerMiddleware = createListenerMiddleware();
 export type AppStartListening = TypedStartListening<RootState, AppDispatch>
 
 export const startAppListening =
-  listenerMiddleware.startListening as AppStartListening
+  listenerMiddleware.startListening as AppStartListening;
 
 export const addAppListener = addListener as TypedAddListener<
   RootState,
@@ -23,22 +24,36 @@ export const addAppListener = addListener as TypedAddListener<
 >
 
 startAppListening({
-    matcher: isAnyOf(fetchQuotes.fulfilled),
-    effect: (action: PayloadAction<TQuote[] | TTodo[]>, listenerApi) => {
+    matcher: isAnyOf(quoteAdded, todoAdded),
+    effect: (action: PayloadAction<TQuote | TTodo>, listenerApi) => {
     // Cancel any in-progress instances of this listener
       listenerApi.cancelActiveListeners()
 
       // Delay before starting actual work
       listenerApi.delay(500)
 
+      const category = action.type.split('/')[0];
+      let existingArray = getLS<TQuote[] | TTodo[]>(category, AppLSOptions);
       // do work here
-      const target = action.type.split('/')[0];
-        //If not saved to LS yet, save it
-        if (!getLS(target, AppLSOptions)) {
-            setLS(target, action.payload, AppLSOptions);
+        if (!existingArray) {
+            console.log(`Category array for: '${category}' does not exist in Local Storage, skipping persisting in Local Storage for '${action.type}'`);
         } else {
-            console.log('exist')
-            return;
+            switch (category) {
+                case 'quotes': {
+                    existingArray = existingArray as TQuote[];
+                    setLS(category, { array: existingArray.push(action.payload as TQuote) }, AppLSOptions);
+                    break;
+                }
+                case 'todos': {
+                    existingArray = existingArray as TTodo[];
+                    setLS(category, { array: existingArray.push(action.payload as TTodo) }, AppLSOptions);
+                    break;
+                }
+                default: {
+                    console.log(`Category array couldn't be found for: '${category}', skipping persisting in Local Storage for '${action.type}'`);
+                    break;
+                }
+            }
         }
     }
 });

@@ -21,7 +21,5 @@ export type AppDispatch = AppStore['dispatch']
 // Export a reusable type for handwritten thunks
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>
 
-export const AppLSOptions = { ns: 'fcc-app' };
-
 export default store;
 
