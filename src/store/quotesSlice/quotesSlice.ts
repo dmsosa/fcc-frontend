@@ -1,10 +1,7 @@
-import { createSlice, nanoid, type PayloadAction } from '@reduxjs/toolkit';
-import { AppLSOptions, type IAsyncSlice } from '../types';
+import { createEntityAdapter, createSlice, nanoid, type EntityState, type PayloadAction } from '@reduxjs/toolkit';
+import { type IAsyncSlice } from '../types';
 import { fetchQuotes } from './thunks';
-import { type RootState } from '../store';
-import { getLS } from '../../helpers';
-
-
+import type { RootState } from '../store';
 
 export type TQuote = {
     index: number | undefined,
@@ -12,30 +9,28 @@ export type TQuote = {
     text: string,
     author: string,
 };
-export interface IQuoteState extends IAsyncSlice {
-    array: TQuote[];
+export interface IQuoteState extends IAsyncSlice, EntityState<TQuote, string> {
 };
-const initialState: IQuoteState = {
-    array: [],
+
+const quotesAdapter = createEntityAdapter<TQuote>({
+    sortComparer: (a, b) => a.author[0].localeCompare(b.author[0])
+})
+const initialState: IQuoteState = quotesAdapter.getInitialState({
     status: 'idle',
     error: undefined,
-    ...(getLS('quotes', AppLSOptions))
-}
+    // ...(getLS('quotes', AppLSOptions))
+});
 const quotesSlice = createSlice({
     name: 'quotes',
     initialState: initialState,
     reducers: {
         quoteUpdated: (state, action: PayloadAction<TQuote>) => {
             const { id, text, author } = action.payload
-            const existingQuote = state.array.find(quote => quote.id === id)
-            if (existingQuote) {
-                existingQuote.text = text;
-                existingQuote.author = author;
-            }
+            quotesAdapter.updateOne(state, { id, changes: { text, author } })
         },
         quoteAdded: {
             reducer: (state, action: PayloadAction<TQuote>) => {
-                state.array.push({...action.payload, index: state.array.length + 1, id: nanoid()});
+                quotesAdapter.addOne(state, action.payload);
             },
             prepare: (text: string, author: string) => {
                 return {
@@ -49,7 +44,7 @@ const quotesSlice = createSlice({
             }
            },
         quoteRemoved: (state, action: PayloadAction<{ id: string }>) => {
-            state.array = state.array.filter(({id}) => id != action.payload.id);
+            quotesAdapter.removeOne(state, action.payload.id);
         }
     },
     extraReducers: (builder) => {
@@ -59,8 +54,7 @@ const quotesSlice = createSlice({
         })
         .addCase(fetchQuotes.fulfilled, (state, action) => {
             state.status = "completed";
-            state.array = action.payload as TQuote[];
-            console.log(action.meta.arg);
+            quotesAdapter.setAll(state, action.payload);
         })
         .addCase(fetchQuotes.rejected, (state, action) => {
             state.status = "failed";
@@ -71,9 +65,18 @@ const quotesSlice = createSlice({
 
 export const { quoteAdded, quoteUpdated, quoteRemoved } = quotesSlice.actions;
 
-//async attions
-// const getQuotes = createAsyncThunk('quotes/getQuotesStatus', );
-export const selectQuotes = (state: RootState) => state.quotes;
-export const selectQuotesArray = (state: RootState) => state.quotes.array;
+
+//Selectors
+export const {
+  selectAll: selectAllQuotes,
+  selectById: selectQuotesById,
+  selectIds: selectQuotesIds
+  // Pass in a selector that returns the posts slice of state
+} = quotesAdapter.getSelectors((state: RootState) => state.quotes);
+
+// export const selectPostsByUser = createSelector(
+//   [selectAllQuotes, (state: RootState, userId: string) => userId],
+//   (posts, userId) => posts.filter(post => post.user === userId)
+// )
 
 export default quotesSlice;

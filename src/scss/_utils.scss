@@ -78,12 +78,40 @@ $utilitiesFocusRing: (
         values: $spacers
     ), );
 
+$otherUtilities: (
+    "transition": (
+        property: transition,
+        values: $transition-utilities
+    ),
+    "shadow-hover": (
+        class: shadow,
+        state: hover,
+        property: box-shadow,
+        values: map-get(map-get($utilities, "shadow"), "values"),
+    )
+);
 $utilities: map-merge(
     $utilities, 
     $map2: map-merge-multiple(
         $utilitiesColor,
         $utilitiesOpacity,
         $utilitiesFocusRing,
+        $otherUtilities
+));
+//Beispiel fur Utility als Variabeln
+$utilitiesZIndex: map-merge(map-get($utilities, 'z-index'), (
+    values: map-merge(map-get($utilities, 'z-index'), 'values', (
+        modal: $zindex-modal,
+    ))
+));
+
+$utilities: map-merge(
+    $utilities, 
+    $map2: map-merge-multiple(
+        $utilitiesColor,
+        $utilitiesOpacity,
+        $utilitiesFocusRing,
+        $utilitiesZIndex
 ));
 
 .no-scroll {

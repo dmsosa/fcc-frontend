@@ -1,5 +1,3 @@
-@import './mixins';
-
 @function getColor($colorName, $fallback: null) {
     @if not map-has-key($colors, $colorName) {
         @warn "Color `#{$colorName}` not found in \$colors map. Using fallback: #{$fallback}.";
@@ -24,4 +22,8 @@
 
 @function hexToRGB($hex) {
   @return red($hex), green($hex), blue($hex);
+}
+
+@function toTransitionProperty($property, $duration: 0.5s, $delay: "ease") {
+  @return $property $duration $delay;
 }

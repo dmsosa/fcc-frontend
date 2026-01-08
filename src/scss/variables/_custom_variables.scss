@@ -137,13 +137,5 @@ $form-invalid-color: #ff3636;
 $form-invalid-border-color: #ff3636;
 $link-transition-duration: 0.2s;
 
-$dark: #04212d;
-$dark2: #053142;
-$dark3: #0b4c67;
-$light: #e7e7e7;
-$light2: #dadada;
-$light3: #bebebe;
-$rgb-dark: rgb(33, 19, 13);
-$rgb-dark2: to-rgb($dark2);
-
-
+$transition-duration: 0.5s;
+$transition-delay: ease;

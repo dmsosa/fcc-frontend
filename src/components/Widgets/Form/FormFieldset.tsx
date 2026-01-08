@@ -1,26 +1,30 @@
-import type { ChangeEvent } from "react";
-type TInputHandlers = ((e: ChangeEvent<HTMLInputElement> ) => void) | ((e: ChangeEvent<HTMLTextAreaElement> ) => void);
+import type { ChangeEvent, HTMLAttributes } from "react";
 interface IFormFieldsetProps {
-    type: string;
-    name: string;
+    attributes?: HTMLAttributes<HTMLElement>;
+    errors?: string[];
     id: string;
-    value: boolean | string | number;
+    name: string;
+    type: string;
     label: string;
     placeholder?: string;
     expanded?: boolean;
-    handleChange: TInputHandlers;
+    handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> ) => void;
 }
 
-export default function FormFieldset({ type, name, id, value, label, placeholder, expanded, handleChange}: IFormFieldsetProps) {
+export default function FormFieldset({ attributes, errors, type, label, placeholder, expanded=true, handleChange}: IFormFieldsetProps) {
+    console.log(attributes, 'attrs')
     return (
-        <fieldset>
+        <fieldset className="app-fieldset">
+            {expanded && <label htmlFor={attributes?.id}>{label}</label>}
             {
                 type === 'textarea' ?
-                <textarea name={name} id={id} onChange={handleChange as ((e: ChangeEvent<HTMLTextAreaElement> ) => void)} value={value.toString()} placeholder={placeholder ?? ''} ></textarea>
+                <textarea {...attributes}  onChange={handleChange} placeholder={placeholder ?? ''} ></textarea>
                 :
-                <input type={type} name={name} id={id} onChange={handleChange as ((e: ChangeEvent<HTMLInputElement> ) => void)} value={value.toString()} placeholder={placeholder ?? ''} />
+                <input {...attributes} type={type} onChange={handleChange} placeholder={placeholder ?? ''} />
             }
-            {expanded && <label htmlFor={id}>{label}</label>}
+            {errors && errors.map( (e) =>
+              <div className="text-red-500 text-sm mt-1">{e}</div>
+            )}
         </fieldset>
     )
 }

@@ -5,7 +5,7 @@ import { putTodo, toggleTodo  } from "../../store/todoSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import { useTodoContext } from "../../context/todoAppContext";
 import { getTodoById } from "../../service/todoService";
-import ModalContainer from "../Widgets/Modal/ModalContainer";
+import ModalContainer from "../Widgets/Modal/ModalPortal";
 import type { TTodo } from "../../service/todoData";
 
 export default function TodoEditorModal () {

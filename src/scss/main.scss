@@ -7,11 +7,16 @@
 // 1. Include functions first
 @import "../../node_modules/bootstrap/scss/functions";
 
+
 // 2. Include any default variable overrides here.  Place variable overrides first, then import just the styles you need. Note that some stylesheets are required no matter what.
 
 // Toggle global options
 
 @import "./variables/custom_variables";
+
+//Custom functions
+@import "./functions";
+
 @import "./fonts";
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
@@ -105,23 +110,20 @@
 
 // 8. themes init and setup
 
-//themes
-@import "./themes/themes";
-@import "./themes/themeBsVariables";
-//functions
-@import "./functions";
+
+
 //mixins
 @import "./mixins";
+
+//keyframes
+@import "./keyframes";
 
 // 9. components
 @import "./layout";
 @import "./components/sidebar";
-@import "./components/lists";
 @import "./components/nav";
 @import "./components/header";
 @import "./components/footer";
-@import "./components/inputs";
-@import "./components/modals";
 @import "./components/scrollbar";
 @import "./components/home";
 @import "./components/markdown";

@@ -2,6 +2,7 @@ import { configureStore, type Action, type ThunkAction } from "@reduxjs/toolkit"
 import todoSlice from "./todoSlice/todoSlice";
 import { listenerMiddleware } from "./listenerMiddleware";
 import quotesSlice from "./quotesSlice/quotesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const store = configureStore({
     reducer: {
@@ -20,6 +21,11 @@ export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']
 // Export a reusable type for handwritten thunks
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>
+
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export const useAppSelector = useSelector.withTypes<RootState>()
 
 export default store;
 

@@ -1,2 +1,13 @@
-$theme-colors: map-merge(("dark2":$dark2, "dark3":$dark3, "light2":$light2, "light3": $light3), $theme-colors);
+$theme-colors: map-merge(("omega": #33adff), $theme-colors);
 $spacers: map-merge((6: $spacer * 6, 15: $spacer * 15), $spacers);
+
+$transition-properties: (
+    "opacity",
+    "color",
+    "background-color",
+    "transform",
+    "shadow",
+    "width",
+    "height"
+);
+$transition-utilities: map-loop($transition-properties, toTransitionProperty, "$key");

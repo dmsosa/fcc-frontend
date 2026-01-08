@@ -55,6 +55,18 @@ body {
     max-width: 500px;
 }
 
+.app-modal {
+    .app-modal-inner-opening {
+        opacity: 0;
+        transform: translateY(0);
+        animation: 0.5s linear 1s infinite normal drop, 0.5s linear 1s infinite normal fadeIn;
+    }
+    .app-modal-inner-opening {
+        opacity: 0;
+        transform: translateY(0);
+        animation: 0.5s linear 1s infinite reverse drop, 0.5s linear 1s infinite reverse fadeIn;
+    }
+}
 @media only screen and (min-width: 768px) {
     .app-wrapper {
     display: flex;

@@ -1,5 +1,7 @@
+import { BsBookmarkCheck } from "react-icons/bs";
 import AddQuotes from "../components/RandomQuotes/AddQuotes";
 import AllQuotes from "../components/RandomQuotes/AllQuotes";
+import Banner from "../components/Widgets/Banner";
 
 
 export function RandomQuotes() {
@@ -7,10 +9,7 @@ export function RandomQuotes() {
 
     
     return <div className="container">
-        <div className="row">
-            <h1>Find Inspiration</h1>
-            <span>animated text</span>
-        </div>
+        <Banner title="Amazing quotes" subtitle="Your place to grow"><BsBookmarkCheck></BsBookmarkCheck></Banner>
         <AddQuotes></AddQuotes>
         <AllQuotes></AllQuotes>
     </div>
