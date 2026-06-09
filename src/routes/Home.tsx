@@ -3,6 +3,7 @@ import ProjektKarte from "../components/Home/ProjektKarte";
 import { IconList, type TIconLink } from "../components/Widgets/IconList";
 import { PROJECTS_ARRAY, type TProject } from "../service/projectService";
 import { BsHouseExclamation } from "react-icons/bs";
+import ContactUsForm from "../components/Form/ContactUsForm";
 
 const bioLinks: TIconLink[] = [
   { title: 'home', href: '/', active: false, svg: <FaHome /> },
@@ -20,6 +21,9 @@ export default function Home () {
     
     return (
         <>
+        <section>
+            <ContactUsForm></ContactUsForm>
+        </section>
         <section className="section invisible-scrollbar">
             <div className='container bg-body-primary'>
                 <div className="row">
