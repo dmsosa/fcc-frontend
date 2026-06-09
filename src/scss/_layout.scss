@@ -67,6 +67,10 @@ body {
         animation: 0.5s linear 1s infinite reverse drop, 0.5s linear 1s infinite reverse fadeIn;
     }
 }
+
+.btn-regular {
+    background-color: $gray-300;
+}
 @media only screen and (min-width: 768px) {
     .app-wrapper {
     display: flex;
@@ -78,5 +82,14 @@ body {
     .app-content {
         order: 3;
         flex: 1 1 auto; 
+    }
+}
+
+*[data-bs-theme="dark"] {
+    .btn-regular {
+        background-color: $gray-900;
+        &:hover {
+            background-color: $gray-800;
+        }
     }
 }

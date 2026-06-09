@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import {  type TTodoState } from "../../store/todoSlice";
+import {  type TTodoState } from "../../store/todosSlice";
 import type { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { type LSOptions } from "../../helpers/localStorageHelpers";
-import {  getTodosWithFilter } from "../../service/todoService";
+import {  getTodosWithFilter } from "../../service/todosService";
 import { useLocalStorage } from "../useLocalStorage";
 import { sliceArray } from "../../helpers";
 import type { TTodo } from "../../service/todoData";

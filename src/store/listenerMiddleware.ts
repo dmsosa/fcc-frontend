@@ -7,7 +7,9 @@ import { type AppDispatch, type RootState } from './store';
 import { quoteAdded, type TQuote } from './quotesSlice/quotesSlice';
 import { AppLSOptions } from './types';
 import { getLS, setLS } from '../helpers';
-import { todoAdded, type TTodo } from './todoSlice';
+import { todoAdded, type TTodo } from './todosSlice';
+import { type TAuthor } from './authorSlice/authorSlice';
+import { fetchQuotes } from './quotesSlice/thunks';
 
 
 
@@ -54,6 +56,29 @@ startAppListening({
                     break;
                 }
             }
+        }
+    }
+});
+
+startAppListening({
+    matcher: isAnyOf(fetchQuotes.fulfilled),
+    effect: (action: PayloadAction<TQuote[]>, listenerApi) => {
+    //   // Cancel any in-progress instances of this listener
+    //   listenerApi.cancelActiveListeners()
+
+    //   // Delay before starting actual work
+    //   listenerApi.delay(500)
+    
+        //wenn quotesLoaded is dispatched, check if es auf LS gespeichert ist, falls nicht, es speichern.
+        //
+      console.log(action, listenerApi);
+      const existingArray = getLS<TAuthor[]>('authors', AppLSOptions);
+      // do work here
+        if (!existingArray) {
+            console.log(`Category array for: 'authors' does not exist in Local Storage, persisting in Local Storage for '${action.type}'`);
+            setLS('authors', action.payload.map((a) => a.id));
+        } else {
+            console.log(`Category array schon gespeichert auf Local Storage fur '${action.type}'`);
         }
     }
 });

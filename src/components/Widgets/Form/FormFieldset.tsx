@@ -1,30 +1,41 @@
-import type { ChangeEvent, HTMLAttributes } from "react";
+import type { ChangeEvent } from "react";
+import type {  FieldError, UseFormRegisterReturn } from "react-hook-form";
 interface IFormFieldsetProps {
-    attributes?: HTMLAttributes<HTMLElement>;
-    errors?: string[];
+    registerAttributes?: UseFormRegisterReturn;
+    errors?: FieldError;
     id: string;
-    name: string;
     type: string;
     label: string;
     placeholder?: string;
     expanded?: boolean;
-    handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> ) => void;
+    handleChange?: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> ) => void;
 }
 
-export default function FormFieldset({ attributes, errors, type, label, placeholder, expanded=true, handleChange}: IFormFieldsetProps) {
-    console.log(attributes, 'attrs')
+export default function FormFieldset({ registerAttributes, errors, id, type, label, placeholder, expanded=true, handleChange}: IFormFieldsetProps) {
     return (
         <fieldset className="app-fieldset">
-            {expanded && <label htmlFor={attributes?.id}>{label}</label>}
+            {expanded && <label htmlFor={id}>{label}</label>}
             {
                 type === 'textarea' ?
-                <textarea {...attributes}  onChange={handleChange} placeholder={placeholder ?? ''} ></textarea>
+                <textarea 
+                id={id}
+                onChange={handleChange}
+                placeholder={placeholder ?? ''}
+                {...registerAttributes}
+                aria-invalid={errors ? "true" : "false"}
+                ></textarea>
                 :
-                <input {...attributes} type={type} onChange={handleChange} placeholder={placeholder ?? ''} />
+                <input 
+                id={id}  
+                type={type} 
+                onChange={handleChange} 
+                placeholder={placeholder ?? ''} 
+                {...registerAttributes}
+                aria-invalid={errors?.message ? "true" : "false"}
+                />
             }
-            {errors && errors.map( (e) =>
-              <div className="text-red-500 text-sm mt-1">{e}</div>
-            )}
+            {/* use role="alert" to announce the error message */}
+            {errors && <span role="alert" className="text-red-500 text-sm mt-1">{errors.message}</span>}
         </fieldset>
     )
 }

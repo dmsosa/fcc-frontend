@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice, nanoid, type EntityState, type PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSelector, createSlice, nanoid, type EntityState, type PayloadAction } from '@reduxjs/toolkit';
 import { type IAsyncSlice } from '../types';
 import { fetchQuotes } from './thunks';
 import type { RootState } from '../store';
@@ -8,6 +8,7 @@ export type TQuote = {
     id: string,
     text: string,
     author: string,
+    likes: number,
 };
 export interface IQuoteState extends IAsyncSlice, EntityState<TQuote, string> {
 };
@@ -38,14 +39,19 @@ const quotesSlice = createSlice({
                         index: undefined,
                         text,
                         author,
-                        id: nanoid()
+                        id: nanoid(),
+                        likes: 0
                     }
                 }
             }
            },
         quoteRemoved: (state, action: PayloadAction<{ id: string }>) => {
             quotesAdapter.removeOne(state, action.payload.id);
-        }
+        },
+        quoteLiked: (state, action: PayloadAction<TQuote>) => {
+            const { id, text, author } = action.payload
+            quotesAdapter.updateOne(state, { id, changes: { text, author } })
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -74,9 +80,9 @@ export const {
   // Pass in a selector that returns the posts slice of state
 } = quotesAdapter.getSelectors((state: RootState) => state.quotes);
 
-// export const selectPostsByUser = createSelector(
-//   [selectAllQuotes, (state: RootState, userId: string) => userId],
-//   (posts, userId) => posts.filter(post => post.user === userId)
-// )
+export const selectQuotesByAuthor = createSelector(
+  [selectAllQuotes, (state: RootState, authorName: string) => authorName],
+  (quotes, authorName) => quotes.filter(quote => quote.author === authorName)
+);
 
 export default quotesSlice;

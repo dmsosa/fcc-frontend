@@ -1,24 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import quotesService from "../../service/quotesService";
+import todosService from "../../service/todosService";
 import type { AppDispatch, RootState } from "../store";
-import { authorsLoaded } from "../authorSlice/authorSlice";
+import type { TTodo } from ".";
 //Typed createAsyncThunk
 export const createTypedAsyncThunk = createAsyncThunk.withTypes<{
   state: RootState
   dispatch: AppDispatch
 }>();
 
-export const fetchQuotes = createTypedAsyncThunk(
-  "quotes/fetchQuotes",
+export type ApiError = {
+    errorCustom:string
+}
+export const fetchTodos = createTypedAsyncThunk<TTodo[], void, { rejectValue: ApiError }>(
+  "quotes/fetchTodos",
   (_, thunkAPI) => {
-    return quotesService.getAll()
+    return todosService.getAll()
     .then(data => { 
-        thunkAPI.dispatch(authorsLoaded(data.map((tquote) => tquote.author)));
         return thunkAPI.fulfillWithValue(data); 
     })
     .catch((error) => { 
       console.log(error)
-      return thunkAPI.rejectWithValue({});
+      return thunkAPI.rejectWithValue({ errorCustom: 'myKnown '});
     });
   }
 );

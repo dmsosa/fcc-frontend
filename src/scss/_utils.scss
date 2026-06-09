@@ -3,8 +3,7 @@ $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oran
 //Farbe utility fur alle Farben erstellen;
 $utilitiesColor: ("color" : map-merge(
         map-get($utilities, "color"),
-        (   
-            css-var: true,
+        (
             values: map-merge(
                 map-get(map-get($utilities, "color"), "values"), $all-colors
                 )
@@ -31,6 +30,12 @@ $utilitiesOpacity: (
             "values": map-merge(
                 map-get(map-get($utilities, "border-opacity"), "values"), ( "80": .8)
                 )
+            )
+        ),
+    "width": map-merge(
+        $map1: map-get($utilities, "width"),
+        $map2: ( 
+            "responsive": true,
             )
         ),
     "bg-opacity": map-merge(
@@ -88,16 +93,12 @@ $otherUtilities: (
         state: hover,
         property: box-shadow,
         values: map-get(map-get($utilities, "shadow"), "values"),
+    ),
+    "rotate": (
+        property: rotate,
+        values: $degree-values
     )
 );
-$utilities: map-merge(
-    $utilities, 
-    $map2: map-merge-multiple(
-        $utilitiesColor,
-        $utilitiesOpacity,
-        $utilitiesFocusRing,
-        $otherUtilities
-));
 //Beispiel fur Utility als Variabeln
 $utilitiesZIndex: map-merge(map-get($utilities, 'z-index'), (
     values: map-merge(map-get($utilities, 'z-index'), 'values', (
@@ -111,7 +112,9 @@ $utilities: map-merge(
         $utilitiesColor,
         $utilitiesOpacity,
         $utilitiesFocusRing,
-        $utilitiesZIndex
+        $utilitiesZIndex,
+                $otherUtilities
+
 ));
 
 .no-scroll {

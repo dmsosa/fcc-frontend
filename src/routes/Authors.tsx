@@ -1,17 +1,18 @@
 import { BsBookmarkCheck } from "react-icons/bs";
-import AddQuotes from "../components/RandomQuotes/AddQuotes";
-import AllQuotes from "../components/RandomQuotes/AllQuotes";
 import Banner from "../components/Widgets/Banner";
+import AuthorsArray from "../components/Author/AllAuthor";
 
 
-export function RandomQuotes() {
+export function Authors() {
+
+
+    
     return <div className="container-fluid m-0 p-0">
         <Banner title="Amazing quotes" subtitle="Your place to grow"><BsBookmarkCheck></BsBookmarkCheck></Banner>
-        <AddQuotes></AddQuotes>
-        <AllQuotes></AllQuotes>
+        <AuthorsArray></AuthorsArray>
     </div>
         
 }
 
 
-export default RandomQuotes; 
+export default Authors; 

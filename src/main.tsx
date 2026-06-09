@@ -10,6 +10,7 @@ import PomodoroApp from './routes/PomodoroApp.tsx';
 import CalculatorApp from './routes/PomodoroApp.tsx';
 import RandomQuotes from './routes/RandomQuotes.tsx';
 import SingleQuote from './components/RandomQuotes/SingleQuote.tsx';
+import Authors from './routes/Authors.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,13 +18,17 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <Routes>
         <Route element={<App/>}>
-                  <Route path='/' index element={<Home/>}></Route>
-                  {/* <Route path='/todos' element={<TodoApp/>}></Route> */}
-                  <Route path='/quotes'  element={<RandomQuotes/>}></Route>
-                  <Route path='/quotes/:id' element={<SingleQuote/>}></Route>
-                  <Route path='/calculator'  element={<CalculatorApp/>}></Route>
-                  <Route path='/pomodoro'  element={<PomodoroApp/>}></Route>
-                  <Route path='/drum'  element={<RandomQuotes/>}></Route>
+          <Route path='/' index element={<Home/>}></Route>
+          {/* <Route path='/todos' element={<TodoApp/>}></Route> */}
+          <Route path='/quotes'  element={<RandomQuotes/>}></Route>
+          <Route path='/quotes/:id' element={<SingleQuote/>}></Route>
+          <Route path='/authors' element={<Authors/>}></Route>
+          <Route path='/authors/:id' element={<SingleQuote/>}></Route>
+          <Route path='/calculator'  element={<CalculatorApp/>}></Route>
+          <Route path='/pomodoro'  element={<PomodoroApp/>}></Route>
+          <Route path='/drum'  element={<RandomQuotes/>}></Route>
+          <Route path='/drum'  element={<RandomQuotes/>}></Route>
+          <Route path='/drum'  element={<RandomQuotes/>}></Route>
         </Route>
       </Routes>
     </Provider>

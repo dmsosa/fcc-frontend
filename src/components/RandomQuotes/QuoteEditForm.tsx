@@ -1,49 +1,36 @@
-import { useState, type ChangeEvent, type FormEvent, type MouseEvent } from 'react';
-import { type TQuote } from '../../store/quotesSlice/quotesSlice';
+import { type FormEvent, type MouseEvent } from 'react';
+import { quoteUpdated, type TQuote } from '../../store/quotesSlice/quotesSlice';
 import { useAppDispatch } from '../../store';
 import { Button, Stack } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import FormFieldset from '../Widgets/Form/FormFieldset';
+import { useForm, type FieldErrors } from 'react-hook-form';
 import { BsBack, BsSave } from 'react-icons/bs';
+import FormFieldset from '../Widgets/Form/FormFieldset';
+import { EditFormSubmitted } from '../Widgets/Form/SubmittedMessages';
+
+//Ich kann mein Form korrekt validieren und mit submit senden.
 
 type EditQuoteFormProps = {
   quote: TQuote;
   onClose?: (e: MouseEvent<HTMLButtonElement> | FormEvent) => void;
 };
 
-type EditQuoteFormData = {
-    text: string,
-    author: string
-}
+const regexpName = /^[A-Za-z]+([ A-Za-z]+)*/g;
 
-type TFieldErrors = {
-    [key in keyof EditQuoteFormData]?: string[];
-}
-type TFieldNames = "text" | "author";
 function EditQuoteForm({ quote, onClose }: EditQuoteFormProps) {
-    const { register, setValue, handleSubmit, getValues} = useForm<EditQuoteFormData>({defaultValues: {...quote}});
-    const [isFormValid, setIsFormValid] = useState<boolean>(false);
-    const [fieldErrors, setFieldErrors] = useState<TFieldErrors>({});
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const { register, handleSubmit, formState,  } = useForm<TQuote>({defaultValues: {...quote}});
+    const { errors, isValid, isSubmitted} = formState;
 
     const dispatch = useAppDispatch();
 
+    const onValid = (data: TQuote) => dispatch(quoteUpdated(data));
+    const onInvalid = (errors: FieldErrors<TQuote>) => {
+            console.group();
+            console.error('Error in the form:');
+            console.error(errors);
+            console.log("----------------");
+            console.groupEnd();
+        };
 
-    const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSubmit((data) => console.log(data));
-    onClose?.(e);
-    console.log(dispatch, 'dispatch edit')
-  };
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> ) => {
-        if (!e.currentTarget) return;
-        const name = e.currentTarget.name as TFieldNames;
-        const value = e.currentTarget.value;
-        setValue(name, value);
-        console.log(getValues())
-    }
-    
     const handleClose = (e: MouseEvent<HTMLButtonElement> ) => {
         e.preventDefault();
         if (onClose) {
@@ -51,20 +38,51 @@ function EditQuoteForm({ quote, onClose }: EditQuoteFormProps) {
         } 
     }
 
+    const registerText = register("text", { 
+        required: true, 
+        minLength: { value: 15, message: "The text must be at least 15 chars long"}, 
+        maxLength: { value: 350, message: "The length must not exceed 350 chars"}, 
+        validate: {
+            "containsA": (value) => value.length > 12 || "notvalid",
+        }
+    });
+    const registerAuthor = register("author", { 
+        required: true, 
+        minLength: { value: 3, message: "Author's name must be at least 3"}, 
+        maxLength: { value: 30, message: "The length must not exceed 500 chars"}, 
+        pattern: { value: regexpName, message: "Is not a valid name" },
+        // validate: {
+        //     "name regexp": (value) => regexpName.test(value) || "is not a valid name"
+        // }
+    });
     return (
         <div className="mt-3">
-            {submitted ? <p>Thanks!</p>
+            {
+            isSubmitted ? 
+            <EditFormSubmitted/>
             :
-            <form onSubmit={onSubmit}>
-            <h3>Edit Quote</h3>
+            <form onSubmit={handleSubmit(onValid, onInvalid)}>
+                <h3>Edit Quote</h3>
+                <FormFieldset 
+                registerAttributes={{...registerText}}
+                errors={errors.text} 
+                type='textarea'
+                id='quote-text' 
+                label='Content:'>
+                </FormFieldset>
+                <FormFieldset 
+                registerAttributes={{...registerAuthor}}
+                errors={errors.author} 
+                type='text'
+                id='quote-author' 
+                label='Author:'>
+                </FormFieldset>
 
-            <FormFieldset attributes={{...register("text")}} errors={fieldErrors.text} type='text' name='text' id='quote-text' label='text' handleChange={handleChange}></FormFieldset>
 
-
-            <Stack direction='horizontal' gap={3}>
-                <Button variant="primary" type='submit'>Save <BsSave></BsSave></Button>
-                <Button variant="danger" onClick={handleClose}>Cancel <BsBack></BsBack></Button>
-            </Stack>
+                <Stack direction='horizontal' gap={3}>
+                    <Button variant="primary"  type='submit' disabled={!isValid} className='d-flex justify-content-center align-items-center gap-1'>Save <BsSave></BsSave></Button>
+                    <Button variant="danger" className='d-flex justify-content-center align-items-center gap-1' onClick={handleClose}>Cancel <BsBack></BsBack></Button>
+                </Stack>
             </form>
             }
         </div>

@@ -14,10 +14,7 @@ $focus-ring-blur: 0 !default;
 // scss-docs-end focus-ring-variables
 
 
-$btn-hover-bg-tint-amount: 75%;
-$btn-active-bg-tint-amount: 20%;
-$btn-hover-bg-shade-amount: 75%;
-$btn-active-bg-shade-amount: 20%;
+
 $border-radius: 0.025rem;
 
 $blue: #0d6efd;
@@ -92,11 +89,11 @@ $body-font-family: var(--bs-font-sans-serif);
 // $body-font-size: 1rem;
 // $body-font-weight: 400;
 // $body-line-height: 1.5;
-$body-color: $gray-900;
+// $body-color: $gray-900;
 // $body-color-rgb: 158, 83, 83;
-$body-bg: $gray-100;
+// $body-bg: $gray-100;
 // $body-bg-rgb: 255, 255, 255;
-$emphasis-color: #000;
+// $emphasis-color: #000;
 // $emphasis-color-rgb: 0, 0, 0;
 // $secondary-color: rgba(158, 83, 83, 0.75);
 // $secondary-color-rgb: 158, 83, 83;
@@ -139,3 +136,36 @@ $link-transition-duration: 0.2s;
 
 $transition-duration: 0.5s;
 $transition-delay: ease;
+
+$list-item-gap: 0.4rem;
+
+
+$body-color-dark:                   $gray-300 !default;
+$body-bg-dark:                      $gray-900 !default;
+$body-secondary-color-dark:         rgba($body-color-dark, .75) !default;
+$body-secondary-bg-dark:            $gray-700 !default;
+$body-tertiary-color-dark:          rgba($body-color-dark, .5) !default;
+$body-tertiary-bg-dark:             mix($gray-800, $gray-900, 50%) !default;
+$body-emphasis-color-dark:          $white !default;
+$border-color-dark:                 $gray-700 !default;
+$border-color-translucent-dark:     rgba($white, .15) !default;
+$headings-color-dark:               inherit !default;
+
+$body-color:                $gray-900;
+$body-bg:                   $white;
+
+$body-secondary-color:      rgba($body-color, .75);
+$body-secondary-bg:         $gray-400 ;
+
+$body-tertiary-color:       rgba($body-color, .5);
+$body-tertiary-bg:          $gray-200;
+
+$body-emphasis-color:       $black;
+
+
+$btn-hover-bg-tint-amount: 75%;
+$btn-active-bg-tint-amount: 20%;
+$btn-hover-bg-shade-amount: 75%;
+$btn-active-bg-shade-amount: 20%;
+$btn-box-shadow: none;
+$btn-bg: $gray-200;

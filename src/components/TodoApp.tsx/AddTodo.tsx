@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { postTodo } from "../../store/todoSlice";
+import { postTodo } from "../../store/todosSlice";
 
 
 export default function AddTodo () {

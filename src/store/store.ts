@@ -1,16 +1,18 @@
 import { configureStore, type Action, type ThunkAction } from "@reduxjs/toolkit";
-import todoSlice from "./todoSlice/todoSlice";
+import todoSlice from "./todosSlice/todosSlice";
 import { listenerMiddleware } from "./listenerMiddleware";
 import quotesSlice from "./quotesSlice/quotesSlice";
 import { useDispatch, useSelector } from "react-redux";
+import authorSlice from "./authorSlice/authorSlice";
 
 const store = configureStore({
     reducer: {
         quotes: quotesSlice.reducer,
+        authors: authorSlice.reducer,
         todos: todoSlice.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware)
+    middleware: (getDM) =>
+    getDM().prepend(listenerMiddleware.middleware)
 });
 
 // Get the type of our store variable

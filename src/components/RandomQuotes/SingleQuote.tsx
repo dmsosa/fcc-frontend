@@ -8,21 +8,22 @@ import { useParams } from "react-router";
 
 export function SingleQuote() {
     const { id } = useParams();
-    const quote = useAppSelector(s => selectQuotesById(s, id));
-
+    const quote = useAppSelector(s => selectQuotesById(s, id!));
+    const { index, text, author } = quote ?? {};
     
     return <Container>
-            {quote ? 
+            {
+            quote ? 
             <Row>
                 <div className="text-animated-wrapper">
                     <span className="fs-6">{`All quotes`}</span>
                     <h1>Amazing quotes</h1>
-                    <span>quote number: {}</span>
+                    <span>quote number: {index}</span>
                     <BsPencilSquare></BsPencilSquare>
                 </div>
                 <Row className="row">
-                    <p>{quote.text}</p>
-                    <h4>{quote.author}</h4>
+                    <p>{text}</p>
+                    <h4>{author}</h4>
                 </Row>
                 <Row className="row">
                     

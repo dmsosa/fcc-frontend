@@ -1,7 +1,7 @@
 
 
 import { useDispatch } from "react-redux";
-import { putTodo, toggleTodo, type TPriority } from "../../store/todoSlice";
+import { putTodo, toggleTodo, type TPriority } from "../../store/todosSlice";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { Checkbox } from "../Widgets/Form/Checkbox";

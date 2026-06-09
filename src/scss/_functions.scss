@@ -25,5 +25,5 @@
 }
 
 @function toTransitionProperty($property, $duration: 0.5s, $delay: "ease") {
-  @return $property $duration $delay;
+  @return #{$property} $duration #{$delay};
 }

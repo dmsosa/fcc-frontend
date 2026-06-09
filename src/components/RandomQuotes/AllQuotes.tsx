@@ -1,12 +1,13 @@
 import QuotePreview from "./QuotePreview";
 import { quoteRemoved, type TQuote } from "../../store/quotesSlice/quotesSlice";
 import AppPaginate from "../Widgets/Paginate/AppPaginate";
-import { Container, Row } from "react-bootstrap";
-import { useState, type MouseEvent } from "react";
+import { Row } from "react-bootstrap";
+import { useState, type ChangeEvent, type MouseEvent } from "react";
 import ModalPortal from "../Widgets/Modal/ModalPortal";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import useArrayIds from "../../hooks/useArrayIds";
 import EditQuoteForm from "./QuoteEditForm";
+import FilterQuotes from "./FilterQuotes";
 
 //Persist data from LS
 //1. lookup LS
@@ -33,19 +34,44 @@ export type TModalConfig<T = unknown> = {
 //Die vorgegebenen aktionen mit den aktuells targetItem verbunden sind
 //QuotesPreview hat der funktion an, die targetItem und showModal zu setzen
 //die ConfirnmModal
+//Ich mochtet es automatisieren, aber es ist zu komplex seien, weil TypeScript assumes this will be the erste Typ von mein Selector
+//Der task, die ich automatisieren wollte:
+//1. Nachem ServiceName, Ich mochte der entsprechende State From Slices mit useSelector greifen um Status und Error greifen (sind in beiden Staten present)
+//2. Array mit entityAdapter.selectAll() greifen, es kann ein TQuotes[] oder TTodos[] seien.
+//3. Array filtrieren mit filter logik
+//4. Array paginieren mit offset logik
+//5. der hook die settters zuruckgibt, um wieder neue Konfiguration zu ermoglichen. 
+
+//Beispiel Usage:
 export function AllQuotes() {
 
-    const { array, arrayCount, status, error, offset, setOffset } = useArrayIds({serviceName: 'quotes' });
+    const { status, error } = useAppSelector(s => s.quotes);
+
+    const { paginatedArray, arrayCount, offset, setOffset, filter, setFilter, rmFilter } = useArrayIds({serviceName: 'quotes', options: { filter: {}, filterKey: 'quotes-filter' }});
     const [ targetItem, setTargetItem ] = useState<TQuote | undefined>(undefined);
     const [ showEditModal, setShowEditModal ] = useState<boolean>(false);
     const [ showDeleteModal, setShowDeleteModal ] = useState<boolean>(false);
+
+
+    
     const dispatch = useAppDispatch();
 
-    console.log(array)
+    //Handler fur Filter
+    const handleChangeFilter = (e: ChangeEvent<HTMLInputElement> ) => {
+        const name = e.currentTarget.name;
+        const value = e.currentTarget.value;
+        setFilter((prev) => ({...prev, [name]: value}));
+    }
+    const handleClearFilter = () => {
+        rmFilter();
+        setFilter({});
+    }
+    //Handler fur Pagination
     const handlePageChange = ({ selected } : { selected: number }) => {
         setOffset(selected);
     }
 
+    //Handlers fur Modals
     const handleDeleteConfirm = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (!targetItem) return;
@@ -53,28 +79,20 @@ export function AllQuotes() {
         dispatch(quoteRemoved({ id: targetItem.id }));
         setShowDeleteModal(false);
     }
-    const handleModalCancel = (modal: "edit" | "delete") => {
+
+    //Handler fur QuotePreview Elemente
+    const handleQuotePreviewClick = (e: MouseEvent<HTMLButtonElement>, item: TQuote) => {
+        e.preventDefault();
+        const modal = e.currentTarget.dataset.value;
+            if (!item || !modal) return;
+            setTargetItem(item);
         if (modal === 'edit') {
-            console.log(`Hey, Du hast das quote mit id: ${targetItem!.id} noch nicht geandert!`);
             setShowEditModal(true);
         } else {
-            console.log(`Buff! man hast das quote mit id: ${targetItem!.id} fast entfernen!`);
             setShowDeleteModal(true);
         }
     }
 
-    //Fur QuotePreview Elemente
-    const quotePreviewCallback = (e: MouseEvent<HTMLButtonElement>, item: TQuote) => {
-        e.preventDefault();
-        const modal = e.currentTarget.dataset.value;
-        if (!item || !modal) return;
-        setTargetItem(item);
-        if (modal === 'edit') {
-            setShowEditModal(true);
-        } else {
-            setShowDeleteModal(true);
-        }
-    }
 
     return status === 'loading'  ? 
         <div>Loading</div>
@@ -82,27 +100,35 @@ export function AllQuotes() {
         status === 'failed' ?
         <div>Error: {error}</div>
         :
-        <Container className="row">
-            <Row>
-                {array.map((id) => <QuotePreview quoteId={id} deleteCallback={quotePreviewCallback} editCallback={quotePreviewCallback}></QuotePreview>)}
-            </Row>
-            <Row>
+        <Row>
+            <div aria-roledescription="array-container" className="mt-3">
+                <FilterQuotes filter={filter} handleChangeFilter={handleChangeFilter} handleClearFilter={handleClearFilter}></FilterQuotes>
+                {
+                    paginatedArray.length > 0 ? 
+                    <>
+                    { paginatedArray.map((id) => <QuotePreview quoteId={id} deleteCallback={handleQuotePreviewClick}     editCallback={handleQuotePreviewClick}></QuotePreview>) }
+                    </>
+                    :
+                    <div>No quotes found</div>
+                }
                 <AppPaginate pageCount={Math.ceil(arrayCount / 3)} index={offset} handlePageChange={handlePageChange}></AppPaginate>
-            </Row>
+            </div>
+            {/* DeleteModal */}
             <ModalPortal title={'are you sure to delete quote?'} subtitle="this action can not be undone!" show={showDeleteModal} setShow={setShowDeleteModal}>
                 <div>
                     <p className="fw-bold text-left">The quote has the following content:</p>
                     {targetItem && <p className="fw-light text-center w-80 mx-auto">{targetItem.text}</p>}
                     <div className="d-flex justify-content-end align-items-center">
                         <button className="btn btn-danger" onClick={handleDeleteConfirm}>Yes</button>
-                        <button className="btn btn-primary" onClick={() => handleModalCancel('delete')}>No</button>
+                        <button className="btn btn-primary" onClick={() => setShowDeleteModal(false)}>No</button>
                     </div>
                 </div>
             </ModalPortal>
+            {/* EditModal */}
             <ModalPortal title={'Edit quote'} show={showEditModal} setShow={setShowEditModal}>
-                <EditQuoteForm quote={targetItem!} onClose={() => handleModalCancel('edit')}></EditQuoteForm>
+                <EditQuoteForm quote={targetItem!} onClose={() => setShowEditModal(false)}></EditQuoteForm>
             </ModalPortal>
-        </Container>;
+        </Row>;
         
 }
 

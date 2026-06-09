@@ -10,4 +10,19 @@ $transition-properties: (
     "width",
     "height"
 );
+$degree-values: (
+    "10": 10deg, 
+    "30": 30deg, 
+    "45": 45deg, 
+    "60": 60deg, 
+    "75": 75deg, 
+    "90": 90deg, 
+    "115": 115deg, 
+    "135": 135deg, 
+    "180": 180deg, 
+    "210": 210deg, 
+    "270": 270deg, 
+    "330": 330deg, 
+    "360": 360deg, 
+);
 $transition-utilities: map-loop($transition-properties, toTransitionProperty, "$key");

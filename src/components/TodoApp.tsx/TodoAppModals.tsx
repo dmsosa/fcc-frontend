@@ -1,10 +1,10 @@
 
 
 import { useDispatch} from "react-redux";
-import { deleteTodo, putTodo, toggleTodo, type TPriority } from "../../store/todoSlice";
+import { deleteTodo, putTodo, toggleTodo, type TPriority } from "../../store/todosSlice";
 import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import CloseBtn from "../Widgets/CloseBtn";
-import { getTodoById } from "../../service/todoService";
+import { getTodoById } from "../../service/todosService";
 import { Checkbox } from "../Widgets/Form/Checkbox";
 import DeleteModal from "../Widgets/Modal/DeleteModal";
 import { useTodoContext } from "../../context/todoAppContext";

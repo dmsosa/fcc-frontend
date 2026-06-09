@@ -115,6 +115,33 @@
     }
 }
 
+
+.list-item {
+    &-vertical {
+        &:not(:first-of-type) {
+            margin-top: $list-item-gap;
+        }
+    }
+    &-horizontal {
+        &:not(:first-of-type) {
+            margin-left: $list-item-gap;
+        }
+    }
+}
+
+.collapsable-link {
+    span {
+        display: none;
+    }
+}
+@media only screen and (min-width: 576px) {
+    .collapsable-link {
+    span {
+        display: inline;
+    }
+}
+
+}
 @media only screen and (min-width: 768px) {
     .collapsable-wrapper {
         display: block;
