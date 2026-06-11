@@ -8025,6 +8025,10 @@ index-1 {
   animation: shake 0.2s 2 ease-in;
 }
 
+.bg-body {
+  background-color: #e7e7e7;
+}
+
 .align-baseline {
   vertical-align: baseline !important;
 }
@@ -13732,6 +13736,10 @@ index-1 {
   --backdrop-blur: 0.6rem;
   --border-width: 0.25rem;
   --bs-dropdown-item-border-radius: var(--bs-border-radius);
+  --app-card-padding: 0.55rem 0.25rem;
+  --app-card-border-radius: 25px;
+  --app-section-px: 0.5rem;
+  --app-section-py: 3.75rem;
 }
 
 html {
@@ -13740,9 +13748,10 @@ html {
 }
 
 body {
+  background-color: #e7e7e7;
   height: 100vh;
   overflow: hidden;
-  font-family: "Lilex";
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .app-wrapper {
@@ -13765,11 +13774,20 @@ body {
   scroll-snap-type: y mandatory;
 }
 
-.section {
-  padding-top: calc(var(--header-height) + 2rem);
+.app-section {
+  padding: var(--app-section-py) var(--app-section-px);
   overflow: hidden scroll;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  min-height: 100vh;
+}
+
+.app-section#hero-section {
+  padding-top: calc(var(--header-height) + 2rem);
+}
+
+.card {
+  position: relative;
+  padding: var(--app-card-padding);
+  border-radius: var(--app-card-border-radius);
 }
 
 .box {
@@ -14473,6 +14491,55 @@ a.handler.handler-col {
 }
 .link-regular:hover {
   opacity: 0.25;
+}
+
+:root {
+  --app-form-gap: 1.75rem;
+  --app-fieldset-input-padding: 0.25rem 0.6rem;
+  --app-fieldset-input-border: solid 0.25rem;
+  --app-fieldset-input-border-radius: 10px;
+  --label-active-size: 0.85rem;
+  --label-idle-size: 1.25rem;
+}
+
+.app-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-form-gap);
+}
+
+.form-fieldset {
+  position: relative;
+}
+
+.form-fieldset .form-fieldset-input {
+  width: 100%;
+  padding: var(--app-fieldset-input-padding);
+  border: var(--app-fieldset-input-border);
+  border-color: #0d6efd;
+  border-radius: var(--app-fieldset-input-border-radius);
+  outline: none;
+  font-size: 1.5rem;
+  transition: border-color 0.3s ease;
+  background: transparent;
+}
+
+.form-fieldset .form-fieldset-input ~ label {
+  position: absolute;
+  top: 20%;
+  left: 15px;
+  pointer-events: none;
+  font-size: var(--label-idle-size);
+  padding: 0.015rem 0.45rem;
+  transition: position 0.4s ease, font-size 0.4s ease;
+}
+
+.form-fieldset .form-fieldset-input:focus ~ label,
+.form-fieldset .form-fieldset-input:active ~ label,
+.form-fieldset .form-fieldset-input:focus-visible ~ label,
+.form-fieldset .form-fieldset-input:not(:placeholder-shown) ~ label {
+  top: -10%;
+  font-size: var(--label-active-size);
 }
 
 /*# sourceMappingURL=main.css.map */

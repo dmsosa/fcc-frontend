@@ -1,0 +1,49 @@
+:root {
+    --app-form-gap: 1.75rem;
+    --app-fieldset-input-padding: 0.25rem 0.6rem;
+    --app-fieldset-input-border: solid 0.25rem;
+    --app-fieldset-input-border-radius: 10px;
+    --label-active-size: 0.85rem;
+    --label-idle-size: 1.25rem;
+}
+
+.app-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--app-form-gap);
+}
+
+.form-fieldset {
+    position: relative;
+}
+
+.form-fieldset .form-fieldset-input {
+  width: 100%;
+  padding: var(--app-fieldset-input-padding);
+  border: var(--app-fieldset-input-border);
+  border-color: $primary;
+  border-radius: var(--app-fieldset-input-border-radius);
+  outline: none;
+  font-size: 1.5rem;
+  transition: border-color 0.3s ease;
+  background: transparent;
+}
+
+.form-fieldset .form-fieldset-input ~ label {
+    position: absolute;
+    top: 20%;
+    left: 15px;
+    pointer-events: none;
+    font-size: var(--label-idle-size);
+    padding: 0.015rem 0.45rem;
+    transition: position 0.4s ease, font-size 0.4s ease;
+}
+
+.form-fieldset .form-fieldset-input:focus ~ label,
+.form-fieldset .form-fieldset-input:active ~ label,
+.form-fieldset .form-fieldset-input:focus-visible ~ label,
+.form-fieldset .form-fieldset-input:not(:placeholder-shown) ~ label {
+    top: -10%;
+    font-size: var(--label-active-size);
+    
+}

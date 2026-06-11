@@ -5,11 +5,11 @@ export function ThankYou() {
   return (
     <div className="container mt-5">
       <div className="alert alert-success text-center shadow-sm">
-        <h4 className="alert-heading">Thank you! <BiSolidHappyHeartEyes></BiSolidHappyHeartEyes></h4>
-        <p>Your form has been submitted successfully.</p>
+        <h4 className="alert-heading">Gracias por tu colaboracion! <BiSolidHappyHeartEyes></BiSolidHappyHeartEyes></h4>
+        <p>Hemos recibido tus datos con exito.</p>
         <hr />
         <p className="mb-0">
-          We’ll get back to you as soon as possible.
+          Nuestro equipo de seleccion se pondra en contacto contigo a la mayor brevedad posible.
         </p>
       </div>
     </div>

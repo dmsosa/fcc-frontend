@@ -9,7 +9,10 @@
     --backdrop-blur: 0.6rem;
     --border-width: 0.25rem;  
     --bs-dropdown-item-border-radius: var(--bs-border-radius);
-
+    --app-card-padding: 0.55rem 0.25rem;
+    --app-card-border-radius: 25px;
+    --app-section-px: 0.5rem;
+    --app-section-py: 3.75rem;
 }
 
 html {
@@ -18,9 +21,10 @@ html {
 }
 
 body {
+    background-color: $light;
     height: 100vh;
     overflow: hidden;
-    font-family: 'Lilex';
+    font-family: Arial, Helvetica, sans-serif;
     // @include themeOverrideBsVariables('light', $themeLight);
 
 }
@@ -43,12 +47,26 @@ body {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
 }
-.section {
-    padding-top: calc(var(--header-height) + 2rem);
+.app-section {
+    padding: var(--app-section-py) var(--app-section-px);
     overflow: hidden scroll;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    // scroll-snap-align: start;
+    // scroll-snap-stop: always;
+    min-height: 100vh;
 }
+
+.app-section#hero-section {
+    padding-top: calc(var(--header-height) + 2rem);
+}
+
+.card {
+    position: relative;
+    padding: var(--app-card-padding);
+    border-radius: var(--app-card-border-radius);
+}
+
+
+
 .box {
     min-height: 464px;
     min-width: 300px;
