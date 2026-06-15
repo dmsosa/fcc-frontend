@@ -1,0 +1,23 @@
+.phantom {
+    position: relative;
+    overflow: hidden;
+    animation: phantom 1s linear infinite alternate;
+}
+
+.phantom-text {
+    height: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.phantom-w100 {
+    width: 100%;
+}
+
+
+.phantom-w50 {
+    width: 50%;
+}
+
+.phantom-w80 {
+    width: 80%;
+}

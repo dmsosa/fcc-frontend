@@ -8,6 +8,7 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
 @keyframes drop {
     from {
         transform: translateY(-15%);
@@ -18,9 +19,22 @@
     }
 }
 
+@keyframes phantom {
+    0% {
+        opacity: 0.7;
+        background-color: rgb(200, 200, 200);
+    }
+    100% {
+        opacity: 1;
+        background-color: rgb(100, 100, 100);
+    }
+
+}
+
 .fadeIn {
     animation: 0.5s linear 1s infinite alternate fadeIn;
 }
 .drop {
     animation: 0.5s linear 1s infinite alternate drop;
 }
+

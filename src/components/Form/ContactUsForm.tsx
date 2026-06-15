@@ -13,7 +13,7 @@ const initForm = {
 
 export default function ContactUsForm() 
 {
-  const [ loading, setLoading ] = useState(false);
+  const [ loading, setLoading ] = useState(true);
   const [ sent, setSent ] = useState(false);
   const [{ nombre, apellidos, email, comentario, gdpr }, setForm] = useState(initForm);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
