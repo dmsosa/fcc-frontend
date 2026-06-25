@@ -1,4 +1,4 @@
-@import './themes/themes';
+@import './themes';
 
 @mixin generateColorVariables() {
     @each $name, $value in $colors {
@@ -22,7 +22,6 @@
             }
         };
     }
-    @debug $themeValues;
 }
 
 @mixin generateThemeVariables() {

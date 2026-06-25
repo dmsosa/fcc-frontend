@@ -13758,7 +13758,6 @@ html {
 }
 
 body {
-  background-color: #e7e7e7;
   height: 100vh;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
@@ -13784,10 +13783,23 @@ body {
   scroll-snap-type: y mandatory;
 }
 
-.app-section {
+.section {
   padding: var(--app-section-py) var(--app-section-px);
   overflow: hidden scroll;
   min-height: 100vh;
+}
+
+.theme-light .bgPri {
+  background: #e7e7e7;
+  background: var(--theme-bgPri-light, #e7e7e7);
+}
+.theme-dark .bgPri {
+  background: #04212d;
+  background: var(--theme-bgPri-dark, #04212d);
+}
+.theme-default .bgPri {
+  background: #04212d;
+  background: var(--theme-bgPri-default, #04212d);
 }
 
 .app-section#hero-section {
@@ -13952,6 +13964,30 @@ body {
   width: 100%;
   height: 100%;
   padding: 2rem 3rem;
+}
+.theme-light .collapsable-nav {
+  background-color: #e7e7e7;
+  background-color: var(--theme-bgPri-light, #e7e7e7);
+}
+.theme-dark .collapsable-nav {
+  background-color: #04212d;
+  background-color: var(--theme-bgPri-dark, #04212d);
+}
+.theme-default .collapsable-nav {
+  background-color: #04212d;
+  background-color: var(--theme-bgPri-default, #04212d);
+}
+.theme-light .collapsable-nav .link-ul {
+  background-color: #e7e7e7;
+  background-color: var(--theme-bgSec-light, #e7e7e7);
+}
+.theme-dark .collapsable-nav .link-ul {
+  background-color: #04212d;
+  background-color: var(--theme-bgSec-dark, #04212d);
+}
+.theme-default .collapsable-nav .link-ul {
+  background-color: #04212d;
+  background-color: var(--theme-bgSec-default, #04212d);
 }
 .collapsable-nav .link-ul .link-li {
   padding: 1rem 1.5rem;
@@ -14509,13 +14545,30 @@ a.handler.handler-col {
   border-radius: 50%;
 }
 
+.section-nav {
+  position: fixed;
+  right: 3rem;
+  bottom: 1rem;
+}
+
 :root {
   --app-form-gap: 1.75rem;
   --app-fieldset-input-padding: 0.25rem 0.6rem;
-  --app-fieldset-input-border: solid 0.25rem;
+  --app-fieldset-input-border: solid 0.15rem;
   --app-fieldset-input-border-radius: 10px;
   --label-active-size: 0.85rem;
   --label-idle-size: 1.25rem;
+}
+
+input[type=checkbox], select, input[type=radio] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
 }
 
 .app-form {

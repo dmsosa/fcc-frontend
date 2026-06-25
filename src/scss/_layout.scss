@@ -18,10 +18,10 @@
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    @include generateThemeValues();
 }
 
 body {
-    background-color: $light;
     height: 100vh;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
@@ -47,7 +47,7 @@ body {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
 }
-.app-section {
+.section {
     padding: var(--app-section-py) var(--app-section-px);
     overflow: hidden scroll;
     // scroll-snap-align: start;
@@ -55,6 +55,9 @@ body {
     min-height: 100vh;
 }
 
+.bgPri {
+    @include themify('background', 'bgPri');
+}
 .app-section#hero-section {
     padding-top: calc(var(--header-height) + 2rem);
 }

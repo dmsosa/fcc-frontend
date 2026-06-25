@@ -29,7 +29,7 @@ export type CustomSelectProps<T = string> = {
 //    clearable
 // />
 
-export default function CustomSelect<T = string>(props: CustomSelectProps<T>) {
+export default function CustomSelect<T = string | number>(props: CustomSelectProps<T>) {
   const {
     options,
     value,

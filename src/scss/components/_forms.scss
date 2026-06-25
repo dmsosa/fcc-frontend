@@ -1,11 +1,23 @@
 :root {
     --app-form-gap: 1.75rem;
     --app-fieldset-input-padding: 0.25rem 0.6rem;
-    --app-fieldset-input-border: solid 0.25rem;
+    --app-fieldset-input-border: solid 0.15rem;
     --app-fieldset-input-border-radius: 10px;
     --label-active-size: 0.85rem;
     --label-idle-size: 1.25rem;
 }
+
+input[type="checkbox"], select, input[type="radio"] {
+    -webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+    padding: 0;
+	background: none;
+	border: none;
+	border-radius: 0;
+	outline: none;
+}
+
 
 .app-form {
     display: flex;

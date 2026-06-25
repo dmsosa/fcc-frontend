@@ -113,7 +113,7 @@
 
 
 //mixins
-@import "./mixins";
+@import "./themes/mixins";
 
 //keyframes
 @import "./animations/keyframes";
@@ -125,11 +125,11 @@
 @import "./components/nav";
 @import "./components/header";
 @import "./components/footer";
-@import "./components/scrollbar";
-@import "./components/home";
+@import "./widgets/scrollbar";
+@import "./components/hero";
 @import "./components/markdown";
 @import "./components/drum";
-@import "./components/theme_toggler";
-@import "./components/widgets";
+@import "./widgets/theme_toggler";
+@import "./widgets/widgets";
 @import "./components/forms";
-@import "./components/phantom";
+@import "./widgets/phantom";
