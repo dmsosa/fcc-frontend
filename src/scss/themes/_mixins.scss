@@ -47,19 +47,6 @@
     }
 }
 
-
-// Ich mochte mixin, um fur jedes theme, css variabeln uberschreiben
-@mixin themeOverrideBsVariables() {
-    @each $tName, $tMap in $themeVarMaps {
-        &.theme-#{$tName}  {
-            @each $key, $value in $tMap {
-                --#{$prefix}#{$key}: #{$value} !important;
-                @debug 'applying theme' $prefix 'with keys ' $key ' and value ' $value ': ' --#{$prefix}#{$key}':' #{$value};
-            }
-        }
-    }
-}
-
 @each $color, $value in $theme-colors {
   .swatch-#{$color} {
     color: color-contrast($value);

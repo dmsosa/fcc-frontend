@@ -1,5 +1,3 @@
-@import "./themeBsVariables";
-
 $theme-light: (
     bgPri: $light,
     bgSec: $light,
@@ -46,9 +44,4 @@ $themeMaps: (
     'light': $theme-light,
     'dark': $theme-dark,
     'default': $theme-default,
-);
-
-$themeVarMaps: (
-    'light': $themeVarLight,
-    'dark': $themeVarDark,
 );

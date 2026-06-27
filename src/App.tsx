@@ -37,7 +37,7 @@ function App() {
     
   return (
     <ThemeContextProvider value={{theme, setTheme, removeTheme}}>
-      <div id='app-wrapper' className="app-wrapper">
+      <div id='app-wrapper' className="app-wrapper bg-body">
         <Sidebar sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded}></Sidebar>
         <div id='app-content' className="app-content">
           <Header></Header>

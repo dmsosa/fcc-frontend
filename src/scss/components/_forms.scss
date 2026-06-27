@@ -34,8 +34,8 @@ input[type="checkbox"], select, input[type="radio"] {
   padding: var(--app-fieldset-input-padding);
   border: none;
   border-bottom: var(--app-fieldset-input-border);
-  border-color: $primary;
-  border-radius: var(--app-fieldset-input-border-radius);
+  border-color: $border-color-translucent;
+  border-radius: $border-radius;
   outline: none;
   transition: border-color 0.3s ease;
   background: var(--primary);

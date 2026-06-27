@@ -13,10 +13,6 @@ $focus-ring-y: 5px;
 $focus-ring-blur: 0 !default;
 // scss-docs-end focus-ring-variables
 
-
-
-$border-radius: 0.025rem;
-
 $blue: #0d6efd;
 $indigo: #6610f2;
 $purple: #6f42c1;
@@ -105,7 +101,6 @@ $body-font-family: var(--bs-font-sans-serif);
 // $tertiary-bg-rgb: 248, 249, 250;
 $heading-color: inherit;
 $link-color: $primary;
-
 $link-decoration: underline;
 $code-color: #d63384;
 $highlight-color: #9e5353;
@@ -114,7 +109,7 @@ $border-width: 1px;
 $border-style: solid;
 $border-color: #dee2e6;
 $border-color-translucent: rgba(0, 0, 0, 0.175);
-$border-radius: 0.2rem;
+$border-radius: 0.0125rem;
 $border-radius-sm: 0.25rem;
 $border-radius-lg: 0.5rem;
 $border-radius-xl: 1rem;
