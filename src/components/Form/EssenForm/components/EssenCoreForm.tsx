@@ -7,14 +7,14 @@ function EssenCoreForm() {
   //we need to insert errors here with useFormState
   return (
     <>
-    <input type="hidden" {...register("userId")} />
-    <input type="hidden" {...register("createdDate")} />
+    <input type="hidden" id='userId' {...register("userId")} />
+    <input type="hidden" id='createdDate' {...register("createdDate")} />
     <div className='row'>
-      <FieldsetText id="name" label="Order No." disabled {...register("userNo")}></FieldsetText>
-      <FieldsetText id="mobile" label="Mobile number" {...register("mobile")}></FieldsetText>
+      <FieldsetText id="userNo" label="User No." disabled {...register("userNo")}></FieldsetText>
+      <FieldsetText id="mobile" label="intergalactic mobile number" {...register("mobile")}></FieldsetText>
     </div>
     <div className='row'>
-      <FieldsetText id="name" label="username" {...register("username")}></FieldsetText>
+      <FieldsetText id="username" label="username" {...register("username")}></FieldsetText>
       <FieldsetText id="email" label="email" {...register("email")}></FieldsetText>
     </div>
     </>

@@ -51,7 +51,7 @@ export type TSwFormAddress = {
 
 export type TSwFormFields = {
   address: TSwFormAddress
-  films: TSwFormFilms[]
+  films: TSwFilmsFields[]
   vehicles: TSwVehiclesFields[]
 } & TSwFormCoreFields & TSwFormSelectFields
 

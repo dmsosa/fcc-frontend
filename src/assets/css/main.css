@@ -14555,33 +14555,21 @@ input[type=checkbox], select, input[type=radio] {
 }
 
 .form-fieldset .form-fieldset-input {
-  width: 100%;
+  display: block;
   padding: var(--app-fieldset-input-padding);
   border: none;
   border-bottom: var(--app-fieldset-input-border);
-  border-color: rgba(0, 0, 0, 0.175);
+  border-color: #dee2e6;
   border-radius: 0.0125rem;
   outline: none;
   transition: border-color 0.3s ease;
-  background: var(--primary);
+  background-color: #ced4da;
 }
 
 .form-fieldset .form-fieldset-input ~ label {
-  position: absolute;
-  top: 20%;
-  left: 15px;
+  display: block;
   pointer-events: none;
-  font-size: var(--label-idle-size);
-  padding: 0.015rem 0.45rem;
-  transition: position 0.4s ease, font-size 0.4s ease;
-}
-
-.form-fieldset .form-fieldset-input:focus ~ label,
-.form-fieldset .form-fieldset-input:active ~ label,
-.form-fieldset .form-fieldset-input:focus-visible ~ label,
-.form-fieldset .form-fieldset-input:not(:placeholder-shown) ~ label {
-  top: -10%;
-  font-size: var(--label-active-size);
+  cursor: pointer;
 }
 
 .phantom {
