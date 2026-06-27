@@ -25,8 +25,7 @@ body {
     height: 100vh;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
-    // @include themeOverrideBsVariables('light', $themeLight);
-
+    @include themeOverrideBsVariables();
 }
 .app-wrapper {
     height: 100vh;
@@ -92,6 +91,7 @@ body {
 .btn-regular {
     background-color: $gray-300;
 }
+
 @media only screen and (min-width: 768px) {
     .app-wrapper {
     display: flex;

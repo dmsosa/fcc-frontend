@@ -1,10 +1,12 @@
+@import "./themeBsVariables";
+
 $theme-light: (
     bgPri: $light,
     bgSec: $light,
     bgTer: $light,
     bgHover: #999,
     borderColor: $light,
-    colorPri: $dark,
+    colorPri: magenta,
     colorSec: $dark,
     colorTer: $dark,
     strokePri: $dark,
@@ -44,4 +46,9 @@ $themeMaps: (
     'light': $theme-light,
     'dark': $theme-dark,
     'default': $theme-default,
+);
+
+$themeVarMaps: (
+    'light': $themeVarLight,
+    'dark': $themeVarDark,
 );

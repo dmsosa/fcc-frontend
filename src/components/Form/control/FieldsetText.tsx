@@ -12,9 +12,9 @@ const FieldsetText = forwardRef((props: FieldsetTextProps, ref: ForwardedRef<HTM
     const { id, className = "", label, error, ...attributes } = props;
 
     return (
-          <fieldset className="form-fieldset">
+          <fieldset className="form-fieldset mb-3">
             <input ref={ref} id={id} className={`form-fieldset-input ${className}`} {...attributes}></input>
-            {label && <label htmlFor={id} >Nombre</label>}
+            {label && <label htmlFor={id}>{label}</label>}
             {error && <div className="form-fieldset-error" >{error.message}</div>}
           </fieldset>
     )

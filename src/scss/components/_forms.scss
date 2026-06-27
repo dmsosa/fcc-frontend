@@ -2,7 +2,7 @@
     --app-form-gap: 1.75rem;
     --app-fieldset-input-padding: 0.25rem 0.6rem;
     --app-fieldset-input-border: solid 0.15rem;
-    --app-fieldset-input-border-radius: 10px;
+    --app-fieldset-input-border-radius: 0px;
     --label-active-size: 0.85rem;
     --label-idle-size: 1.25rem;
 }
@@ -32,13 +32,13 @@ input[type="checkbox"], select, input[type="radio"] {
 .form-fieldset .form-fieldset-input {
   width: 100%;
   padding: var(--app-fieldset-input-padding);
-  border: var(--app-fieldset-input-border);
+  border: none;
+  border-bottom: var(--app-fieldset-input-border);
   border-color: $primary;
   border-radius: var(--app-fieldset-input-border-radius);
   outline: none;
-  font-size: 1.5rem;
   transition: border-color 0.3s ease;
-  background: transparent;
+  background: var(--primary);
 }
 
 .form-fieldset .form-fieldset-input ~ label {
