@@ -1,6 +1,6 @@
 
 # Mein allgemein REDUX mit FCC Projekt, mit den ich kann meine Tante Stolz auf mich lassen konnte.
-### Etwas COOL!
+### Etwas COOL sein!
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
